@@ -11,3 +11,4 @@ E:\MyFramework\Fzrain.Framework\Fzrain.Data\obj\Debug\Fzrain.Data.pdb
 E:\MyFramework\Fzrain.Framework\Fzrain.Data\bin\Debug\Fzrain.Data.dll.config
 E:\MyFramework\Fzrain.Framework\Fzrain.Data\bin\Debug\Fzrain.Data.dll
 E:\MyFramework\Fzrain.Framework\Fzrain.Data\bin\Debug\Fzrain.Data.pdb
+E:\MyFramework\Fzrain.Framework\Fzrain.Data\obj\Debug\Fzrain.Data.csprojResolveAssemblyReference.cache

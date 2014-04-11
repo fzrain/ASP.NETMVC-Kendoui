@@ -17,7 +17,7 @@ namespace Fzrain.Data.Initializers
           
             //DbContext db = new FzrainContext("fzrain");
             var container = DependencyRegistrar.Register();
-            var db = container.Resolve<IDbContext>(new NamedParameter("nameOrConnectionString", "fzrain"));
+            var db = container.Resolve<IDbContext>();
             if (!db.Set<User>().Any())
             {
                 new FrameDataSeeder(db);

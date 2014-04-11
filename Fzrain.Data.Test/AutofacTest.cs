@@ -1,6 +1,8 @@
-﻿using System;
+﻿using System.Linq;
 using Autofac;
 using Autofac.Core;
+using Fzrain.Core.Data;
+using Fzrain.Core.Domain;
 using Fzrain.Data.Initializers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -17,9 +19,9 @@ namespace Fzrain.Data.Test
          [TestMethod]
         public void TestResolve()
         {
-          DependencyRegistrar.Register();
+        //  DependencyRegistrar.Register();
            var container=  DependencyRegistrar.Register();
-           var db = container.Resolve<IDbContext>(new NamedParameter("nameOrConnectionString", "fzrain"));
+           var db = container.Resolve<IDbContext>();
             Assert.IsNotNull(db);
         }
          [TestMethod]
@@ -44,6 +46,13 @@ namespace Fzrain.Data.Test
             //带参数的ctor
             var a = c.Resolve<B>();
             Assert.IsNotNull(a.A);
+        }
+        [TestMethod]
+        public void RepositoryDi()
+        {
+            var container = DependencyRegistrar.Register();
+           var userRepository= container.Resolve<IRepository<User>>();
+            Assert.IsNotNull(userRepository .Table);
         }
     }
     class A   { }

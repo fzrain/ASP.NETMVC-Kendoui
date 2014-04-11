@@ -1,0 +1,4 @@
+E:\MyFramework\Fzrain.Framework\Fzrain.Service\bin\Debug\Fzrain.Service.dll
+E:\MyFramework\Fzrain.Framework\Fzrain.Service\bin\Debug\Fzrain.Service.pdb
+E:\MyFramework\Fzrain.Framework\Fzrain.Service\obj\Debug\Fzrain.Service.dll
+E:\MyFramework\Fzrain.Framework\Fzrain.Service\obj\Debug\Fzrain.Service.pdb

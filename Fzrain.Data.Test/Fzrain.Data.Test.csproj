@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="AutofacTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
