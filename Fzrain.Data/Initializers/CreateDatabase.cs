@@ -13,18 +13,19 @@ namespace Fzrain.Data.Initializers
     {
         public static void Initialize()
         {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<FzrainContext>());
-          
+            Database.SetInitializer(new FzrainDropCreateDatabaseIfModelChanges ());
+            var builder = new ContainerBuilder();
             //DbContext db = new FzrainContext("fzrain");
-            var container = DependencyRegistrar.Register();
-            var db = container.Resolve<IDbContext>();
-            if (!db.Set<User>().Any())
-            {
-                new FrameDataSeeder(db);
-            }
-            //new CreateDatabase().Seed((FzrainContext)db);
+          DependencyRegistrar.Register(builder);
+          var container = builder.Build();
+            var db = (FzrainContext)container.Resolve<IDbContext>();
+            db.Database.Initialize(true);
+           
        
         }
+       
+
+      
 
        
     }

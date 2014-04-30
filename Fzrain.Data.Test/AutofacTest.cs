@@ -20,7 +20,9 @@ namespace Fzrain.Data.Test
         public void TestResolve()
         {
         //  DependencyRegistrar.Register();
-           var container=  DependencyRegistrar.Register();
+             var builder = new ContainerBuilder();
+            DependencyRegistrar.Register(builder);
+             var container = builder.Build();
            var db = container.Resolve<IDbContext>();
             Assert.IsNotNull(db);
         }
@@ -50,7 +52,9 @@ namespace Fzrain.Data.Test
         [TestMethod]
         public void RepositoryDi()
         {
-            var container = DependencyRegistrar.Register();
+            var builder = new ContainerBuilder();
+            DependencyRegistrar.Register(builder);
+            var container = builder.Build();
            var userRepository= container.Resolve<IRepository<User>>();
             Assert.IsNotNull(userRepository .Table);
         }

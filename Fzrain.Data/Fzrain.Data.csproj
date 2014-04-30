@@ -58,7 +58,7 @@
     <Compile Include="FzrainContext.cs" />
     <Compile Include="IDbContext.cs" />
     <Compile Include="Initializers\CreateDatabase.cs" />
-    <Compile Include="Initializers\FrameDataSeeder.cs" />
+    <Compile Include="Initializers\FzrainDropCreateDatabaseIfModelChanges.cs" />
     <Compile Include="Mapping\UserMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

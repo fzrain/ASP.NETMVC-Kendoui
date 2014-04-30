@@ -86,7 +86,7 @@ namespace Fzrain.Data
             {
                 if (entity == null)
                     throw new ArgumentNullException("entity");
-
+              
                 this.Entities.Remove(entity);
 
                 this._context.SaveChanges();

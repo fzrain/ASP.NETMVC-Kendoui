@@ -14,12 +14,14 @@ namespace Fzrain.Data
     public  class DependencyRegistrar
     {
      //   public  static IContainer Container { get; set; }
-        public static IContainer  Register()
+       
+        public static void   Register(ContainerBuilder builder)
         {
-            var builder = new ContainerBuilder();           
-            builder.RegisterType<FzrainContext>().As<IDbContext>().WithParameter(new NamedParameter("nameOrConnectionString", "fzrain")) ;
+          
+           // var builder = new ContainerBuilder();           
+            builder.RegisterType<FzrainContext>().As<IDbContext>().WithParameter(new NamedParameter("nameOrConnectionString", "fzrain")).SingleInstance() ;
             builder.RegisterType<EfRepository<User>>().As<IRepository<User>>();
-         return  builder.Build();
+        // return  builder.Build();
         }
     }
 }

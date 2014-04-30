@@ -1,23 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Web.Security;
-using System.Web.SessionState;
-using System.Web.Http;
+using Autofac;
+using Autofac.Integration.Mvc;
+using Fzrain.Data.Initializers;
+using Fzrain.Web.Framework.Mvc;
 
 namespace Fzrain.Web
 {
-    public class Global : HttpApplication
+    public class MvcApplication : System.Web.HttpApplication
     {
-        void Application_Start(object sender, EventArgs e)
+        protected void Application_Start()
         {
-            // 在应用程序启动时运行的代码
             AreaRegistration.RegisterAllAreas();
-            GlobalConfiguration.Configure(WebApiConfig.Register);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);            
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            CreateDatabase.Initialize();
+            var build = new ContainerBuilder();
+            Fzrain.Data.DependencyRegistrar.Register(build);
+            build.RegisterControllers(Assembly.GetExecutingAssembly());
+         IContainer container=   Fzrain.Web.Framework.DependencyRegistrar.Register(build);
+       //  DependencyResolver.SetResolver(new FzrainDependencyResolver(build, container));
+         DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+           
         }
     }
 }

@@ -1,0 +1,114 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/easyui/jquery.min.js"></script>
+    <script src="~/easyui/jquery.easyui.min.js"></script>
+    <link href="~/easyui/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/easyui/themes/icon.css" rel="stylesheet" />
+    <script src="~/easyui/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#tt').tabs();//页面一加载就初始化一下tab也签
+            bindMenuLinkClickEvent();
+
+        }); //绑定菜单按钮的 点击事件
+        //点击菜单按钮就在中间区域添加一个页签
+
+        function bindMenuLinkClickEvent() {
+            $(".menuLink").click(function () {
+                var title = $(this).text();//获取当前菜单按钮点击的  标题
+
+                //逻辑：  点击菜单后，首先查看页签是否已经在中间区域打开，如果已经打开
+                //那么直接让菜单对应的页签展示获取焦点就行了。
+                //如果不存在那么就创建一个新 的页签到中间区域里面去。
+
+                //判断是否在中间区域里面已经存在当前要打开的页签
+
+                var IsSelect = $("#tt").tabs('exists', title);
+                if (IsSelect) {
+                    //直接获取焦点
+
+                    $("#tt").tabs('select', title);
+                } else {
+                    var url = $(this).attr("url");
+                    var content = GetContent(url);
+                    //如果在中间区域不存储，那么就创建
+                    $('#tt').tabs('add', {
+                        title: title,
+                        content: content,
+                        iconCls: 'icon-save',
+                        closable: true
+                    });
+
+                    return false;
+                }
+
+            });
+        }
+
+        //创建  标签页的内容
+        function GetContent(url) {
+            var content = '<iframe src="' + url + '" scrolling="no" frameborder="0" width="100%" height="100%" ></iframe>';
+            return content;
+        }
+    </script>
+
+</head>
+<body class="easyui-layout">
+    <!-----------------------------------------框架头部信息----------------------------------------->
+    <div region="north" border="false" style="height:70px;">
+        <div style="float :left;text-align :right;width :688px;margin-top :5px"><p style="font-size :20px;">体育馆消费管理系统</p></div>
+        <div style="float: right; margin-top: 50px;width :200px">
+            今天是：@DateTime.Now.Year 年 @DateTime.Now.Month 月 @DateTime.Now.Day 日
+            @*<span>&nbsp; &nbsp; &nbsp; </span>欢迎您：*@
+            @{
+    //   var strName = ((Model.UserInfo)Session["UserInfo"]) == null ? "" : ((Model.UserInfo)Session["UserInfo"]).UserName;
+    // <span>@strName </span>
+    <span>&nbsp; &nbsp; &nbsp; </span>
+    //    <a href="/login/LogOut">注销</a><span> &nbsp; &nbsp; &nbsp; </span>
+            }
+        </div>
+    </div>
+    <!-----------------------------------------框架左边信息----------------------------------------->
+    <div region="west" split="true" title="菜单导航" style="width: 150px;">
+        <div id="aa" class="easyui-accordion" style="">
+            @*这里是可折叠菜单的容器*@
+            <div title="后台管理" iconcls="icon-edit" selected="true" style="overflow: auto; text-align: center;">
+                @*这里存放折叠菜单里面的 面板内容*@
+                <p>
+                    <a href="javascript:void(0)" url="/CustomerInfo/Index" class="menuLink">消费客人管理</a>
+                </p>
+                <p>
+                    <a href="javascript:void(0)" url="/ConsumptionInfo/Index" class="menuLink">消费记录管理</a>
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-----------------------------------------框架右边信息----------------------------------------->
+    @*<div region="east" split="true" title="East" style="width:100px;padding:10px;">east region</div>*@
+    <!-----------------------------------------框架下面信息----------------------------------------->
+    <div region="south" border="false" style="height:20px; text-align :center  ">
+        <span>版权所有@@FZRain</span>
+    </div>
+
+    <!-----------------------------------------框架主体信息----------------------------------------->
+    <div region="center" title="主体内容" style="width: 100%;">
+        <div id="tt" fit="true">
+
+
+        </div>
+    </div>
+
+</body>
+
+</html>
