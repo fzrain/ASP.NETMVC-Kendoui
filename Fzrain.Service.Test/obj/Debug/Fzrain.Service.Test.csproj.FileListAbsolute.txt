@@ -1,5 +1,0 @@
-E:\MyFramework\Fzrain.Framework\Fzrain.Service.Test\bin\Debug\Fzrain.Service.Test.dll
-E:\MyFramework\Fzrain.Framework\Fzrain.Service.Test\bin\Debug\Fzrain.Service.Test.pdb
-E:\MyFramework\Fzrain.Framework\Fzrain.Service.Test\obj\Debug\Fzrain.Service.Test.csprojResolveAssemblyReference.cache
-E:\MyFramework\Fzrain.Framework\Fzrain.Service.Test\obj\Debug\Fzrain.Service.Test.dll
-E:\MyFramework\Fzrain.Framework\Fzrain.Service.Test\obj\Debug\Fzrain.Service.Test.pdb

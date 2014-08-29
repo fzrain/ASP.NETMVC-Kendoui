@@ -1,4 +1,0 @@
-E:\MyFramework\Fzrain.Framework\Fzrain.Core\bin\Debug\Fzrain.Core.dll
-E:\MyFramework\Fzrain.Framework\Fzrain.Core\bin\Debug\Fzrain.Core.pdb
-E:\MyFramework\Fzrain.Framework\Fzrain.Core\obj\Debug\Fzrain.Core.dll
-E:\MyFramework\Fzrain.Framework\Fzrain.Core\obj\Debug\Fzrain.Core.pdb
