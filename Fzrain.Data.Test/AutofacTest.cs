@@ -55,7 +55,7 @@ namespace Fzrain.Data.Test
             var builder = new ContainerBuilder();
             DependencyRegistrar.Register(builder);
             var container = builder.Build();
-           var userRepository= container.Resolve<IRepository<User>>();
+            var userRepository= container.Resolve<IRepository<User>>();
             Assert.IsNotNull(userRepository .Table);
         }
     }

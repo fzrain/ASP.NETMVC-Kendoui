@@ -1,7 +1,6 @@
-﻿@using Fzrain.Core.Domain
-@using Kendo.Mvc.UI
-
+﻿
 @{
+   
     Layout = null;
 }
 
@@ -11,67 +10,13 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
-    <script src="~/Scripts/kendo/2014.1.318/jquery.min.js"></script>
-    <script src="~/Scripts/kendo/2014.1.318/kendo.web.min.js"></script>
-    @*<script src="http://cdn.kendostatic.com/2014.1.318/js/kendo.all.min.js"></script>*@
-
-    <script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
-    <script src="~/Scripts/kendo/2014.1.318/cultures/kendo.culture.zh-CN.min.js"></script>
-    <link href="~/Content/kendo/2014.1.318/kendo.common.min.css" rel="stylesheet" />
-    <link href="~/Content/kendo/2014.1.318/kendo.default.min.css" rel="stylesheet" />
+   
 </head>
 <body>
     <div>
-        @(Html.Kendo().Grid<User>()
-                  .Name("grid")
-                  .Columns(columns =>
-                  {
-                      columns.Bound(u => u.Id).Width(50);
-                      columns.Bound(u => u.UserName).Width(100).HeaderTemplate("用户名");
-                      columns.Bound(u => u.Password).Width(100).HeaderTemplate("密码");
-
-                      columns.Command(command =>
-                      {
-                          command.Edit().Text("修改");
-                          command.Destroy().Text("删除");
-                      }).Width(160);
-                  })
-                  .ToolBar(toolbar => toolbar.Create().Text("新增记录"))
-                  .Editable(editable => editable
-                      .Mode(GridEditMode.PopUp).DisplayDeleteConfirmation("确定要删除吗？")
-                      .Window(configurator => configurator
-                          .Title("新增记录")
-                      ))
-                  .Pageable()
-                  .Sortable()
-                  .Scrollable()
-                  .HtmlAttributes(new { style = "height:430px;" })
-                  .DataSource(dataSource => dataSource
-                      .Ajax()
-                      .PageSize(20)
-                      .Events(events => events.Error("error_handler"))
-                      .Model(model => model.Id(u => u.Id))
-        .Create(update => update.Action("Create", "User"))
-        .Read(read => read.Action("Read", "User"))
-        .Update(update => update.Action("Update", "User"))
-        .Destroy(update => update.Action("Destroy", "User"))
-    )
-        )
-        <script type="text/javascript">
-            function error_handler(e) {
-                if (e.errors) {
-                    var message = "Errors:\n";
-                    $.each(e.errors, function (key, value) {
-                        if ('errors' in value) {
-                            $.each(value.errors, function () {
-                                message += this + "\n";
-                            });
-                        }
-                    });
-                    alert(message);
-                }
-            }
-        </script>
+     
+       
+           
     </div>
 </body>
 </html>
