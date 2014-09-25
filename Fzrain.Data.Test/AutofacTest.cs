@@ -4,6 +4,7 @@ using Autofac.Core;
 using Fzrain.Core.Data;
 using Fzrain.Core.Domain;
 using Fzrain.Data.Initializers;
+using Fzrain.Web.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Fzrain.Data.Test
@@ -11,21 +12,17 @@ namespace Fzrain.Data.Test
     [TestClass]
     public class AutofacTest
     {
-        [TestMethod]
-        public void InitDataBase()
-        {
-            CreateDatabase.Initialize();
-        }
-         [TestMethod]
-        public void TestResolve()
-        {
-        //  DependencyRegistrar.Register();
-             var builder = new ContainerBuilder();
-            DependencyRegistrar.Register(builder);
-             var container = builder.Build();
-           var db = container.Resolve<IDbContext>();
-            Assert.IsNotNull(db);
-        }
+     
+        // [TestMethod]
+        //public void TestResolve()
+        //{
+        ////  DependencyRegistrar.Register();
+        //     var builder = new ContainerBuilder();
+        //    DependencyRegistrar.Register(builder);
+        //     var container = builder.Build();
+        //   var db = container.Resolve<IDbContext>();
+        //    Assert.IsNotNull(db);
+        //}
          [TestMethod]
          public void SimpleReg()
          {
@@ -49,15 +46,15 @@ namespace Fzrain.Data.Test
             var a = c.Resolve<B>();
             Assert.IsNotNull(a.A);
         }
-        [TestMethod]
-        public void RepositoryDi()
-        {
-            var builder = new ContainerBuilder();
-            DependencyRegistrar.Register(builder);
-            var container = builder.Build();
-            var userRepository= container.Resolve<IRepository<User>>();
-            Assert.IsNotNull(userRepository .Table);
-        }
+        //[TestMethod]
+        //public void RepositoryDi()
+        //{
+        //    var builder = new ContainerBuilder();
+        //    DependencyRegistrar.Register(builder);
+        //    var container = builder.Build();
+        //    var userRepository= container.Resolve<IRepository<User>>();
+        //    Assert.IsNotNull(userRepository .Table);
+        //}
     }
     class A   { }
     class B

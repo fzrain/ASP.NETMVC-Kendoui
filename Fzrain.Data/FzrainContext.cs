@@ -21,7 +21,13 @@ namespace Fzrain.Data
             : base(nameOrConnectionString)
         {
             //((IObjectContextAdapter) this).ObjectContext.ContextOptions.LazyLoadingEnabled = true;
+          
         }
+
+        //public FzrainContext()
+        //{
+
+        //}
         
         #endregion
 

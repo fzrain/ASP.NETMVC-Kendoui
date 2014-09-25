@@ -44,7 +44,7 @@
     </Reference>
     <Reference Include="Autofac.Integration.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Autofac.Mvc5.3.3.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+      <HintPath>..\packages\Autofac.Mvc5.3.3.3\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -115,20 +115,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\css\amui.all.css" />
-    <Content Include="assets\css\amui.all.min.css" />
-    <Content Include="assets\i\app-icon72x72%402x.png" />
-    <Content Include="assets\i\examples\blogPage.png" />
-    <Content Include="assets\i\examples\landing.png" />
-    <Content Include="assets\i\examples\landingPage.png" />
-    <Content Include="assets\i\examples\loginPage.png" />
-    <Content Include="assets\i\examples\sidebarPage.png" />
-    <Content Include="assets\i\favicon.png" />
-    <Content Include="assets\i\startup-640x1096.png" />
-    <Content Include="assets\js\amui.js" />
-    <Content Include="assets\js\amui.min.js" />
-    <Content Include="assets\js\amui.widget.helper.js" />
-    <Content Include="assets\js\amui.widget.helper.min.js" />
+    <Content Include="App_Data\Settings.txt" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -157,9 +144,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

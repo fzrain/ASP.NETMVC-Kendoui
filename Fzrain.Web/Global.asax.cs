@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
+using Fzrain.Core.Infrastructure;
 using Fzrain.Data.Initializers;
 using Fzrain.Web.Framework.Mvc;
 
@@ -16,16 +17,8 @@ namespace Fzrain.Web
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
+            EngineContext.Initialize(false);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            CreateDatabase.Initialize();
-            var build = new ContainerBuilder();
-            Fzrain.Data.DependencyRegistrar.Register(build);
-            build.RegisterControllers(Assembly.GetExecutingAssembly());
-         IContainer container=   Fzrain.Web.Framework.DependencyRegistrar.Register(build);
-       //  DependencyResolver.SetResolver(new FzrainDependencyResolver(build, container));
-         DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-           
         }
     }
 }
