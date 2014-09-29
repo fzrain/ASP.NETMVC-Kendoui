@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
@@ -68,6 +71,9 @@
       <HintPath>..\lib\Fzrain.Web.Framework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -84,6 +90,9 @@
     <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -108,6 +117,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebGrease">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Web.Infrastructure">
@@ -116,13 +128,69 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Settings.txt" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Home\css\bootstrap.css" />
+    <Content Include="Content\Home\css\popuo-box.css" />
+    <Content Include="Content\Home\css\style.css" />
+    <Content Include="Content\Home\images\1.jpg" />
+    <Content Include="Content\Home\images\2.jpg" />
+    <Content Include="Content\Home\images\3.jpg" />
+    <Content Include="Content\Home\images\4.jpg" />
+    <Content Include="Content\Home\images\5.jpg" />
+    <Content Include="Content\Home\images\6.jpg" />
+    <Content Include="Content\Home\images\7.jpg" />
+    <Content Include="Content\Home\images\8.jpg" />
+    <Content Include="Content\Home\images\ad-loc.png" />
+    <Content Include="Content\Home\images\b4.jpg" />
+    <Content Include="Content\Home\images\banner.jpg" />
+    <Content Include="Content\Home\images\cli-cote.png" />
+    <Content Include="Content\Home\images\client.png" />
+    <Content Include="Content\Home\images\client1.jpg" />
+    <Content Include="Content\Home\images\icon1.png" />
+    <Content Include="Content\Home\images\icon2.png" />
+    <Content Include="Content\Home\images\icon3.png" />
+    <Content Include="Content\Home\images\img-sprite.png" />
+    <Content Include="Content\Home\images\logo.png" />
+    <Content Include="Content\Home\images\mail.png" />
+    <Content Include="Content\Home\images\nav.png" />
+    <Content Include="Content\Home\images\p1.jpg" />
+    <Content Include="Content\Home\images\p2.jpg" />
+    <Content Include="Content\Home\images\p3.jpg" />
+    <Content Include="Content\Home\images\p4.jpg" />
+    <Content Include="Content\Home\images\p6.jpg" />
+    <Content Include="Content\Home\images\p7.jpg" />
+    <Content Include="Content\Home\images\ph.png" />
+    <Content Include="Content\UpdateHistory\css\style.css" />
+    <Content Include="Content\UpdateHistory\images\bg_1.png" />
+    <Content Include="Content\UpdateHistory\images\log\circle.png" />
+    <Content Include="Content\UpdateHistory\images\log\clock.png" />
+    <Content Include="Content\UpdateHistory\images\log\content-bg.png" />
+    <Content Include="Content\UpdateHistory\images\log\light-top.png" />
+    <Content Include="Content\UpdateHistory\images\log\light.png" />
+    <Content Include="Content\UpdateHistory\images\log\line-bg.png" />
+    <Content Include="Content\UpdateHistory\images\log\release-bg.png" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\UpdateHistory\images\log\Thumbs.db" />
+    <Content Include="Content\UpdateHistory\images\Thumbs.db" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -137,6 +205,8 @@
     <Content Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Update.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

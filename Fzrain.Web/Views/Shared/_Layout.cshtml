@@ -1,0 +1,39 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @RenderSection("script",false)
+   
+</head>
+    <body>
+        <div class="header">
+            <div class="container">
+                <div class="logo">
+                    <a href="/">
+                        <img src="../../Content/Home/images/logo.png" alt=" " />
+                    </a>
+                </div>
+                <div class="navigation">
+                    <span class="menu">
+                        <img src="../../Content/Home/images/nav.png" alt=" " />
+                    </span>
+
+                    <ul class="nav">
+                        <li>@Html.ActionLink("主页", "Index","Home")</li> /
+                        <li>@Html.ActionLink("更新历史", "Update", "Home")</li>/
+                        <li>@Html.ActionLink("关于我", "AboutMe", "Home")</li>/
+                        <li>@Html.ActionLink("博客", "Blog", "Home")</li>  /
+                        <li>@Html.ActionLink("论坛", "Forum", "Home")</li>/
+                        <li>@Html.ActionLink("后台管理平台", "FrameAll", "Home")</li>
+                    </ul>
+                </div>
+             
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        @RenderBody()
+    </body>
+</html>

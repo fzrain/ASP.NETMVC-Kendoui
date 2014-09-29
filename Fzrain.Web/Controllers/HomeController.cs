@@ -14,6 +14,30 @@ namespace Fzrain.Web.Controllers
             return View();
             
         }
-        
+
+        public ActionResult Update()
+        {
+            return View();
+        }
+
+        public ActionResult AboutMe()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ActionResult Blog()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ActionResult Forum()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ActionResult FrameAll()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

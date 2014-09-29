@@ -16,7 +16,7 @@ namespace Fzrain.Web.Framework
     {
         public void Register(ContainerBuilder builder, ITypeFinder typeFinder)
         {
-            //data layer
+            //数据访问层相关依赖
             var dataSettingsManager = new DataSettingsManager();
             var dataProviderSettings = dataSettingsManager.LoadSettings();
             //todo:暂时把连接字符串写死

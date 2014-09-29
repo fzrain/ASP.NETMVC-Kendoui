@@ -1,1 +1,136 @@
 ﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <title>个人技术网站</title>
+
+
+    <link href="~/Content/Home/css/bootstrap.css" rel="stylesheet" />
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="~/Scripts/jquery-2.1.1.min.js"></script>
+   
+    <!-- Custom Theme files -->
+    
+    <link href="../../Content/Home/css/style.css" rel="stylesheet" />
+    @*<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>*@
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+</head>
+<body>
+    <!--- Header Starts Here --->
+    <div class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="/">
+                    <img src="../../Content/Home/images/logo.png" alt=" " />
+                </a>
+            </div>
+            <div class="navigation">
+                <span class="menu">
+                    <img src="../../Content/Home/images/nav.png" alt=" " />
+                </span>
+                
+                <ul class="nav">
+                    <li>@Html.ActionLink("主页","Index")</li> /
+                    <li>@Html.ActionLink("更新历史", "Update")</li>/
+                    <li>@Html.ActionLink("关于我", "AboutMe")</li>/
+                    <li>@Html.ActionLink("博客", "Blog")</li>  /
+                    <li>@Html.ActionLink("论坛", "Forum")</li>/
+                    <li>@Html.ActionLink("后台管理平台", "FrameAll")</li>
+                </ul>
+            </div>
+            @*<script>
+                $("span.menu").click(function () {
+                    $(".navigation ul.nav").slideToggle("slow", function () {
+                        // Animation complete.
+                    });
+                });
+            </script>*@
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <!--- Header Ends Here -->
+    <!-- Banner Starts Here --->
+    <div class="banner">
+        <div class="container">
+            <div class="banner-top">
+                <h1>WE KNOW WEB DESIGN</h1>
+                <p>With over 15 years experience you can be sure your website is in safe hands</p>
+                <a href="https://github.com/fzrain">View on Github</a>
+            </div>
+        </div>
+    </div>
+    <!-- Banner Ends Here --->
+    <!-- Content starts Here --->
+    <div class="content">
+        <div class="container">
+            <div class="row content-row">
+                <div class="col-md-4 content-row-column">
+                    <i class="icon1"></i>
+                    <h3>Web Design</h3>
+                    <p>quatis alique mos et aut occae cum, veliquaspit quo quam, si idem reprorisqui doluptatur accum </p>
+                </div>
+                <div class="col-md-4 content-row-column">
+                    <i class="icon2"></i>
+                    <h3>E-commerce</h3>
+                    <p>quatis alique mos et aut occae cum, veliquaspit quo quam, si idem reprorisqui doluptatur accum </p>
+                </div>
+                <div class="col-md-4 content-row-column">
+                    <i class="icon3"></i>
+                    <h3>SEO</h3>
+                    <p>quatis alique mos et aut occae cum, veliquaspit quo quam, si idem reprorisqui doluptatur accum </p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <span class="line"></span><a href="#" class="line-anchor">What Our Client Say</a><span class="line"></span>
+            <div class="clearfix"></div>
+            <div class="content-middle">
+                <div class="row content-middle-row">
+                    <div class="col-md-3 middle-row-column">
+                        <img class="icon4" src="./images/client1.jpg" alt="" />
+                    </div>
+                    <div class="col-md-9 middle-row-column-right">
+                        <i class="icon5"></i>
+                        <p>quatis alique mos et aut occae cum, veliquaspit quo quam, si idem reprorisqui doluptatur accum si sunt ut officiisto enecab id et aut es et l</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <span class="line"></span><a href="#" class="line-anchor">Drop us A line</a><span class="line"></span>
+            <div class="clearfix"></div>
+            <div class="content-bottom">
+                <div class="row content-bottom-row">
+                    <div class="col-md-4 bottom-row-column">
+                        <span class="loc"></span><p class="ph">555-268-001</p>
+                        <div class="clearfix"></div>
+                        <a href="mailto:info@greendesign.com">info(at)greendesign.com</a>
+                    </div>
+                    <div class="col-md-3 bottom-row-column">
+                        <span class="ad"></span><p class="ad">Leaf Studios,Times Square,NY</p>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-5 bottom-row-column">
+
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Content starts Here --->
+    <div class="footer">
+        <div class="container">
+            <ul class="social">
+                <li><i class="fa"></i></li>
+                <li><i class="tw"></i></li>
+                <li><i class="pin"></i></li>
+                <li><i class="in"></i></li>
+            </ul>
+            <p class="copyright">2014 &copy Template By fzrain</p>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</body>
+</html>
