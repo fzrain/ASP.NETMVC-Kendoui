@@ -27,17 +27,17 @@ namespace Fzrain.Web.Controllers
 
         public ActionResult Blog()
         {
-            throw new NotImplementedException();
+            return View();
         }
 
         public ActionResult Forum()
         {
             throw new NotImplementedException();
         }
-
+        
         public ActionResult FrameAll()
         {
-            throw new NotImplementedException();
+            return View();
         }
     }
 }

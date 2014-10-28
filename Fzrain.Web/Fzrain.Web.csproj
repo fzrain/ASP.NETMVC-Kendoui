@@ -128,10 +128,51 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Settings.txt" />
+    <Content Include="Content\Blog\css\animation.css" />
+    <Content Include="Content\Blog\css\lrtk.css" />
+    <Content Include="Content\Blog\css\styles.css" />
+    <Content Include="Content\Blog\css\view.css" />
+    <Content Include="Content\Blog\images\01.jpg" />
+    <Content Include="Content\Blog\images\02.jpg" />
+    <Content Include="Content\Blog\images\03.jpg" />
+    <Content Include="Content\Blog\images\04.jpg" />
+    <Content Include="Content\Blog\images\05.jpg" />
+    <Content Include="Content\Blog\images\06.jpg" />
+    <Content Include="Content\Blog\images\07.jpg" />
+    <Content Include="Content\Blog\images\08.jpg" />
+    <Content Include="Content\Blog\images\09.jpg" />
+    <Content Include="Content\Blog\images\art.jpg" />
+    <Content Include="Content\Blog\images\artwork.png" />
+    <Content Include="Content\Blog\images\icons.png" />
+    <Content Include="Content\Blog\images\k01.jpg" />
+    <Content Include="Content\Blog\images\k02.jpg" />
+    <Content Include="Content\Blog\images\k03.jpg" />
+    <Content Include="Content\Blog\images\nf.mp3" />
+    <Content Include="Content\Blog\images\post1.jpg" />
+    <Content Include="Content\Blog\images\quote-bg.png" />
+    <Content Include="Content\Blog\images\s1.jpg" />
+    <Content Include="Content\Blog\images\s2.jpg" />
+    <Content Include="Content\Blog\images\s3.jpg" />
+    <Content Include="Content\Blog\images\s4.jpg" />
+    <Content Include="Content\Blog\images\s5.jpg" />
+    <Content Include="Content\Blog\images\s6.jpg" />
+    <Content Include="Content\Blog\images\s7.jpg" />
+    <Content Include="Content\Blog\images\s8.jpg" />
+    <Content Include="Content\Blog\images\vinyl.png" />
+    <Content Include="Content\Blog\js\jquery.js" />
+    <Content Include="Content\Blog\js\js.js" />
+    <Content Include="Content\Blog\js\modernizr.js" />
+    <Content Include="Content\Blog\js\silder.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\FrameAll\css\back.jpg" />
+    <Content Include="Content\FrameAll\css\font-awesome.css" />
+    <Content Include="Content\FrameAll\css\maps.css" />
+    <Content Include="Content\FrameAll\css\zzsc.css" />
+    <Content Include="Content\FrameAll\js\google.js" />
+    <Content Include="Content\FrameAll\js\maps.js" />
     <Content Include="Content\Home\css\bootstrap.css" />
     <Content Include="Content\Home\css\popuo-box.css" />
     <Content Include="Content\Home\css\style.css" />
@@ -172,6 +213,21 @@
     <Content Include="Content\UpdateHistory\images\log\light.png" />
     <Content Include="Content\UpdateHistory\images\log\line-bg.png" />
     <Content Include="Content\UpdateHistory\images\log\release-bg.png" />
+    <Content Include="Content\Ztree\img\diy\1_close.png" />
+    <Content Include="Content\Ztree\img\diy\1_open.png" />
+    <Content Include="Content\Ztree\img\diy\2.png" />
+    <Content Include="Content\Ztree\img\diy\3.png" />
+    <Content Include="Content\Ztree\img\diy\4.png" />
+    <Content Include="Content\Ztree\img\diy\5.png" />
+    <Content Include="Content\Ztree\img\diy\6.png" />
+    <Content Include="Content\Ztree\img\diy\7.png" />
+    <Content Include="Content\Ztree\img\diy\8.png" />
+    <Content Include="Content\Ztree\img\diy\9.png" />
+    <Content Include="Content\Ztree\img\line_conn.gif" />
+    <Content Include="Content\Ztree\img\loading.gif" />
+    <Content Include="Content\Ztree\img\zTreeStandard.gif" />
+    <Content Include="Content\Ztree\img\zTreeStandard.png" />
+    <Content Include="Content\Ztree\zTreeStyle.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -181,13 +237,25 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\UpdateHistory\images\log\Thumbs.db" />
     <Content Include="Content\UpdateHistory\images\Thumbs.db" />
+    <Content Include="Content\FrameAll\css\font\font-awesome.css.bak" />
+    <Content Include="Content\FrameAll\css\font\fontawesome-webfont.eot" />
+    <Content Include="Content\FrameAll\css\font\fontawesome-webfont.ttf" />
+    <Content Include="Content\FrameAll\css\font\fontawesome-webfont.woff" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.ztree.all-3.5.min.js" />
+    <Content Include="Scripts\knockout-3.2.0.debug.js" />
+    <Content Include="Scripts\knockout-3.2.0.js" />
+    <Content Include="Scripts\TweenMax.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -207,6 +275,8 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Update.cshtml" />
+    <Content Include="Views\Home\Blog.cshtml" />
+    <Content Include="Views\Home\FrameAll.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
