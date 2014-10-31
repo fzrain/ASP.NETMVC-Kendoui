@@ -1,21 +1,194 @@
-﻿
-@{   
-    Layout = null;
+﻿@using Fzrain.Core.Domain
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+<div >
+    @(Html.Kendo().Menu().HtmlAttributes (new {style="float:right"})
+      .Name("Menu")
+      .Items(items =>
+      {
+          items.Add()
+              .Text("用户权限管理")
+              .Items(children =>
+               {
+                   children.Add().Text("Furniture")
+                           .Items(innerChildren =>
+                           {
+                               innerChildren.Add().Text("Tables & Chairs");
+                               innerChildren.Add().Text("Sofas");
+                               innerChildren.Add().Text("Occasional Furniture");
+                               innerChildren.Add().Text("Childerns Furniture");
+                               innerChildren.Add().Text("Beds");
+                           });
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-   
-</head>
-<body>
-    <div>
-     
-       
-           
+                   children.Add().Text("Decor")
+                           .Items(innerChildren =>
+                           {
+                               innerChildren.Add().Text("Bed Linen");
+                               innerChildren.Add().Text("Throws");
+                               innerChildren.Add().Text("Curtains & Blinds");
+                               innerChildren.Add().Text("Rugs");
+                               innerChildren.Add().Text("Carpets");
+                           });
+
+                   children.Add().Text("Storage")
+                           .Items(innerChildren =>
+                           {
+                               innerChildren.Add().Text("Wall Shelving");
+                               innerChildren.Add().Text("Kids Storage");
+                               innerChildren.Add().Text("Baskets");
+                               innerChildren.Add().Text("Multimedia Storage");
+                               innerChildren.Add().Text("Floor Shelving");
+                               innerChildren.Add().Text("Toilet Roll Holders");
+                               innerChildren.Add().Text("Storage Jars");
+                               innerChildren.Add().Text("Drawers");
+                               innerChildren.Add().Text("Boxes");
+                           });
+
+                   children.Add().Text("Lights")
+                           .Items(innerChildren =>
+                           {
+                               innerChildren.Add().Text("Ceiling");
+                               innerChildren.Add().Text("Table");
+                               innerChildren.Add().Text("Floor");
+                               innerChildren.Add().Text("Shades");
+                               innerChildren.Add().Text("Wall Lights");
+                               innerChildren.Add().Text("Spotlights");
+                               innerChildren.Add().Text("Push Light");
+                               innerChildren.Add().Text("String Lights");
+                           });
+               });
+
+          items.Add().Text("Stores")
+               .Content(@<text>
+                <h2>Around the Globe</h2>
+                <ol>
+                    <li>United States</li>
+                    <li>Europe</li>
+                    <li>Canada</li>
+                    <li>Australia</li>
+                </ol>
+                <img src='@Url.Content("~/Content/web/menu/map.png")' alt="Stores Around the Globe" />
+                <button class="k-button">See full list</button>
+            </text>);
+
+          items.Add().Text("Blog");
+          items.Add().Text("Company");
+          items.Add().Text("Events");
+          items.Add().Text("News").Enabled(false);
+      })
+    )
+</div>
+
+<div style="width :100%">
+    <div style="float:left;width:20%">
+        @(Html.Kendo().TreeView()
+        .Name("treeview")
+        .Items(treeview => treeview.Add().Text("My Web Site")
+            .SpriteCssClasses("folder")
+            .Expanded(true)
+            .Items(root =>
+            {
+                root.Add().Text("images")
+                    .Expanded(true)
+                    .SpriteCssClasses("folder")
+                    .Items(images =>
+                    {
+                        images.Add().Text("logo.png")
+                            .SpriteCssClasses("image");
+
+                        images.Add().Text("body-back.png")
+                            .SpriteCssClasses("image");
+
+                        images.Add().Text("my-photo.jpg")
+                            .SpriteCssClasses("image");
+                    });
+
+                root.Add().Text("resources")
+                    .Expanded(true)
+                    .SpriteCssClasses("folder")
+                    .Items(resources =>
+                    {
+                        resources.Add().Text("pdf")
+                            .Expanded(true)
+                            .SpriteCssClasses("folder")
+                            .Items(pdf =>
+                            {
+                                pdf.Add().Text("brochure.pdf")
+                                    .SpriteCssClasses("pdf");
+
+                                pdf.Add().Text("prices.pdf")
+                                    .SpriteCssClasses("pdf");
+                            });
+
+                        resources.Add().Text("zip")
+                            .SpriteCssClasses("folder");
+                    });
+
+                root.Add().Text("about.html")
+                    .SpriteCssClasses("html");
+
+                root.Add().Text("contacts.html")
+                    .SpriteCssClasses("html");
+
+                root.Add().Text("index.html")
+                    .SpriteCssClasses("html");
+
+                root.Add().Text("portfolio.html")
+                    .SpriteCssClasses("html");
+            }))
+        )
     </div>
-</body>
-</html>
+    <div style="float:left;width :70%">
+        @(Html.Kendo().Grid<User>()
+            .Name("grid")
+            .Columns(columns =>
+            {
+                columns.Bound(u => u.Id).Width(50);
+                columns.Bound(u => u.UserName).Width(100);
+                columns.Bound(u => u.Password).Width(100);
+                columns.Command(command => { command.Edit(); command.Destroy(); }).Width(160);
+            })
+            .ToolBar(toolbar => toolbar.Create().Text("新增"))
+            .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("UserEdit").Window(c => c.Title("用户信息").Resizable(r => r.MinWidth(400)).Scrollable(true)))
+            .Pageable(c => c.PageSizes(true).Messages(m => m.Next("下一页").ItemsPerPage("每页记录数")).Refresh(true))
+            .Filterable()
+            .Sortable()
+            .ColumnMenu()
+
+            .Scrollable()
+            .HtmlAttributes(new { style = "height:430px;" })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(5)
+                .Events(events => events.Error("error_handler"))
+                .Model(model => model.Id(u => u.Id))
+                .Create(update => update.Action("EditingPopup_Create", "User"))
+                    .Read(read => read.Action("EditingPopup_Read", "User"))
+                    .Update(update => update.Action("EditingPopup_Update", "User"))
+                    .Destroy(update => update.Action("EditingPopup_Destroy", "User"))
+            )
+        )
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+</script>

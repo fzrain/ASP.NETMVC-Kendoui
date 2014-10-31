@@ -5,28 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Autofac;
+using Fzrain.Core.Infrastructure;
 
 namespace Fzrain.Web.Framework.Mvc
 {
    public  class FzrainDependencyResolver : IDependencyResolver
     {
-      private   ContainerBuilder builder;
-       private IContainer container;
-       public FzrainDependencyResolver(ContainerBuilder builder,IContainer container)
-       {
-           this.builder = builder;
-           this.container = container;
-          
-       }
+    
         public object GetService(Type serviceType)
         {
-          return   container.ResolveOptional(serviceType);
+            return EngineContext.Current.ContainerManager.ResolveOptional(serviceType);
         }
 
         public IEnumerable<object> GetServices(Type serviceType)
         {
             var type = typeof(IEnumerable<>).MakeGenericType(serviceType);
-            return (IEnumerable<object>)container.Resolve(type);
+            return (IEnumerable<object>)EngineContext.Current.Resolve(type);
         }
     }
 }

@@ -8,35 +8,24 @@ namespace Fzrain.Web.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
         public ActionResult Index()
         {
-            return View();
-            
-        }
+            ViewBag.Message = "Welcome to ASP.NET MVC!";
 
-        public ActionResult Update()
-        {
             return View();
         }
 
-        public ActionResult AboutMe()
+        public ActionResult About()
         {
-            throw new NotImplementedException();
-        }
+            ViewBag.Message = "Your app description page.";
 
-        public ActionResult Blog()
-        {
             return View();
         }
 
-        public ActionResult Forum()
+        public ActionResult Contact()
         {
-            throw new NotImplementedException();
-        }
-        
-        public ActionResult FrameAll()
-        {
+            ViewBag.Message = "Your contact page.";
+
             return View();
         }
     }

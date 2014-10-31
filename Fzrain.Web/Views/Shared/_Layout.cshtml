@@ -1,39 +1,51 @@
-﻿@using System.Web.Optimization
-<!DOCTYPE html>
-
+﻿<!DOCTYPE html>
 <html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    @RenderSection("script",false)
-
+    <head>
+        <title>@ViewBag.Title - My Telerik MVC Application</title>
+        <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    	<link href="@Url.Content("~/Content/kendo/2014.2.1008/kendo.common.min.css")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/Content/kendo/2014.2.1008/kendo.mobile.all.min.css")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/Content/kendo/2014.2.1008/kendo.dataviz.min.css")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/Content/kendo/2014.2.1008/kendo.metro.min.css")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/Content/kendo/2014.2.1008/kendo.dataviz.metro.min.css")" rel="stylesheet" type="text/css" />
+	<script src="@Url.Content("~/Scripts/kendo/2014.2.1008/jquery.min.js")"></script>
+	<script src="@Url.Content("~/Scripts/kendo/2014.2.1008/kendo.all.min.js")"></script>
+	<script src="@Url.Content("~/Scripts/kendo/2014.2.1008/kendo.aspnetmvc.min.js")"></script>
+        <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
+        <script src="@Url.Content("~/Scripts/kendo/2014.2.1008/messages/kendo.messages.zh-CN.min.js")"></script>
+        <script src="@Url.Content("~/Scripts/kendo/2014.2.1008/cultures/kendo.culture.zh-CN.min.js")"></script>
+       
 </head>
     <body>
-        @*<div class="header">
-            <div class="container">
-                <div class="logo">
-                    <a href="/">
-                        <img src="../../Content/Home/images/logo.png" alt=" " />
-                    </a>
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
                 </div>
-                <div class="navigation">
-                    <span class="menu">
-                        <img src="../../Content/Home/images/nav.png" alt=" " />
-                    </span>
-
-                    <ul class="nav">
-                        <li>@Html.ActionLink("主页", "Index","Home")</li> /
-                        <li>@Html.ActionLink("更新历史", "Update", "Home")</li>/
-                        <li>@Html.ActionLink("关于我", "AboutMe", "Home")</li>/
-                        <li>@Html.ActionLink("博客", "Blog", "Home")</li>  /
-                        <li>@Html.ActionLink("论坛", "Forum", "Home")</li>/
-                        <li>@Html.ActionLink("后台管理平台", "FrameAll", "Home")</li>
-                    </ul>
+                <div class="float-right">
+                    <nav>
+                        <ul id="menu">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>
+                    </nav>
                 </div>
-             
-                <div class="clearfix"> </div>
             </div>
-        </div>*@
-        @RenderBody()
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class=" clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - Fzrain MVC Application</p>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>

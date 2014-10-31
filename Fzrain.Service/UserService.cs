@@ -33,12 +33,13 @@ namespace Fzrain.Service
             userRepository.Delete(user);
         }
 
-        public IPagedList<User> GetAllUsers(int pageSize,int pageIndex)
+        public IQueryable<User> GetAllUsers()
         {
-          var query=  userRepository.Table;
-          query =  query.OrderBy(u => u.Id);
-           var users= new PagedList<User>(query,pageIndex,pageSize);
-           return users;
+          //var query=  userRepository.Table;
+          //query =  query.OrderBy(u => u.Id);
+          // var users= new PagedList<User>(query,pageIndex,pageSize);
+          // return users;
+            return userRepository.Table;
         }
     }
 }

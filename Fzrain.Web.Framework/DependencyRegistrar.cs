@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Autofac.Integration.Mvc;
 using Fzrain.Core.Data;
 using Fzrain.Core.Infrastructure;
 using Fzrain.Data;
@@ -42,6 +43,11 @@ namespace Fzrain.Web.Framework
             }
 
             builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
+
+            //controllers
+            builder.RegisterControllers(typeFinder.GetAssemblies().ToArray());
+            //service
+            builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
         }
 
         public int Order { get { return 0; } }

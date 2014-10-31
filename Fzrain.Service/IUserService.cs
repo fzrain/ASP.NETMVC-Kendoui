@@ -13,6 +13,6 @@ namespace Fzrain.Service
         void InsertUser(User user);
         void UpdateUser(User user);
         void DeleteUser(User user);
-        IPagedList<User> GetAllUsers(int pageSize, int pageIndex);
+        IQueryable<User> GetAllUsers();
     }
 }
