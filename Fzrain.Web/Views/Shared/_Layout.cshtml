@@ -1,51 +1,30 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-        <title>@ViewBag.Title - My Telerik MVC Application</title>
-        <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
-    	<link href="@Url.Content("~/Content/kendo/2014.2.1008/kendo.common.min.css")" rel="stylesheet" type="text/css" />
-	<link href="@Url.Content("~/Content/kendo/2014.2.1008/kendo.mobile.all.min.css")" rel="stylesheet" type="text/css" />
-	<link href="@Url.Content("~/Content/kendo/2014.2.1008/kendo.dataviz.min.css")" rel="stylesheet" type="text/css" />
-	<link href="@Url.Content("~/Content/kendo/2014.2.1008/kendo.metro.min.css")" rel="stylesheet" type="text/css" />
-	<link href="@Url.Content("~/Content/kendo/2014.2.1008/kendo.dataviz.metro.min.css")" rel="stylesheet" type="text/css" />
-	<script src="@Url.Content("~/Scripts/kendo/2014.2.1008/jquery.min.js")"></script>
-	<script src="@Url.Content("~/Scripts/kendo/2014.2.1008/kendo.all.min.js")"></script>
-	<script src="@Url.Content("~/Scripts/kendo/2014.2.1008/kendo.aspnetmvc.min.js")"></script>
-        <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
-        <script src="@Url.Content("~/Scripts/kendo/2014.2.1008/messages/kendo.messages.zh-CN.min.js")"></script>
-        <script src="@Url.Content("~/Scripts/kendo/2014.2.1008/cultures/kendo.culture.zh-CN.min.js")"></script>
-       
+<head>
+    <title>@ViewBag.Title - My Telerik MVC Application</title>
+    @*<link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />*@
+    <link href="@Url.Content("~/Content/kendo/2014.2.1008/kendo.common.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2014.2.1008/kendo.mobile.all.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2014.2.1008/kendo.dataviz.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2014.2.1008/kendo.metro.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2014.2.1008/kendo.dataviz.metro.min.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/kendo/2014.2.1008/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2014.2.1008/kendo.all.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2014.2.1008/kendo.aspnetmvc.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2014.2.1008/messages/kendo.messages.zh-CN.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2014.2.1008/cultures/kendo.culture.zh-CN.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
+    @RenderSection("featured", required: false)
 </head>
-    <body>
-        <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
-                </div>
-                <div class="float-right">
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </header>
-        <div id="body">
-            @RenderSection("featured", required: false)
-            <section class=" clear-fix">
-                @RenderBody()
-            </section>
-        </div>
-
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - Fzrain MVC Application</p>
-                </div>
-            </div>
-        </footer>
-    </body>
+    <body style="margin:0!important;font-size:14px">
+    <header style="background-color:#2a2d33;color:#fff;font-size:12px;height:78px">
+       
+    </header>
+    <section style="position:absolute ;top:78px;bottom :44px;width:100%;overflow:hidden ;margin:0;">
+        @RenderBody()
+    </section>
+    <footer style="background-color:#2a2d33;color:#fff;text-align:center;position:absolute;bottom:0;left :0;width:100%;box-sizing :border-box;padding :0 1em 0 0;font:400 14px Arial,Helvetica,sans-serif;list-style:none">
+        <p>&copy; @DateTime.Now.Year - Fzrain  Application</p>
+    </footer>
+</body>
 </html>

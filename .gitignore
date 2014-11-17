@@ -25,3 +25,6 @@ nuget.exe
 *.ipch
 *.sln.ide
 *.txt
+/*.jmconfig
+/Fzrain.Framework_Report.htm
+/Fzrain.Framework.sln.GhostDoc.xml

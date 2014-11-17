@@ -27,7 +27,8 @@ namespace Fzrain.Web.Controllers
 
         public ActionResult EditingPopup_Read([DataSourceRequest] DataSourceRequest request)
         {
-            return Json(userService.GetAllUsers().ToDataSourceResult(request));
+           var result= userService.GetAllUsers().ToList().OrderByDescending(u=>u.Id ).ToDataSourceResult(request);
+           return Json(result);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]

@@ -12,7 +12,7 @@ namespace Fzrain.Core.Data
     {
         protected const char separator = ':';
         protected const string filename = "Settings.txt";
-
+        
         /// <summary>
         /// Maps a virtual path to a physical disk path.
         /// </summary>

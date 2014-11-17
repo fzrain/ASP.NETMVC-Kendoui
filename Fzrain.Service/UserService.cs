@@ -35,10 +35,7 @@ namespace Fzrain.Service
 
         public IQueryable<User> GetAllUsers()
         {
-          //var query=  userRepository.Table;
-          //query =  query.OrderBy(u => u.Id);
-          // var users= new PagedList<User>(query,pageIndex,pageSize);
-          // return users;
+         
             return userRepository.Table;
         }
     }
