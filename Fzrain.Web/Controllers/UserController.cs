@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Fzrain.Core;
 using Fzrain.Core.Domain;
 using Fzrain.Core.Infrastructure;
 using Fzrain.Service;
+using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 
@@ -25,14 +28,17 @@ namespace Fzrain.Web.Controllers
             return View();
         }
 
-        public ActionResult EditingPopup_Read([DataSourceRequest] DataSourceRequest request)
+        public ActionResult Read([DataSourceRequest] DataSourceRequest request)
         {
-           var result= userService.GetAllUsers().ToList().OrderByDescending(u=>u.Id ).ToDataSourceResult(request);
-           return Json(result);
+
+            if (request.Sorts .Count ==0)//默认按Id倒序排列
+                request.Sorts.Add(new SortDescriptor { Member = "Id", SortDirection = ListSortDirection.Descending });
+                   
+            return Json(userService.GetAllUsers().ToDataSourceResult (request));
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult EditingPopup_Create([DataSourceRequest] DataSourceRequest request, User user)
+        public ActionResult Create([DataSourceRequest] DataSourceRequest request, User user)
         {
             if (user != null && ModelState.IsValid)
             {
@@ -43,7 +49,7 @@ namespace Fzrain.Web.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult EditingPopup_Update([DataSourceRequest] DataSourceRequest request, User user)
+        public ActionResult Update([DataSourceRequest] DataSourceRequest request, User user)
         {
             if (user != null && ModelState.IsValid)
             {
@@ -54,7 +60,7 @@ namespace Fzrain.Web.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult EditingPopup_Destroy([DataSourceRequest] DataSourceRequest request, User user)
+        public ActionResult Destroy([DataSourceRequest] DataSourceRequest request, User user)
         {
             if (user != null)
             {

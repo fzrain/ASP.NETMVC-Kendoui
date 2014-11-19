@@ -25,7 +25,10 @@ namespace Fzrain.Service
 
         public void UpdateUser(User user)
         {
-            userRepository.Update(user);
+            var userEntity=  userRepository.Table.Where(u => u.Id == user.Id).FirstOrDefault();
+            userEntity.UserName = user.UserName;
+            userEntity.Password = user.Password;
+            userRepository.Update(userEntity);
         }
 
         public void DeleteUser(User user)

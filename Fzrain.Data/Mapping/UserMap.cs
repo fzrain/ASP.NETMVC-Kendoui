@@ -15,7 +15,7 @@ namespace Fzrain.Data.Mapping
             HasKey(u => u.Id);
             Property(u => u.UserName).IsRequired().HasMaxLength(50);
             Property(u => u.Password).IsRequired().HasMaxLength(50);
-
+            Property(u => u.Birthday).HasColumnType("datatime2");
         }
     }
 }

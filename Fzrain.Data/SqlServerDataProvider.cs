@@ -97,9 +97,11 @@ namespace Fzrain.Data
         public virtual void SetDatabaseInitializer()
         {
             
-           var initializer = new MigrateDatabaseToLatestVersion<FzrainContext, Configuration>();
-          //  var initializer = new DropCreateDatabaseIfModelChanges<FzrainContext>();
+          var initializer = new MigrateDatabaseToLatestVersion<FzrainContext, Configuration>();
+         //   var initializer = new DropCreateDatabaseIfModelChanges<FzrainContext>();
             Database.SetInitializer(initializer);
+           
+          
         }
 
         /// <summary>

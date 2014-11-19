@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>@ViewBag.Title - My Telerik MVC Application</title>
+    <title>@ViewBag.Title </title>
     @*<link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />*@
     <link href="@Url.Content("~/Content/kendo/2014.2.1008/kendo.common.min.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/kendo/2014.2.1008/kendo.mobile.all.min.css")" rel="stylesheet" type="text/css" />
@@ -14,7 +14,32 @@
     <script src="@Url.Content("~/Scripts/kendo/2014.2.1008/messages/kendo.messages.zh-CN.min.js")"></script>
     <script src="@Url.Content("~/Scripts/kendo/2014.2.1008/cultures/kendo.culture.zh-CN.min.js")"></script>
     <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
-    @RenderSection("featured", required: false)
+    <style>
+        .mainleft {
+            position :absolute;
+            top :0;
+            left :0;
+            width:20%;
+            height:100%;
+            overflow :auto ;
+            background:#f5f7f8;
+            border-right:1px solid #ebecee;
+            z-index :1
+        }
+        .mainright {
+            width:80%;
+            background-color:#fff;
+            line-height:1.5;
+            position :absolute ;
+            top:0;
+            right :0;
+            bottom :0;
+            -webkit-box-sizing:border-box;
+
+        }
+        
+    </style>
+    @RenderSection("featured",false)
 </head>
     <body style="margin:0!important;font-size:14px">
     <header style="background-color:#2a2d33;color:#fff;font-size:12px;height:78px">

@@ -17,7 +17,7 @@ namespace Fzrain.Data.Initializers
        }
        protected override void Seed(FzrainContext context)
        {
-           context.Set<User>().AddOrUpdate(u => u.UserName, new User { UserName = "admin", Password = "11111" });
+           context.Set<User>().AddOrUpdate(u => u.UserName, new User { UserName = "admin", Password = "11111",Birthday =new DateTime(1992,02,29),Gender =Gender.Male  });
 
            context.SaveChanges();
        }
