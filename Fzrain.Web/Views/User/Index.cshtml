@@ -15,101 +15,76 @@
         }
 
         #page-tree .k-sprite {
-        background-image:url(../../Content/web/treeview/icons-sprite.png);
-    }
+            background-image: url(../../Content/web/treeview/icons-sprite.png);
+        }
 
-    .folder { background-position: 0 0; }
-    .file { background-position: 0 -16px; }
-    .image { background-position: 0 -32px; }
-   
+        .folder { background-position: 0 0; }
+        .file { background-position: 0 -16px; }
+        .image { background-position: 0 -32px; }
+      
     </style>
+    <script type="text/javascript">
+        $(function() {
+            $("#cbAll").change(function() {
+                $('.check_children').prop("checked", this.checked);
+            });
+        });
+
+        function showGender(gender) {
+            if (gender == "0") {
+                return "男";
+            } else {
+                return "女";
+            }
+        
+
+    }
+        function error_handler(e) {
+            if (e.errors) {
+                var message = "Errors:\n";
+                $.each(e.errors, function (key, value) {
+                    if ('errors' in value) {
+                        $.each(value.errors, function () {
+                            message += this + "\n";
+                        });
+                    }
+                });
+                alert(message);
+            }
+        }
+    </script>
 }
 
 <div id="page-nav" class="mainleft">
-    @(Html.Kendo().TreeView()
-                .Name("page-tree")
-        .Items(treeview => treeview.Add().Text("My Web Site")
-            .SpriteCssClasses("folder")
-            .Expanded(true)
-            .Items(root =>
-            {
-                root.Add().Text("images")
-                    .Expanded(true)
-                    .SpriteCssClasses("folder")
-                    .Items(images =>
-                    {
-                        images.Add().Text("logo.png")
-                            .SpriteCssClasses("file");
-
-                        images.Add().Text("body-back.png")
-                            .SpriteCssClasses("file");
-
-                        images.Add().Text("my-photo.jpg")
-                            .SpriteCssClasses("file");
-                    });
-
-                root.Add().Text("resources")
-                    .Expanded(true)
-                    .SpriteCssClasses("folder")
-                    .Items(resources =>
-                    {
-                        resources.Add().Text("pdf")
-                            .Expanded(true)
-                            .SpriteCssClasses("folder")
-                            .Items(pdf =>
-                            {
-                                pdf.Add().Text("brochure.pdf")
-                                    .SpriteCssClasses("file");
-
-                                pdf.Add().Text("prices.pdf")
-                                    .SpriteCssClasses("file");
-                            });
-
-                        resources.Add().Text("zip")
-                            .SpriteCssClasses("file");
-                    });
-
-                root.Add().Text("about.html")
-                    .SpriteCssClasses("file");
-
-                root.Add().Text("contacts.html")
-                    .SpriteCssClasses("file");
-
-                root.Add().Text("index.html")
-                    .SpriteCssClasses("file");
-
-                root.Add().Text("portfolio.html")
-                    .SpriteCssClasses("file");
-            }))
-    )
-
+    @Html.Kendo().TreeView().Name("page-tree").DataSource(d => d.Read("GetDptTreeData", "Department")).DataTextField("Name").DataSpriteCssClassField("image")
 </div>
 
 <div class="mainright">
     @(Html.Kendo().Grid<User>()
-            .Name("grid")
+            .Name("grid").Excel(c=>c.FileName("data"))
             .Columns(columns =>
             {
-                columns.Bound(u => u.Id)
-                 .HeaderTemplate("<input type='checkbox'  />")
-                  .ClientTemplate("<input type='checkbox'  />")
+                columns.Bound(u => u.Id).Filterable (false)
+                 .HeaderTemplate("<input id='cbAll' type='checkbox'  />").HeaderHtmlAttributes(new { style = "text-align: center" })
+                  .ClientTemplate("<input class='check_children'  type='checkbox' value='#=Id#'  />")
                   .HtmlAttributes(new { style = "text-align: center" })
                   .Width(20);
-                columns.Bound(u => u.Id).Width(30);
+                columns.Bound(u => u.Id).Width(20).Filterable (false);
                 columns.Bound(u => u.UserName).Width(100);
                 columns.Bound(u => u.Password).Width(100);
-                columns.Bound(u => u.Birthday ).Width(100);
-                columns.Bound(u => u.Email ).Width(100);
-                columns.Bound(u => u.Gender ).Width(100);
-                columns.Bound(u => u.MobilePhone ).Width(100);
-                
-                columns.Command(command => { command.Edit(); command.Destroy();    }).Width(160);
+                columns.Bound(u => u.Birthday).Width(100).Format("{0:yyyy-MM-dd HH:mm:ss}");
+                columns.Bound(u => u.Gender).Width(100).ClientTemplate("#=showGender(Gender)#");               
+                columns.Command(command => { command.Edit().CancelText("取消").UpdateText("保存"); command.Destroy();                                             
+                }).Width(80);
             })
-            .ToolBar(toolbar => toolbar.Create().Text("新增"))
-            .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("UserEdit").Window(c => c.Title("用户信息").Scrollable(true) ) )
+            .ToolBar(toolbar =>
+            { 
+                toolbar.Create().Text("新增");
+                toolbar.Excel().Text("导出Excel");
+            })
+            .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("../../User/UserEdit").Window(c => c.Title("用户信息").Scrollable(true)))
             .Pageable(c => c.PageSizes(true).Messages(m => m.Next("下一页").ItemsPerPage("每页记录数")).Refresh(true))
-            .Filterable()
-            .Sortable ()
+            .Filterable()          
             .Scrollable()
             .HtmlAttributes(new { style = "height:100%;" })
             .DataSource(dataSource => dataSource
@@ -125,21 +100,3 @@
     )
 </div>
 
-
-
-
-<script type="text/javascript">
-    function error_handler(e) {
-        if (e.errors) {
-            var message = "Errors:\n";
-            $.each(e.errors, function (key, value) {
-                if ('errors' in value) {
-                    $.each(value.errors, function () {
-                        message += this + "\n";
-                    });
-                }
-            });
-            alert(message);
-        }
-    }
-</script>

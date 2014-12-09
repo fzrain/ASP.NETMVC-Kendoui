@@ -15,7 +15,13 @@ namespace Fzrain.Web.Controllers
             return View();
             
         }
+        [HttpPost]
+        public ActionResult Export_Save(string contentType, string base64, string fileName)
+        {
+            var fileContents = Convert.FromBase64String(base64);
 
+            return File(fileContents, contentType, fileName);
+        }
         public ActionResult Window()
         {
             return View();
@@ -72,6 +78,11 @@ namespace Fzrain.Web.Controllers
 
             // Return an empty string to signify success
             return Content("");
+        }
+
+        public ActionResult TempleCal()
+        {
+            return View();
         }
     }
 }

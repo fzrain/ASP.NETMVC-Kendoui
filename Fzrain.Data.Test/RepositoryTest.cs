@@ -10,6 +10,7 @@ using Fzrain.Core.Domain;
 using Fzrain.Core.Infrastructure;
 using Fzrain.Core.Infrastructure.DependencyManagement;
 using Fzrain.Data.Initializers;
+using Fzrain.Service;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Autofac;
 
@@ -73,6 +74,20 @@ namespace Fzrain.Data.Test
 
             //set dependency resolver
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
+        }
+
+        [TestMethod]
+        public void TestService()
+        {
+
+            //var builder = new ContainerBuilder();
+            //DependencyRegistrar.Register(builder);
+            //var container = builder.Build();
+            EngineContext.Initialize(false);
+            var userService = EngineContext.Current.Resolve<IUserService>();
+           var user= userService.GetAllUsers().FirstOrDefault ();
+            Assert.AreEqual(user.UserName, "admin");
 
         }
     }

@@ -84,6 +84,8 @@
     <Compile Include="Data\DataSettingsManager.cs" />
     <Compile Include="Data\IDataProvider.cs" />
     <Compile Include="Data\IRepository.cs" />
+    <Compile Include="Domain\Department.cs" />
+    <Compile Include="Domain\Scheduler\Task.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="FzrainException.cs" />
     <Compile Include="Infrastructure\AppDomainTypeFinder.cs" />
@@ -104,6 +106,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

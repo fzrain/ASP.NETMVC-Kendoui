@@ -1,0 +1,31 @@
+﻿@model Fzrain.Core.Domain.User
+
+<div class="editor-label">
+    @Html.LabelFor(u => u.UserName)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(u => u.UserName)
+</div>
+<div class="editor-label">
+    @Html.LabelFor(u => u.Password)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(u => u.Password)
+</div>
+<div class="editor-label">
+    @Html.LabelFor(u => u.Birthday)
+</div>
+<div class="editor-field">
+    @Html.Kendo().DateTimePickerFor(u => u.Birthday).Culture("zh-CN")
+</div>
+<div class="editor-label">
+    @Html.LabelFor(u => u.Gender)
+</div>
+<div class="editor-field" style="margin-top:5px">
+    <input type="radio" name="Gender" value="0" />男
+    <input type="radio" name="Gender" value="1" />女
+    
+</div>
+
+
+

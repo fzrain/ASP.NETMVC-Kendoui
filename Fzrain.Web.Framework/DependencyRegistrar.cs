@@ -17,10 +17,12 @@ namespace Fzrain.Web.Framework
     {
         public void Register(ContainerBuilder builder, ITypeFinder typeFinder)
         {
+            //controllers
+            builder.RegisterControllers(typeFinder.GetAssemblies().ToArray());
             //数据访问层相关依赖
             var dataSettingsManager = new DataSettingsManager();
             var dataProviderSettings = dataSettingsManager.LoadSettings();
-            //todo:暂时把连接字符串写死
+            //todo:暂时把连接字符串写死,测试时使用
             dataProviderSettings.DataConnectionString = "Data Source=.;Initial Catalog=FzrainFramework;Integrated Security=False;Persist Security Info=False;User ID=sa;Password=11111";
             dataProviderSettings.DataProvider = "sqlserver";
             builder.Register(c => dataProviderSettings).As<DataSettings>();
@@ -44,8 +46,7 @@ namespace Fzrain.Web.Framework
 
             builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
 
-            //controllers
-            builder.RegisterControllers(typeFinder.GetAssemblies().ToArray());
+       
             //service
             builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
         }

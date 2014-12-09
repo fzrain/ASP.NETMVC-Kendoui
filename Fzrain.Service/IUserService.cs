@@ -9,7 +9,8 @@ using Fzrain.Core.Domain;
 namespace Fzrain.Service
 {
    public  interface  IUserService
-    {
+   {
+       User GetById(int id);
         void InsertUser(User user);
         void UpdateUser(User user);
         void DeleteUser(User user);

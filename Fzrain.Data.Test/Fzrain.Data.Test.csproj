@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Fzrain.Data.Test</RootNamespace>
     <AssemblyName>Fzrain.Data.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.3</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -53,6 +54,13 @@
     </Reference>
     <Reference Include="Fzrain.Data">
       <HintPath>..\lib\Fzrain.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Fzrain.Service, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Fzrain.Service.dll</HintPath>
+    </Reference>
+    <Reference Include="Fzrain.Web">
+      <HintPath>..\Fzrain.Web\bin\Fzrain.Web.dll</HintPath>
     </Reference>
     <Reference Include="Fzrain.Web.Framework">
       <HintPath>..\lib\Fzrain.Web.Framework.dll</HintPath>

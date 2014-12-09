@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Fzrain.Core.Domain.Scheduler;
 using Kendo.Mvc.UI;
 
 namespace Fzrain.Web.Models.Scheduler
@@ -47,12 +48,12 @@ namespace Fzrain.Web.Models.Scheduler
         public string RecurrenceException { get; set; }
         public bool IsAllDay { get; set; }
         public int? OwnerID { get; set; }
-
+        
         public Task ToEntity()
         {
             return new Task
             {
-                TaskID = TaskID,
+                Id = TaskID,
                 Title = Title,
                 Start = Start,
                 StartTimezone = StartTimezone,
@@ -67,27 +68,5 @@ namespace Fzrain.Web.Models.Scheduler
             };
         }
     }
-    public partial class Task
-    {
-        public Task()
-        {
-            this.Tasks1 = new HashSet<Task>();
-        }
-
-        public int TaskID { get; set; }
-        public System.DateTime Start { get; set; }
-        public System.DateTime End { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public Nullable<int> OwnerID { get; set; }
-        public bool IsAllDay { get; set; }
-        public string RecurrenceRule { get; set; }
-        public Nullable<int> RecurrenceID { get; set; }
-        public string RecurrenceException { get; set; }
-        public string StartTimezone { get; set; }
-        public string EndTimezone { get; set; }
-
-        public virtual ICollection<Task> Tasks1 { get; set; }
-        public virtual Task Task1 { get; set; }
-    }
+   
 }

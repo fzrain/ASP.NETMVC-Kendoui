@@ -51,17 +51,24 @@ namespace Fzrain.Web.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Update([DataSourceRequest] DataSourceRequest request, User user)
         {
+           
             if (user != null && ModelState.IsValid)
             {
-                userService.UpdateUser(user);
+                var u = userService.GetById(user.Id);
+                u.UserName = user.UserName;
+                u.Password = user.Password;
+                u.Birthday = user.Birthday;
+                u.Gender = user.Gender;
+                userService.UpdateUser(u);
             }
 
             return Json(new[] { user }.ToDataSourceResult(request, ModelState));
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Destroy([DataSourceRequest] DataSourceRequest request, User user)
+        public ActionResult Destroy([DataSourceRequest] DataSourceRequest request, int id)
         {
+            var user= userService.GetById(id);
             if (user != null)
             {
                 userService.DeleteUser(user);

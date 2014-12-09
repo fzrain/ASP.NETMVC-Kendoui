@@ -18,6 +18,11 @@ namespace Fzrain.Service
             this.userRepository = userRepository;
         }
 
+        public User GetById(int id)
+        {
+            return userRepository.GetById(id);
+        }
+
         public void InsertUser(User user)
         {
             userRepository.Insert(user);
@@ -25,10 +30,7 @@ namespace Fzrain.Service
 
         public void UpdateUser(User user)
         {
-            var userEntity=  userRepository.Table.Where(u => u.Id == user.Id).FirstOrDefault();
-            userEntity.UserName = user.UserName;
-            userEntity.Password = user.Password;
-            userRepository.Update(userEntity);
+            userRepository.Update(user);
         }
 
         public void DeleteUser(User user)
