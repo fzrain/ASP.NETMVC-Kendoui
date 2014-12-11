@@ -1,0 +1,2 @@
+DataProvider: sqlserver
+DataConnectionString: Data Source=.;Initial Catalog=FzrainFramework;Integrated Security=False;Persist Security Info=False;User ID=sa;Password=11111

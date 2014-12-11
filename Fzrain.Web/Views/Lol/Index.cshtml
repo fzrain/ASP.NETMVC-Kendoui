@@ -1,0 +1,66 @@
+﻿@using Fzrain.Core.Domain.Lol
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="page-nav" class="mainleft">
+    
+</div>
+<div id="page-nav" class="mainright">
+
+
+    @(Html.Kendo().Grid<Battle>()
+            .Name("grid").Excel(c => c.FileName("data"))
+            .Columns(columns =>
+            {
+                columns.Bound(u => u.Id).ClientTemplate("<img width='100px' src='../../Content/lolpng/Veigar.png' alt='' />").Width(100);
+                columns.Bound(u => u.Id).Width(20).Filterable(false);
+                columns.Bound(u => u.BattleType).Width(80).ClientTemplate("#=showGameType(BattleType)#"); ;
+                columns.Bound(u => u.StartTime).Width(80).Format("{0:yyyy-MM-dd HH:mm:ss}");
+                columns.Bound(u => u.Duration).Width(80); ;
+                columns.Bound(u => u.GameId).Width(80);
+                columns.Command(c => c.Custom("查看")).Width(80);
+            })
+            .ToolBar (c=>c.Custom().Text("更新战绩"))
+            .Pageable(c => c.PageSizes(true).Messages(m => m.Next("下一页").ItemsPerPage("每页记录数")).Refresh(true))
+            .Filterable()
+            .Scrollable()
+            .HtmlAttributes(new { style = "height:100%;" })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(20)
+                .Events(events => events.Error("error_handler"))
+                .Model(model => model.Id(u => u.Id))
+
+                        .Read(read => read.Action("Read", "Lol"))
+                              .Create(update => update.Action("Create", "Lol"))
+                        .Update(update => update.Action("Update", "Lol"))
+                        .Destroy(update => update.Action("Destroy", "Lol"))
+            )
+    )
+</div>
+
+<script type="text/javascript">
+    function showGameType(gameType) {
+        if (gameType == "6") {
+            return "极地大乱斗";
+        } else {
+            return "召唤师峡谷";
+        }
+
+
+    }
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+</script>
