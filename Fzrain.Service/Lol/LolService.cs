@@ -52,5 +52,10 @@ namespace Fzrain.Service.Lol
         {
          return    recordRepository.Table.Where(r => r.Name == name);
         }
+
+        public IQueryable<Record> GetAllRecords()
+        {
+            return recordRepository.Table;
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace Fzrain.Service.Lol
        IQueryable<Battle> GetAllBattles();
        void InitRecord(string filePath);
        IQueryable<Record> GetRecordsByName(string name);
+       IQueryable<Record> GetAllRecords();
    }
 }

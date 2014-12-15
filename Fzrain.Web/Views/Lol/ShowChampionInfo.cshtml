@@ -1,0 +1,40 @@
+﻿@using Fzrain.Web.Models.Lol
+@model System.Collections.Generic.List<Fzrain.Web.Models.Lol.LolChampionInfoViewMode>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    /*#main:hover {
+       border:1px solid orange
+    }*/
+
+</style>
+<div id="page-nav" class="mainleft">
+
+</div>
+<div id="page-nav" class="mainright" style="overflow:auto">
+
+    @foreach (LolChampionInfoViewMode m in Model)
+    {
+        <div id="main" style="float :left ;margin:20px;width:270px;height:280px;">
+            @{string url = "http://cdn.tgp.qq.com/pallas/images/card/" + m.ChampionId + ".jpg";}
+            <div style="float:left ">
+                <img width="150" src="@url" alt="" />
+            </div>
+            <div style="width:90px;float :left ;margin-left:30px">         
+                <p>胜场数：
+                    @m.MyWinCount
+                </p>
+                <p>出场数：
+                    @m.MyApprance
+                </p>
+                <p>我的胜率：
+                    @(m.MyApprance == 0 ? "0" : (Convert.ToDouble(m.MyWinCount) / Convert.ToDouble(m.MyApprance) * 100).ToString("0.00"))%
+                </p>
+                <p>全服平均胜率：@((Convert.ToDouble(m.TotalWinCount) / Convert.ToDouble(m.TotalApprance) * 100).ToString("0.00"))%</p>
+            </div>
+        </div>
+    }
+</div>

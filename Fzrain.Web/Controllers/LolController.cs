@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Fzrain.Core.Domain;
 using Fzrain.Service;
 using Fzrain.Service.Lol;
+using Fzrain.Web.Models.Lol;
 using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -16,11 +17,11 @@ namespace Fzrain.Web.Controllers
     public class LolController : Controller
     {
         private readonly ILolService lolService;
-        private readonly IUserService userService;
+    
         public LolController(ILolService lolService, IUserService userService)
         {
             this.lolService = lolService;
-            this.userService = userService;
+      
         }
         // GET: Lol
         public ActionResult Index()
@@ -35,44 +36,28 @@ namespace Fzrain.Web.Controllers
 
             return Json(lolService.GetAllBattles().Select(b=>new{b.BattleType ,b.Duration,b.GameId ,b.Id ,b.StartTime  }).ToDataSourceResult(request));
         }
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Create([DataSourceRequest] DataSourceRequest request, User user)
+
+        public ActionResult ShowChampionInfo()
         {
-            if (user != null && ModelState.IsValid)
+           var recodes= lolService.GetAllRecords().Where(l=>l.Battle.BattleType ==6).Select(l=>new{l.ChampionId,l.IsWin,l.Name}).ToList();
+            var champions = from r in recodes
+                group r by r.ChampionId
+                into g
+                select g.Key;
+            List<LolChampionInfoViewMode> model = new List<LolChampionInfoViewMode>();
+            foreach (var c in champions)
             {
-                userService.InsertUser(user);
+              var heroRecords=  recodes.Where(a => a.ChampionId == c).ToList();
+                model.Add(new LolChampionInfoViewMode
+                {
+                    ChampionId =c,
+                    TotalApprance =heroRecords.Count ,
+                    TotalWinCount =heroRecords.Where(a=>a.IsWin ==1).Count(),
+                    MyApprance =heroRecords.Where (a=>a.Name =="网络中断突然"||a.Name =="笨笨秒杀上帝").Count(),
+                    MyWinCount = heroRecords.Where(a =>a.Name == "网络中断突然" || a.Name == "笨笨秒杀上帝").Count(a=>a.IsWin ==1)
+                });
             }
-
-            return Json(new[] { user }.ToDataSourceResult(request, ModelState));
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Update([DataSourceRequest] DataSourceRequest request, User user)
-        {
-
-            if (user != null && ModelState.IsValid)
-            {
-                var u = userService.GetById(user.Id);
-                u.UserName = user.UserName;
-                u.Password = user.Password;
-                u.Birthday = user.Birthday;
-                u.Gender = user.Gender;
-                userService.UpdateUser(u);
-            }
-
-            return Json(new[] { user }.ToDataSourceResult(request, ModelState));
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Destroy([DataSourceRequest] DataSourceRequest request, int id)
-        {
-            var user = userService.GetById(id);
-            if (user != null)
-            {
-                userService.DeleteUser(user);
-            }
-
-            return Json(new[] { user }.ToDataSourceResult(request, ModelState));
+            return View(model.OrderByDescending(l=>l.MyApprance).ToList());
         }
     }
 }

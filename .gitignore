@@ -168,8 +168,8 @@ UpgradeLog*.XML
 UpgradeLog*.htm
 
 # SQL Server files
-App_Data/*.mdf
-App_Data/*.ldf
+# App_Data/*.mdf
+# App_Data/*.ldf
 
 # Business Intelligence projects
 *.rdl.data
@@ -209,10 +209,12 @@ packages/
 *_Report.htm
 lib/
 *.DotSettings
+/Fzrain.Web/App_Data/Settings.txt
 
 #ºöÂÔÅÅ³ı
 
 !*.config
 !*.refresh
 !*.cs
+
 
