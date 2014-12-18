@@ -56,7 +56,9 @@
 }
 
 <div id="page-nav" class="mainleft">
+
     @Html.Kendo().TreeView().Name("page-tree").DataSource(d => d.Read("GetDptTreeData", "Department")).DataTextField("Name").DataSpriteCssClassField("image")
+    
 </div>
 
 <div class="mainright">
@@ -74,16 +76,17 @@
                 columns.Bound(u => u.Password).Width(100);
                 columns.Bound(u => u.Birthday).Width(100).Format("{0:yyyy-MM-dd HH:mm:ss}");
                 columns.Bound(u => u.Gender).Width(100).ClientTemplate("#=showGender(Gender)#");               
-                columns.Command(command => { command.Edit().CancelText("取消").UpdateText("保存"); command.Destroy();                                             
+                columns.Command(command => { command.Edit().CancelText("取消").UpdateText("保存"); command.Destroy();                                   
                 }).Width(80);
             })
             .ToolBar(toolbar =>
             { 
                 toolbar.Create().Text("新增");
                 toolbar.Excel().Text("导出Excel");
+                toolbar.Custom().Text("批量删除");
             })
-            .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("../../User/UserEdit").Window(c => c.Title("用户信息").Scrollable(true)))
-            .Pageable(c => c.PageSizes(true).Messages(m => m.Next("下一页").ItemsPerPage("每页记录数")).Refresh(true))
+            .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("../../User/UserEdit").Window(c => c.Title("用户信息").Scrollable(true).Name("editWindow")))
+            .Pageable(c => c.PageSizes(true).Messages(m => m.ItemsPerPage("每页记录数")).Refresh(true))
             .Filterable()          
             .Scrollable()
             .HtmlAttributes(new { style = "height:100%;" })
@@ -97,6 +100,7 @@
                     .Update(update => update.Action("Update", "User"))
                     .Destroy(update => update.Action("Destroy", "User"))
             )
-    )
+          )
+   
 </div>
 

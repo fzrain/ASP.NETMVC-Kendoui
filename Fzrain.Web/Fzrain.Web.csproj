@@ -1211,6 +1211,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\kendo.modernizr.custom.js" />
     <Content Include="Scripts\kendo\2014.3.1119\angular.min.js" />
     <Content Include="Scripts\kendo\2014.3.1119\cultures\kendo.culture.af-ZA.min.js" />
