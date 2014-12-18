@@ -10,31 +10,61 @@
        border:1px solid orange
     }*/
 
+    #dataDiv div {
+        margin-top: 10px;
+    }
+
+    .mainleft div {
+        height: 60px;
+        color:white;
+        text-align: center;
+        line-height: 60px;
+       
+    }
+      .mainleft div:hover{
+         background-color :black;
+         color:white;
+        height: 60px;
+        text-align: center;
+        line-height: 60px;
+       cursor:pointer
+    }
 </style>
-<div id="page-nav" class="mainleft">
+<div id="page-nav" class="mainleft" style="background-color:#4a4b51">
+
+    <div>战绩首页</div>
+    <div>英雄统计</div>
+    <div>成长曲线</div>
+    <div>乱斗神榜</div>
+    <div>阵容分析</div>
 
 </div>
-<div id="page-nav" class="mainright" style="overflow:auto">
+<div id="page-nav" class="mainright" style="overflow:auto;background-color:black;color:white">
 
     @foreach (LolChampionInfoViewMode m in Model)
     {
-        <div id="main" style="float :left ;margin:20px;width:270px;height:280px;">
-            @{string url = "http://cdn.tgp.qq.com/pallas/images/card/" + m.ChampionId + ".jpg";}
-            <div style="float:left ">
+        <div id="main" style="float :left ;margin:20px 0 0 20px;width:330px;height:280px;">
+            @{
+                string url = "http://cdn.tgp.qq.com/pallas/images/card/" + m.ChampionId + ".jpg";
+                double myWinning = m.MyApprance == 0 ? 0 : (Convert.ToDouble(m.MyWinCount) / Convert.ToDouble(m.MyApprance)) * 100;
+                double totalWinning = (Convert.ToDouble(m.TotalWinCount) / Convert.ToDouble(m.TotalApprance) * 100);
+                string color = myWinning > totalWinning ? "green" : "red";
+            }
+            <div style="float:left;border:1px solid gray">
                 <img width="150" src="@url" alt="" />
             </div>
-            <div style="width:90px;float :left ;margin-left:30px">         
-                <p>胜场数：
-                    @m.MyWinCount
-                </p>
-                <p>出场数：
-                    @m.MyApprance
-                </p>
-                <p>我的胜率：
-                    @(m.MyApprance == 0 ? "0" : (Convert.ToDouble(m.MyWinCount) / Convert.ToDouble(m.MyApprance) * 100).ToString("0.00"))%
-                </p>
-                <p>全服平均胜率：@((Convert.ToDouble(m.TotalWinCount) / Convert.ToDouble(m.TotalApprance) * 100).ToString("0.00"))%</p>
+            <div id="dataDiv" style="width:148px;float :left ;margin-left:30px">
+                <div>胜场/出场(我)</div>
+                <div>@m.MyWinCount/@m.MyApprance</div>
+                <div style="color:@color">我的胜率:@myWinning.ToString("0.00")%</div>
+                <div>胜场/出场(全服)</div>
+                <div>@m.TotalWinCount/@m.TotalApprance</div>
+
+                <div style="color:yellow">全服胜率:@totalWinning.ToString("0.00")%</div>
+                <div>
+                    @Html.Kendo().Button().Content("查看成长").Name("Detail" + m.ChampionId)
+                </div>
             </div>
         </div>
-    }
+                }
 </div>

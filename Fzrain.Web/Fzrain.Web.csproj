@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Fzrain.Web</RootNamespace>
     <AssemblyName>Fzrain.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -1867,6 +1867,7 @@
     <Content Include="Views\Scheduler\Index.cshtml" />
     <Content Include="Views\Lol\Index.cshtml" />
     <Content Include="Views\Lol\ShowChampionInfo.cshtml" />
+    <Content Include="Views\Lol\BattleDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Department\" />

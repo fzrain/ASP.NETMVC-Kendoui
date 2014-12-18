@@ -20,9 +20,19 @@ namespace Fzrain.Service.Lol
             this.battleRepository = battleRepository;
             this.recordRepository = recordRepository;
         }
-        public void UpdateBattle()
-        {
-            throw new NotImplementedException();
+        public void UpdateBattle(List<int> Ids,int areaId)
+        {       
+          
+            foreach (var id in Ids)
+            {
+                Thread.Sleep(5000);
+                var b = LolCommonHelper.GetDataById(Convert.ToInt32(id), areaId);
+                b.ChampionId = b.Records.Where(r => r.Name == "网络中断突然").FirstOrDefault().ChampionId;
+                b.IsWin = b.Records.Where(r => r.Name == "网络中断突然").FirstOrDefault().IsWin;
+                battleRepository.Insert(b);
+
+
+            }
         }
 
         public IQueryable<Battle> GetAllBattles()
@@ -56,6 +66,13 @@ namespace Fzrain.Service.Lol
         public IQueryable<Record> GetAllRecords()
         {
             return recordRepository.Table;
+        }
+
+        public List<int> GetUpdateIds()
+        {
+           var allIds=  LolCommonHelper.GetGameIds("250970574",11);
+           int maxId=   battleRepository.Table.Select(b => b.GameId).Max();
+          return   allIds.FindAll(id => id > maxId);
         }
     }
 }

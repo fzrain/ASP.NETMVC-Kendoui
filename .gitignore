@@ -209,7 +209,7 @@ packages/
 *_Report.htm
 lib/
 *.DotSettings
-
+*.ide
 #ºöÂÔÅÅ³ı
 
 !*.config

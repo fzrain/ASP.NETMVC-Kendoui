@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Record>
+@using Fzrain.Core.Domain.Lol
+<div>
+    <table border="0">
+
+        <tr>
+            <th>英雄</th>
+            <th>召唤师</th>
+            <th style="width:50px">胜负</th>
+            <th style="width:50px">金钱</th>
+            <th style="width:70px">杀死助</th>
+            <th>出装</th>
+        </tr>
+        @foreach (Record r in Model)
+        {
+            <tr>
+                <td style="text-align:center">
+                    @{string url = "../../Content/lolpng/" + @r.ChampionId + ".png";}
+                <img width="30" src="@url" alt="" />
+            </td>
+            <td style="text-align:center">@r.Name</td>
+            <td style="text-align:center">@r.IsWin</td>
+            <td style="text-align:center">@r.GoldEarned</td>
+            <td style="text-align:center">@r.Kill/@r.Death/@r.Assist</td>
+            <td style="text-align:center">
+                <div style="float:left;text-align:center;width:35px">@r.Item0</div>
+                <div style="float:left;text-align:center;width:35px">@r.Item1</div>
+                <div style="float:left;text-align:center;width:35px">@r.Item2</div>
+                <div style="float:left;text-align:center;width:35px">@r.Item3</div>
+                <div style="float:left;text-align:center;width:35px">@r.Item4</div>
+                <div style="float:left;text-align:center;width:35px">@r.Item5</div>
+            </td>
+        </tr>
+                    }
+    </table>
+
+</div>

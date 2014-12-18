@@ -13,15 +13,15 @@
             .Name("grid").Excel(c => c.FileName("data"))
             .Columns(columns =>
             {
-                columns.Bound(u => u.Id).ClientTemplate("<img width='100px' src='../../Content/lolpng/Veigar.png' alt='' />").Width(100);
-                columns.Bound(u => u.Id).Width(20).Filterable(false);
-                columns.Bound(u => u.BattleType).Width(80).ClientTemplate("#=showGameType(BattleType)#"); ;
+                columns.Bound(u => u.ChampionId).ClientTemplate("<img width='50px' src='../../Content/lolpng/#=ChampionId#.png' alt='' />").Width(50).HtmlAttributes(new { style= "text-align:center" });
+                //   columns.Bound(u => u.Id).Width(20).Filterable(false);
+                columns.Bound(u => u.BattleType).Width(80).ClientTemplate("#=showGameType(BattleType)#");
                 columns.Bound(u => u.StartTime).Width(80).Format("{0:yyyy-MM-dd HH:mm:ss}");
-                columns.Bound(u => u.Duration).Width(80); ;
-                columns.Bound(u => u.GameId).Width(80);
-                columns.Command(c => c.Custom("查看")).Width(80);
+                columns.Bound(u => u.Duration).Width(80).ClientTemplate("#=(Duration/60).toFixed(2)#");
+                columns.Bound(u => u.IsWin).Width(80).ClientTemplate("#=showWinStatus(IsWin)#");
+                columns.Command(c => c.Custom("战斗详情").Click("showDetails")).Width(80);
             })
-            .ToolBar (c=>c.Custom().Text("更新战绩"))
+            .ToolBar (c=>c.Custom().Text("更新战绩").HtmlAttributes(new {id="updateBattle" }) )
             .Pageable(c => c.PageSizes(true).Messages(m => m.Next("下一页").ItemsPerPage("每页记录数")).Refresh(true))
             .Filterable()
             .Scrollable()
@@ -38,17 +38,85 @@
                         .Destroy(update => update.Action("Destroy", "Lol"))
             )
     )
+
+    @(Html.Kendo().Window()
+        .Name("window").Visible(false)
+          .Title("弹出页").Content(@<text>
+       @Html.Kendo().Button().Content("更新").Name("update").Events(e=>e.Click("updateAllbattle"))
+    <input type="hidden" id="ids"  />
+    <div id="content"></div>
+    </text>)
+    .Draggable()
+    .Modal(true)
+    .Width(600).Height(400)
+    .Actions(actions => actions.Minimize().Maximize().Close()).Position(a => a.Left(335).Top(100))
+)
+
+    @(Html.Kendo().Window()
+        .Name("window2").Visible(false)
+          .Title("战斗详情").Content(@<text>
+         
+        </text>)
+    .Draggable()
+    .Modal(true)
+    .Width(600).Height(420)
+    .Actions(actions => actions.Minimize().Maximize().Close()).Position(a => a.Left(335).Top(100))
+    )
 </div>
 
+
 <script type="text/javascript">
+    $(document).ready(function () {
+       
+        $("#updateBattle").bind("click", function () {
+            $.post("/Lol/WaitUpdate", {}, function (data) {
+                $("#ids").val(data);
+                for (var i = 0; i < data.length; i++) {
+                    $("#content").append("<p>"+data[i]+"<p/>")
+                }
+               
+            })
+            $("#window").data("kendoWindow").open();
+            return false;
+        });
+    });
+    var detailsTemplate = kendo.template($("#template").html());
+
+    function showDetails(e) {
+        e.preventDefault();
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var wnd = $("#window2").data("kendoWindow");
+        $.post("Lol/GetBattleDetail",{GameId:dataItem.GameId}, function (data) {
+            wnd.content(data);
+            wnd.center().open();
+        })
+     
+
+      
+    }
+    function updateAllbattle() {
+        $.post("Lol/UpdateBattle", {ids:$("#ids").val()}, function (data) {
+            if (data=="ok") {
+                alert("更新成功！");
+                $("#window").data("kendoWindow").close();
+            }
+          
+        })
+    }
     function showGameType(gameType) {
         if (gameType == "6") {
             return "极地大乱斗";
         } else {
             return "召唤师峡谷";
         }
-
-
+    }
+    function showWinStatus(isWin) {
+        if (isWin == "1") {
+            return "<font color='green'>胜利</font>";
+        } else {
+            return "<font color='red'>失败</font>";
+        }
     }
     function error_handler(e) {
         if (e.errors) {

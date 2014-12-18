@@ -24,7 +24,7 @@ namespace Fzrain.Web.Framework
             var dataSettingsManager = new DataSettingsManager();
             var dataProviderSettings = dataSettingsManager.LoadSettings();
             //todo:暂时把连接字符串写死,测试时使用
-            //dataProviderSettings.DataConnectionString = "Data Source=.;Initial Catalog=FzrainFramework;Integrated Security=False;Persist Security Info=False;User ID=sa;Password=11111";
+            //dataProviderSettings.DataConnectionString = @"Data Source=(localdb)\ProjectsV12;Initial Catalog=FzrainFramework;attachdbfilename=E:\我的框架\FzrainFrameWork\Fzrain.Web\App_Data\FzrainFramework.mdf;Integrated Security=True;Persist Security Info=False;";
             //dataProviderSettings.DataProvider = "sqlserver";
             builder.Register(c => dataProviderSettings).As<DataSettings>();
             builder.Register(x => new EfDataProviderManager(x.Resolve<DataSettings>())).As<BaseDataProviderManager>().InstancePerDependency();

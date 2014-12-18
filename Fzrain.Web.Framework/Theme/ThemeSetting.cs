@@ -19,9 +19,6 @@ namespace Fzrain.Web.Framework.Theme
                 return cookie != null && !string.IsNullOrWhiteSpace(cookie.Value) ? cookie.Value : "default";
             }
         }
-
-        public static void SetTheme(string theme)
-        {
-        }
+      
     }
 }

@@ -34,7 +34,7 @@ namespace Fzrain.Web.Controllers
             if (request.Sorts.Count == 0)//默认按Id倒序排列
                 request.Sorts.Add(new SortDescriptor { Member = "GameId", SortDirection = ListSortDirection.Descending });
 
-            return Json(lolService.GetAllBattles().Select(b=>new{b.BattleType ,b.Duration,b.GameId ,b.Id ,b.StartTime  }).ToDataSourceResult(request));
+            return Json(lolService.GetAllBattles().Select(b=>new{b.BattleType ,b.Duration,b.GameId ,b.Id ,b.StartTime,b.ChampionId,b.IsWin  }).ToDataSourceResult(request));
         }
 
         public ActionResult ShowChampionInfo()
@@ -58,6 +58,27 @@ namespace Fzrain.Web.Controllers
                 });
             }
             return View(model.OrderByDescending(l=>l.MyApprance).ToList());
+        }
+        public ActionResult WaitUpdate()
+        {
+           var Ids= lolService.GetUpdateIds();
+            return Json(Ids);
+        }
+        public ActionResult UpdateBattle(string ids)
+        {
+           var Ids= ids.Split(',');
+            List<int> gameIds = new List<int>();
+            foreach (var id in Ids)
+            {
+                gameIds.Add(Convert.ToInt32(id));
+            }
+            lolService.UpdateBattle(gameIds, 11);
+            return Content("ok");
+        }
+        public ActionResult GetBattleDetail(int gameId)
+        {
+           var records= lolService.GetAllRecords().Where(r => r.Battle.GameId == gameId).ToList();
+            return PartialView("BattleDetail",records);
         }
     }
 }
