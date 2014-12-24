@@ -429,6 +429,7 @@
     <Content Include="Content\kendo\2014.3.1119\Uniform\sprite_2x.png" />
     <Content Include="Content\kendo\2014.3.1119\Uniform\sprite_kpi.png" />
     <Content Include="Content\kendo\2014.3.1119\Uniform\sprite_kpi_2x.png" />
+    <Content Include="Content\logo.png" />
     <Content Include="Content\lolpng\Aatrox.png" />
     <Content Include="Content\lolpng\Ahri.png" />
     <Content Include="Content\lolpng\Akali.png" />
@@ -438,6 +439,18 @@
     <Content Include="Content\lolpng\Annie.png" />
     <Content Include="Content\lolpng\Ashe.png" />
     <Content Include="Content\lolpng\Azir.png" />
+    <Content Include="Content\lolpng\battleSign\1.png" />
+    <Content Include="Content\lolpng\battleSign\10.png" />
+    <Content Include="Content\lolpng\battleSign\11.png" />
+    <Content Include="Content\lolpng\battleSign\12.png" />
+    <Content Include="Content\lolpng\battleSign\2.png" />
+    <Content Include="Content\lolpng\battleSign\3.png" />
+    <Content Include="Content\lolpng\battleSign\4.png" />
+    <Content Include="Content\lolpng\battleSign\5.png" />
+    <Content Include="Content\lolpng\battleSign\6.png" />
+    <Content Include="Content\lolpng\battleSign\7.png" />
+    <Content Include="Content\lolpng\battleSign\8.png" />
+    <Content Include="Content\lolpng\battleSign\9.png" />
     <Content Include="Content\lolpng\Blitzcrank.png" />
     <Content Include="Content\lolpng\Brand.png" />
     <Content Include="Content\lolpng\Braum.png" />
@@ -1192,6 +1205,7 @@
     <Content Include="Content\web\window\armchair-402.png" />
     <Content Include="Content\web\window\egg-chair.png" />
     <Content Include="Content\web\window\kubus-armchair.png" />
+    <Content Include="Content\ZhuangBei.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -1208,6 +1222,7 @@
     <Content Include="Content\web\images\kendoui.woff" />
     <Content Include="Content\kendo\2014.3.1119\images\kendoui.ttf" />
     <Content Include="Content\kendo\2014.3.1119\images\kendoui.woff" />
+    <Content Include="Content\lolpng\ZhuangBei.css" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1868,6 +1883,8 @@
     <Content Include="Views\Lol\Index.cshtml" />
     <Content Include="Views\Lol\ShowChampionInfo.cshtml" />
     <Content Include="Views\Lol\BattleDetail.cshtml" />
+    <Content Include="Views\Lol\MyPerformance.cshtml" />
+    <Content Include="Views\Lol\LolBasePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Department\" />

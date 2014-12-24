@@ -1,7 +1,11 @@
 ﻿@model IEnumerable<Record>
 @using Fzrain.Core.Domain.Lol
+<style>
+
+</style>
+<link href="~/Content/lolpng/ZhuangBei.css" rel="stylesheet" />
 <div>
-    <table border="0">
+    <table>
 
         <tr>
             <th>英雄</th>
@@ -15,23 +19,36 @@
         {
             <tr>
                 <td style="text-align:center">
-                    @{string url = "../../Content/lolpng/" + @r.ChampionId + ".png";}
-                <img width="30" src="@url" alt="" />
-            </td>
-            <td style="text-align:center">@r.Name</td>
-            <td style="text-align:center">@r.IsWin</td>
-            <td style="text-align:center">@r.GoldEarned</td>
-            <td style="text-align:center">@r.Kill/@r.Death/@r.Assist</td>
-            <td style="text-align:center">
-                <div style="float:left;text-align:center;width:35px">@r.Item0</div>
-                <div style="float:left;text-align:center;width:35px">@r.Item1</div>
-                <div style="float:left;text-align:center;width:35px">@r.Item2</div>
-                <div style="float:left;text-align:center;width:35px">@r.Item3</div>
-                <div style="float:left;text-align:center;width:35px">@r.Item4</div>
-                <div style="float:left;text-align:center;width:35px">@r.Item5</div>
-            </td>
-        </tr>
+                    @{
+                        string url = "../../Content/lolpng/" + @r.ChampionId + ".png";
+                        ViewBag.Pex = "n";
                     }
+                    <img width="30" src="@url" alt="" />
+                </td>
+                <td style="text-align: center">
+                    <div>@r.Name</div>
+                    @foreach (var tag in @r.BattleTagList.Split(new char[] {';'},StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        string url2 = "../../Content/lolpng/battleSign/" + tag + ".png";
+                        ViewBag.Pex = "n";
+                        <div style="float: left;margin-left:2px"><img width="15" src="@url2" alt="" /></div>
+                    }
+
+                </td>
+                <td style="text-align:center">@Html.Raw(r.IsWin==1?"<font color='green'>胜利</font>" : "<font color='red'>失败</font>")</td>
+                <td style="text-align:center">@r.GoldEarned</td>
+                <td style="text-align:center">@r.Kill/@r.Death/@r.Assist</td>
+                <td style="text-align: center">
+
+                    <div class="@ViewBag.Pex@r.Item0" style="float: left; height: 30px; width: 30px;margin-left:1px"></div>
+                    <div class="@ViewBag.Pex@r.Item1" style="float: left; height: 30px; width: 30px;margin-left:1px"></div>
+                    <div class="@ViewBag.Pex@r.Item2" style="float: left; height: 30px; width: 30px;margin-left:1px"></div>
+                    <div class="@ViewBag.Pex@r.Item3" style="float: left; height: 30px; width: 30px;margin-left:1px"></div>
+                    <div class="@ViewBag.Pex@r.Item4" style="float: left; height: 30px; width: 30px;margin-left:1px"></div>
+                    <div class="@ViewBag.Pex@r.Item5" style="float: left; height: 30px; width: 30px;margin-left:1px"></div>
+                </td>
+            </tr>
+                        }
     </table>
 
 </div>

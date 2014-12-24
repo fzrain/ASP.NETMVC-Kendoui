@@ -1,0 +1,40 @@
+﻿@model System.Collections.Generic.List<Fzrain.Core.Domain.Lol.Record>
+@{   Layout = "LolBasePage.cshtml";}
+<div class="mainright" style="background-color: black; color: white; overflow: auto">
+    <div style="height: 119px">
+        @Html.Kendo().DropDownList().DataSource(c => c.Read("FilterMenuChampion", "lol")).Name("championId").Template("<img width='50px' src='../../Content/lolpng/#:data#.png' alt='' />")
+        @ViewBag.AvgRecord
+        @Html.Kendo().Button().Content("搜索").Name("btnSearch").Events(e => e.Click("search"))
+    </div>
+    @(Html.Kendo().Chart().Theme("metro").HtmlAttributes(new {style = "background-color:black"})
+          .Name("chart")
+          .Title("我的英雄成长")
+          .Legend(legend => legend
+              .Position(ChartLegendPosition.Top)
+          )
+          .SeriesDefaults(seriesDefaults => seriesDefaults
+              .Column().Stack(true)
+          )
+          .Series(series =>
+          {
+              series.Line(Model.OrderBy(m => m.Battle.StartTime).Select(m => m.Kill)).Name("我的表现").Color("#44a1c1").Tooltip(c => c.Template("sss"));
+              series.Line((IEnumerable<double>)ViewBag.Avg).Name("全服平均表现："+ ((IEnumerable<double>)ViewBag.Avg).First().ToString("0.00")).Color("#ef2323").Markers(false).Tooltip(false).Highlight(false);
+          })
+          .CategoryAxis(axis => axis
+              .Categories("1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
+              .MajorGridLines(lines => lines.Visible(false))
+          )
+          .ValueAxis(axis => axis
+              .Numeric()
+              .Line(line => line.Visible(false))
+          )
+          .Tooltip(tooltip => tooltip
+              .Visible(true)
+              .Format("{0}")
+          )  )
+</div>
+<script type="text/javascript">
+    function search(e) {
+        window.location.href = "MyPerformance?championId=" + $("#championId").val();
+    }
+</script>
