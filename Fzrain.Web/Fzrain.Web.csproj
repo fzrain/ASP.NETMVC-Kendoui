@@ -149,7 +149,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Lol\LolChampionInfoViewMode.cs" />
+    <Compile Include="Models\Lol\ChampionGrowupViewModel.cs" />
+    <Compile Include="Models\Lol\LolChampionInfoViewModel.cs" />
     <Compile Include="Models\Scheduler\TaskViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

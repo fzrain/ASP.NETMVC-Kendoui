@@ -1,4 +1,4 @@
-﻿@model System.Collections.Generic.List<Fzrain.Core.Domain.Lol.Record>
+﻿@model List<Fzrain.Web.Models.Lol.ChampionGrowupViewModel>
 @{   Layout = "LolBasePage.cshtml";}
 <div class="mainright" style="background-color: black; color: white; overflow: auto">
     <div style="height: 119px">
@@ -6,7 +6,7 @@
         @ViewBag.AvgRecord
         @Html.Kendo().Button().Content("搜索").Name("btnSearch").Events(e => e.Click("search"))
     </div>
-    @(Html.Kendo().Chart().Theme("metro").HtmlAttributes(new {style = "background-color:black"})
+    @(Html.Kendo().Chart(Model).Theme("metro").HtmlAttributes(new { style = "background-color:black" })
           .Name("chart")
           .Title("我的英雄成长")
           .Legend(legend => legend
@@ -14,11 +14,11 @@
           )
           .SeriesDefaults(seriesDefaults => seriesDefaults
               .Column().Stack(true)
-          )
+          ).Events(e=>e.SeriesClick("chart_seriesClick"))
           .Series(series =>
           {
-              series.Line(Model.OrderBy(m => m.Battle.StartTime).Select(m => m.Kill)).Name("我的表现").Color("#44a1c1").Tooltip(c => c.Template("sss"));
-              series.Line((IEnumerable<double>)ViewBag.Avg).Name("全服平均表现："+ ((IEnumerable<double>)ViewBag.Avg).First().ToString("0.00")).Color("#ef2323").Markers(false).Tooltip(false).Highlight(false);
+              series.Line(m => m.Proficiency).Name("我的表现").Color("#44a1c1").Tooltip(t => t.Template("<div>战斗日期：#= dataItem.StartTime#</div><div>熟练度：#= dataItem.Proficiency#</div>"));
+              series.Line((IEnumerable<double>)ViewBag.Avg).Name("全服平均表现：" + ((IEnumerable<double>)ViewBag.Avg).First().ToString("0.00")).Color("#ef2323").Markers(false).Tooltip(false).Highlight(false);
           })
           .CategoryAxis(axis => axis
               .Categories("1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
@@ -32,9 +32,29 @@
               .Visible(true)
               .Format("{0}")
           )  )
+    @(Html.Kendo().Window()
+        .Name("window2").Visible(false)
+          .Title("战斗详情")
+    .Draggable()
+    .Modal(true)
+    .Width(600).Height(420)
+    .Actions(actions => actions.Minimize().Maximize().Close()).Position(a => a.Left(335).Top(100))
+    )
 </div>
 <script type="text/javascript">
     function search(e) {
         window.location.href = "MyPerformance?championId=" + $("#championId").val();
     }
+    function chart_seriesClick(e) {
+       // alert(e.dataItem.GameId);
+        var wnd = $("#window2").data("kendoWindow");
+        $.post("/Lol/GetBattleDetail", { GameId: e.dataItem.GameId }, function (data) {
+            wnd.content(data);
+            wnd.center().open();
+        });
+
+    }
+
+    //var chart = $("#chart").data("kendoChart");
+    //chart.bind("seriesClick", chart_seriesClick);
 </script>

@@ -1,5 +1,5 @@
 ﻿@using Fzrain.Web.Models.Lol
-@model System.Collections.Generic.List<Fzrain.Web.Models.Lol.LolChampionInfoViewMode>
+@model System.Collections.Generic.List<Fzrain.Web.Models.Lol.LolChampionInfoViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -38,7 +38,7 @@
 </style>
 
 <div class="mainright" style="background-color: black; color: white;overflow:auto">
-    @foreach (LolChampionInfoViewMode m in Model)
+    @foreach (LolChampionInfoViewModel m in Model)
     {
         <div id="main" style="float: left; margin: 20px 0 0 20px; width: 330px; height: 280px;">
             @{

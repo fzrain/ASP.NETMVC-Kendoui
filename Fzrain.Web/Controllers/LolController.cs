@@ -46,11 +46,11 @@ namespace Fzrain.Web.Controllers
                             group r by r.ChampionId
                             into g
                             select g.Key;
-            List<LolChampionInfoViewMode> model = new List<LolChampionInfoViewMode>();
+            List<LolChampionInfoViewModel> model = new List<LolChampionInfoViewModel>();
             foreach (var c in champions)
             {
                 var heroRecords = recodes.Where(a => a.ChampionId == c).ToList();
-                model.Add(new LolChampionInfoViewMode
+                model.Add(new LolChampionInfoViewModel
                 {
                     ChampionId = c,
                     TotalApprance = heroRecords.Count,
@@ -86,8 +86,14 @@ namespace Fzrain.Web.Controllers
         public ActionResult MyPerformance(int? championId)
         {
             championId = championId ?? 1;
-            var records = lolService.GetAllRecords().Where(r => r.ChampionId == championId);
-           double avg= records.Average(r => r.Kill);
+            var records = lolService.GetAllRecords().Where(r => r.ChampionId == championId).ToList();
+            int avg=0;
+            foreach (var r in records)
+            {
+                avg += GetProficiency(r);
+            }
+
+            avg = avg/records.Count();
             ViewBag.Avg = new List<double> { avg , avg , avg , avg , avg , avg , avg , avg , avg , avg };
             ViewBag.AvgRecord = "平均击杀：" +
                                 records.Where(r => MyHeroList.Contains(r.Name)).Average(r => r.Kill).ToString("0.00") +
@@ -95,8 +101,37 @@ namespace Fzrain.Web.Controllers
                                 records.Where(r => MyHeroList.Contains(r.Name)).Average(r => r.Death).ToString("0.00") +
                                 " 平均助攻：" +
                                 records.Where(r => MyHeroList.Contains(r.Name)).Average(r => r.Assist).ToString("0.00");
-
-            return View(records.Where(r => MyHeroList.Contains(r.Name)).OrderByDescending(r => r.Battle.StartTime).Take(10).ToList());
+            var myRecords =
+                records.Where(r => MyHeroList.Contains(r.Name))
+                    .OrderByDescending(r => r.Battle.StartTime)
+                    .Take(10)
+                    .ToList();
+            List<ChampionGrowupViewModel> model = new List<ChampionGrowupViewModel>();
+            foreach (var r in myRecords)
+            {         
+                model.Add(new ChampionGrowupViewModel
+                {
+                    ChampionId =r.ChampionId ,
+                    GameId =r.Battle .GameId ,
+                    StartTime =r.Battle .StartTime.ToString("yyyy年MM月dd日 HH:ss:mm") ,
+                    Proficiency = GetProficiency(r)
+                });
+            }
+            return View(model.OrderBy(m=>m.StartTime).ToList());
+        }
+        [NonAction]
+        public int GetProficiency(Record r)
+        {
+            int duration = r.Battle.Duration;
+            int killIndex = r.Battle.Records.Where(record => record.Kill >= r.Kill).Count();
+            int goldIndex = r.Battle.Records.Where(record => record.GoldEarned >= r.GoldEarned).Count();
+            int damageIndex = r.Battle.Records.Where(record => record.TotalDamage >= r.TotalDamage).Count();
+            double kda= ((double)(r.Kill * 150 - r.Death * 80 + r.Assist * 30)/duration)*1300;
+            int contribute = 100*(33 - killIndex - goldIndex - damageIndex);
+            int specialTag = (r.BattleTagList.Contains("5") ? 300 : 0) + (r.BattleTagList.Contains("6") ? 500 : 0) +
+                             (r.BattleTagList.Contains("7") ? 1000 : 0) + (r.BattleTagList.Contains("8") ? 800 : 0);
+            return Convert.ToInt32(kda) + contribute + specialTag;
+           
         }
 
         public ActionResult FilterMenuChampion()
