@@ -80,13 +80,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="CommonHelper.cs" />
+    <Compile Include="ComponentModel\GenericListTypeConverter.cs" />
     <Compile Include="Configuration\FzrainConfig.cs" />
+    <Compile Include="Configuration\ISettings.cs" />
     <Compile Include="Data\BaseDataProviderManager.cs" />
     <Compile Include="Data\DataSettings.cs" />
+    <Compile Include="Data\DataSettingsHelper.cs" />
     <Compile Include="Data\DataSettingsManager.cs" />
     <Compile Include="Data\IDataProvider.cs" />
     <Compile Include="Data\IRepository.cs" />
+    <Compile Include="Domain\Configuration\Setting.cs" />
     <Compile Include="Domain\Department.cs" />
+    <Compile Include="Domain\Logging\Log.cs" />
+    <Compile Include="Domain\Logging\LogLevel.cs" />
     <Compile Include="Domain\Lol\Battle.cs" />
     <Compile Include="Domain\Lol\Record.cs" />
     <Compile Include="Domain\Scheduler\Task.cs" />
@@ -103,8 +110,10 @@
     <Compile Include="IPagedList.cs" />
     <Compile Include="Infrastructure\IStartupTask.cs" />
     <Compile Include="Infrastructure\ITypeFinder.cs" />
+    <Compile Include="IWebHelper.cs" />
     <Compile Include="PagedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

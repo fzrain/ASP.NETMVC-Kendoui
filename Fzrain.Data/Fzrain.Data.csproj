@@ -61,6 +61,7 @@
     <Compile Include="IDbContext.cs" />
     <Compile Include="Initializers\Configuration.cs" />
     <Compile Include="Initializers\MigrationsContextFactory.cs" />
+    <Compile Include="Mapping\Configuration\SettingMap.cs" />
     <Compile Include="Mapping\DepartmentMapping.cs" />
     <Compile Include="Mapping\Lol\BattleMapping.cs" />
     <Compile Include="Mapping\Lol\RecordMapping.cs" />
