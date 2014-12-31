@@ -91,13 +91,13 @@
     <Compile Include="Data\IDataProvider.cs" />
     <Compile Include="Data\IRepository.cs" />
     <Compile Include="Domain\Configuration\Setting.cs" />
-    <Compile Include="Domain\Department.cs" />
+    <Compile Include="Domain\Permission\Department.cs" />
     <Compile Include="Domain\Logging\Log.cs" />
     <Compile Include="Domain\Logging\LogLevel.cs" />
     <Compile Include="Domain\Lol\Battle.cs" />
     <Compile Include="Domain\Lol\Record.cs" />
     <Compile Include="Domain\Scheduler\Task.cs" />
-    <Compile Include="Domain\User.cs" />
+    <Compile Include="Domain\Permission\User.cs" />
     <Compile Include="FzrainException.cs" />
     <Compile Include="Infrastructure\AppDomainTypeFinder.cs" />
     <Compile Include="Infrastructure\DependencyManagement\ContainerManager.cs" />

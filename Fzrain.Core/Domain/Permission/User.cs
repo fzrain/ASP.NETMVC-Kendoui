@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fzrain.Core.Domain
+namespace Fzrain.Core.Domain.Permission
 {
    public  class User:BaseEntity 
     {

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Fzrain.Core.Domain;
+﻿using System.Data.Entity.ModelConfiguration;
+using Fzrain.Core.Domain.Permission;
 
-namespace Fzrain.Data.Mapping
+namespace Fzrain.Data.Mapping.Permission
 {
     public  class UserMap : EntityTypeConfiguration<User>
     {

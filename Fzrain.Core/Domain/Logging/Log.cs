@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Fzrain.Core.Domain.Permission;
 
 namespace Fzrain.Core.Domain.Logging
 {
@@ -34,7 +31,7 @@ namespace Fzrain.Core.Domain.Logging
         /// <summary>
         /// Gets or sets the customer identifier
         /// </summary>
-        public int? CustomerId { get; set; }
+        public int? UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the page URL

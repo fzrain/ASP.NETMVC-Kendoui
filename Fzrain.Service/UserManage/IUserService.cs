@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Fzrain.Core;
-using Fzrain.Core.Domain;
+﻿using System.Linq;
+using Fzrain.Core.Domain.Permission;
 
-namespace Fzrain.Service
+namespace Fzrain.Service.UserManage
 {
    public  interface  IUserService
    {
@@ -15,5 +10,5 @@ namespace Fzrain.Service
         void UpdateUser(User user);
         void DeleteUser(User user);
         IQueryable<User> GetAllUsers();
-    }
+   }
 }

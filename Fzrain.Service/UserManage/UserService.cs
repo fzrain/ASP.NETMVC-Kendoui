@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Fzrain.Core;
+﻿using System.Linq;
 using Fzrain.Core.Data;
-using Fzrain.Core.Domain;
+using Fzrain.Core.Domain.Permission;
 
-namespace Fzrain.Service
+namespace Fzrain.Service.UserManage
 {
     public class UserService : IUserService
     {
@@ -39,9 +34,10 @@ namespace Fzrain.Service
         }
 
         public IQueryable<User> GetAllUsers()
-        {
-         
+        {         
             return userRepository.Table;
         }
+
+      
     }
 }
