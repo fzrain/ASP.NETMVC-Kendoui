@@ -10,6 +10,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Fzrain.Core;
+using Fzrain.Core.Data;
+using Fzrain.Core.Infrastructure;
 
 namespace Fzrain.Data
 {
@@ -24,11 +26,11 @@ namespace Fzrain.Data
           
         }
 
-        //public FzrainContext()
-        //{
+        public FzrainContext() :this(new DataSettingsManager().LoadSettings().DataConnectionString)
+        {
 
-        //}
-        
+        }
+
         #endregion
 
         #region Utilities
@@ -185,7 +187,7 @@ namespace Fzrain.Data
             var transactionalBehavior = doNotEnsureTransaction
                 ? TransactionalBehavior.DoNotEnsureTransaction
                 : TransactionalBehavior.EnsureTransaction;
-            var result = this.Database.ExecuteSqlCommand(transactionalBehavior, sql, parameters);
+            var result = Database.ExecuteSqlCommand(transactionalBehavior, sql, parameters);
 
             if (timeout.HasValue)
             {

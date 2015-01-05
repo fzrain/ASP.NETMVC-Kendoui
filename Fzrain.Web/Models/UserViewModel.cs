@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Fzrain.Core.Domain;
+using Fzrain.Core.Domain.Permission;
 
 namespace Fzrain.Web.Models
 {

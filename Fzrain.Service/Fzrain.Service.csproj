@@ -53,13 +53,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IUserService.cs" />
     <Compile Include="Lol\ILolService.cs" />
     <Compile Include="Lol\LolCommonHelper.cs" />
     <Compile Include="Lol\LolService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scheduler\SchedulerTaskService.cs" />
-    <Compile Include="UserService.cs" />
+    <Compile Include="UserManage\IUserService.cs" />
+    <Compile Include="UserManage\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

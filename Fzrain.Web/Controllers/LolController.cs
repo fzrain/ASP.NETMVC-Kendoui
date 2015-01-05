@@ -8,6 +8,7 @@ using Fzrain.Core.Domain;
 using Fzrain.Core.Domain.Lol;
 using Fzrain.Service;
 using Fzrain.Service.Lol;
+using Fzrain.Service.UserManage;
 using Fzrain.Web.Models.Lol;
 using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
@@ -95,6 +96,12 @@ namespace Fzrain.Web.Controllers
 
             avg = avg/records.Count();
             ViewBag.Avg = new List<double> { avg , avg , avg , avg , avg , avg , avg , avg , avg , avg };
+            ViewBag.AllAvgRecord = "全区平均： 击杀：" +
+                               records.Average(r => r.Kill).ToString("0.00") +
+                               " 死亡：" +
+                               records.Average(r => r.Death).ToString("0.00") +
+                               " 助攻：" +
+                               records.Average(r => r.Assist).ToString("0.00");
             ViewBag.AvgRecord = "平均击杀：" +
                                 records.Where(r => MyHeroList.Contains(r.Name)).Average(r => r.Kill).ToString("0.00") +
                                 " 平均死亡：" +

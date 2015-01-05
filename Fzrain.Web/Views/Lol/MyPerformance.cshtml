@@ -3,8 +3,13 @@
 <div class="mainright" style="background-color: black; color: white; overflow: auto">
     <div style="height: 119px">
         @Html.Kendo().DropDownList().DataSource(c => c.Read("FilterMenuChampion", "lol")).Name("championId").Template("<img width='50px' src='../../Content/lolpng/#:data#.png' alt='' />")
-        @ViewBag.AvgRecord
+      
         @Html.Kendo().Button().Content("搜索").Name("btnSearch").Events(e => e.Click("search"))
+        <div>
+            <div>@ViewBag.AvgRecord</div>
+
+            <div>@ViewBag.AllAvgRecord</div>  
+        </div>
     </div>
     @(Html.Kendo().Chart(Model).Theme("metro").HtmlAttributes(new { style = "background-color:black" })
           .Name("chart")

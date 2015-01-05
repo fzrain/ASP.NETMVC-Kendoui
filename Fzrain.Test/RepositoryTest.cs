@@ -13,6 +13,8 @@ using Fzrain.Data.Initializers;
 using Fzrain.Service;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Autofac;
+using Fzrain.Core.Domain.Permission;
+using Fzrain.Service.UserManage;
 
 namespace Fzrain.Test
 {

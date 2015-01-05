@@ -23,10 +23,6 @@ namespace Fzrain.Data
             }
         }
 
-        public int Order
-        {
-            //ensure that this task is run first 
-            get { return -1000; }
-        }
+        public int Order => -1000;
     }
 }

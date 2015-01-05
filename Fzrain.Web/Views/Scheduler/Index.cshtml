@@ -5,14 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<div id="team-schedule" style="display :none ">
-    <div id="people">
-        <input checked type="checkbox" id="alex" value="1">
-        <input checked type="checkbox" id="bob" value="2">
-        <input type="checkbox" id="charlie" value="3">
-    </div>
-</div>
 @(Html.Kendo().Scheduler<TaskViewModel>()
     .Name("scheduler")
     .Date(DateTime.Now)
@@ -21,13 +13,13 @@
     .Views(views =>
     {
         views.DayView();
-        views.WorkWeekView(workWeekView => workWeekView.Selected(true));
+        views.WorkWeekView(workWeekView => workWeekView.Selected(true).SelectedDateFormat("{0:yyyy年MM月dd日}-{1:yyyy年MM月dd日}") );
         views.WeekView();
         views.MonthView();
         views.AgendaView();
 
     })
-    .Timezone("Etc/UTC")
+    .Timezone("RPC")
     .Resources(resource => resource.Add(m => m.OwnerID)
         .Title("所有者")
         .DataTextField("Text")
@@ -37,7 +29,7 @@
             new { Text = "Alex", Value = 1, Color = "#f8a398" } ,
             new { Text = "Bob", Value = 2, Color = "#51a0ed" } ,
             new { Text = "Charlie", Value = 3, Color = "#56ca85" }
-        }))
+        })).DateHeaderTemplate("#= kendo.toString(date, 'yy年MM月dd日') #")
     .DataSource(d => d
         .Model(m =>
         {
@@ -55,28 +47,5 @@
     )
 )
 
-<script type="text/javascript">
-    $(function () {
-        $("#people :checkbox").change(function (e) {
-            var checked = $.map($("#people :checked"), function (checkbox) {
-                return parseInt($(checkbox).val());
-            });
 
-            var filter = {
-                logic: "or",
-                filters: $.map(checked, function (value) {
-                    return {
-                        operator: "eq",
-                        field: "OwnerID",
-                        value: value
-                    };
-                })
-            };
-
-            var scheduler = $("#scheduler").data("kendoScheduler");
-
-            scheduler.dataSource.filter(filter);
-        });
-    })
-</script>
 

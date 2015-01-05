@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Fzrain.Core.Domain;
+using Fzrain.Core.Domain.Permission;
 
 namespace Fzrain.Web.Controllers
 {

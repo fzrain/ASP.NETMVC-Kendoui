@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fzrain.Core.Domain;
+using Fzrain.Core.Domain.Permission;
 
 namespace Fzrain.Data.Initializers
 {
