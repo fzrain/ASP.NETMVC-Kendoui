@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fzrain.Core.Infrastructure.DependencyManagement;
+using Fzrain.Service.Configuration;
 using Fzrain.Service.Lol;
 using Fzrain.Service.UserManage;
 
@@ -52,8 +53,12 @@ namespace Fzrain.Web.Framework
             //service
             builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
             builder.RegisterType<LolService>().As<ILolService>().InstancePerLifetimeScope();
+            builder.RegisterType<SettingService>().As<ISettingService>().InstancePerLifetimeScope();
         }
 
-        public int Order => 0;
+        public int Order
+        {
+            get { return 0; }
+        }
     }
 }

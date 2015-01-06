@@ -20,10 +20,10 @@ namespace Fzrain.Service.Lol
             this.battleRepository = battleRepository;
             this.recordRepository = recordRepository;
         }
-        public void UpdateBattle(List<int> Ids,int areaId)
+        public void UpdateBattle(List<int> ids,int areaId)
         {       
           
-            foreach (var id in Ids)
+            foreach (var id in ids)
             {
                 Thread.Sleep(5000);
                 var b = LolCommonHelper.GetDataById(Convert.ToInt32(id), areaId);

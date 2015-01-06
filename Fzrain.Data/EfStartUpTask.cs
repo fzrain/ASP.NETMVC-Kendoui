@@ -23,6 +23,9 @@ namespace Fzrain.Data
             }
         }
 
-        public int Order => -1000;
+        public int Order
+        {
+            get { return -1000; }
+        }
     }
 }
