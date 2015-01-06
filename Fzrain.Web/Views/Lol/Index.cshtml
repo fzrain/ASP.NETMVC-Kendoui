@@ -9,7 +9,7 @@
             .Columns(columns =>
             {
                 columns.Bound(u => u.ChampionId).ClientTemplate("<img width='50px' src='../../Content/lolpng/#=ChampionId#.png' alt='' />").Width(50).HtmlAttributes(new { style = "text-align:center" }).Filterable(filterable => filterable.UI("championFilter"));
-                //   columns.Bound(u => u.Id).Width(20).Filterable(false);
+
                 columns.Bound(u => u.BattleType).Width(80).ClientTemplate("#=showGameType(BattleType)#");
                 columns.Bound(u => u.StartTime).Width(80).Format("{0:yyyy-MM-dd HH:mm:ss}");
                 columns.Bound(u => u.Duration).Width(80).ClientTemplate("#=(Duration/60).toFixed(2)#");
@@ -20,12 +20,12 @@
             .Pageable(c => c.PageSizes(true).Messages(m => m.Next("下一页").ItemsPerPage("每页记录数")).Refresh(true))
             .Filterable(filterable => filterable
             .Extra(false))
-            .Scrollable().Sortable ()
+            .Scrollable().Sortable()
             .HtmlAttributes(new { style = "height:100%;" })
             .DataSource(dataSource => dataSource
                 .Ajax()
                 .PageSize(20)
-                .Events(events => events.Error("error_handler"))
+
                 .Model(model => model.Id(u => u.Id))
                         .Read(read => read.Action("Read", "Lol"))
                         .Create(update => update.Action("Create", "Lol"))
@@ -37,9 +37,13 @@
     @(Html.Kendo().Window()
         .Name("window").Visible(false)
           .Title("弹出页").Content(@<text>
-            @Html.Kendo().Button().Content("更新").Name("update").Events(e => e.Click("updateAllbattle"))
-            <input type="hidden" id="ids" />
-            <div id="content"></div>
+            @Html.Kendo().TextBox().Name("txtQQ").Value("250970574")
+    @Html.Kendo().DropDownList().BindTo(ViewBag.AreaInfo).Name("areaId")
+    @Html.Kendo().TextBox().Name("myRoleName").Value("网络中断突然")
+    @Html.Kendo().Button().Content("获取更新").Name("GetUpdateData").Events(e => e.Click("GetUpdateBattles"))
+    @Html.Kendo().Button().Content("更新").Name("update").Events(e => e.Click("updateAllbattle"))
+    <input type="hidden" id="ids" />
+    <div id="content"></div>
         </text>)
     .Draggable()
     .Modal(true)
@@ -61,19 +65,22 @@
     $(document).ready(function () {
 
         $("#updateBattle").bind("click", function () {
-            $.post("/Lol/WaitUpdate", {}, function (data) {
-                $("#ids").val(data);
-                for (var i = 0; i < data.length; i++) {
-                    $("#content").append("<p>" + data[i] + "<p/>");
-                }
-
-            });
+        
             $("#window").data("kendoWindow").open();
             return false;
         });
     });
     var detailsTemplate = kendo.template($("#template").html());
 
+    function GetUpdateBattles() {
+        $.post("/Lol/WaitUpdate", { qq: $("#txtQQ").val(), areaId: $("#areaId").val() }, function (data) {
+            $("#ids").val(data);
+            for (var i = 0; i < data.length; i++) {
+                $("#content").append("<p>" + data[i] + "<p/>");
+            }
+
+        });
+    }
     function showDetails(e) {
         e.preventDefault();
 
@@ -88,13 +95,13 @@
     }
 
     function updateAllbattle() {
-        $.post("Lol/UpdateBattle", { ids: $("#ids").val() }, function (data) {
+        $.post("Lol/UpdateBattle", { ids: $("#ids").val(), areaId: $("#areaId").val(), myRoleName: $("#myRoleName").val() }, function (data) {
             if (data == "ok") {
                 alert("更新成功！");
                 $("#window").data("kendoWindow").close();
             }
 
-        })
+        });
     }
 
     function showGameType(gameType) {
@@ -113,19 +120,7 @@
         }
     }
 
-    function error_handler(e) {
-        if (e.errors) {
-            var message = "Errors:\n";
-            $.each(e.errors, function (key, value) {
-                if ("errors" in value) {
-                    $.each(value.errors, function () {
-                        message += this + "\n";
-                    });
-                }
-            });
-            alert(message);
-        }
-    }
+
 
     function championFilter(element) {
         element.kendoDropDownList({

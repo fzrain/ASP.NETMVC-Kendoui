@@ -56,7 +56,6 @@
     <Compile Include="Configuration\ISettingService.cs" />
     <Compile Include="Configuration\SettingService.cs" />
     <Compile Include="Lol\ILolService.cs" />
-    <Compile Include="Lol\LolCommonHelper.cs" />
     <Compile Include="Lol\LolService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scheduler\SchedulerTaskService.cs" />

@@ -51,37 +51,43 @@
 
 <div class="mainright">
     @(Html.Kendo().Grid<User>()
-            .Name("grid").Excel(c=>c.FileName("data"))
-            .Columns(columns =>
-            {
-                columns.Bound(u => u.Id).Filterable (false)
-                 .HeaderTemplate("<input id='cbAll' type='checkbox'  />").HeaderHtmlAttributes(new { style = "text-align: center" })
-                  .ClientTemplate("<input class='check_children'  type='checkbox' value='#=Id#'  />")
-                  .HtmlAttributes(new { style = "text-align: center" })
-                  .Width(20);
-                columns.Bound(u => u.Id).Width(20).Filterable (false);
-                columns.Bound(u => u.UserName).Width(100);
-                columns.Bound(u => u.Password).Width(100);
-                columns.Bound(u => u.Birthday).Width(100).Format("{0:yyyy-MM-dd HH:mm:ss}");
-                columns.Bound(u => u.Gender).Width(100).ClientTemplate("#=showGender(Gender)#");               
-                columns.Command(command => { command.Edit().CancelText("取消").UpdateText("保存"); command.Destroy();                                   
-                }).Width(80);
-            })
-            .ToolBar(toolbar =>
-            { 
-                toolbar.Create().Text("新增");
-                toolbar.Excel().Text("导出Excel");
-                toolbar.Custom().Text("批量删除");
-            })
-            .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("../../User/UserEdit").Window(c => c.Title("用户信息").Scrollable(true).Name("editWindow")))
-            .Pageable(c => c.PageSizes(true).Messages(m => m.ItemsPerPage("每页记录数")).Refresh(true))
-            .Filterable()          
-            .Scrollable()
-            .HtmlAttributes(new { style = "height:100%;" })
-            .DataSource(dataSource => dataSource
-                .Ajax()
-                .PageSize(5)
-                .Model(model => model.Id(u => u.Id))
+                .Name("grid").Excel(c => c.FileName("data"))
+                .Columns(columns =>
+                {
+                    columns.Bound(u => u.Id).Filterable(false)
+                     .HeaderTemplate("<input id='cbAll' type='checkbox'  />").HeaderHtmlAttributes(new { style = "text-align: center" })
+                      .ClientTemplate("<input class='check_children'  type='checkbox' value='#=Id#'  />")
+                      .HtmlAttributes(new { style = "text-align: center" })
+                      .Width(20);
+                    columns.Bound(u => u.Id).Width(20).Filterable(false);
+                    columns.Bound(u => u.UserName).Width(100);
+                    columns.Bound(u => u.Password).Width(100);
+                  
+                    columns.Bound(u => u.Birthday).Width(100).Format("{0:yyyy-MM-dd HH:mm:ss}");
+                    columns.Bound(u => u.Gender).Width(100).ClientTemplate("#=showGender(Gender)#");
+                    columns.Command(command => { command.Edit().CancelText("取消").UpdateText("保存"); command.Destroy();
+                    }).Width(80);
+                })
+                .ToolBar(toolbar =>
+                {
+                    toolbar.Create().Text("新增");
+                    toolbar.Excel().Text("导出Excel");
+                    toolbar.Custom().Text("批量删除");
+                })
+                .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("../../User/UserEdit").Window(c => c.Title("用户信息").Scrollable(true).Name("editWindow")))
+                .Pageable(c => c.PageSizes(true).Messages(m => m.ItemsPerPage("每页记录数")).Refresh(true))
+                .Filterable()
+                .Scrollable()
+                .HtmlAttributes(new { style = "height:100%;" })
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .PageSize(5)
+                    .Model(model =>
+                    {
+                        model.Id(u => u.Id);
+                        model.Field(u => u.Birthday).DefaultValue(DateTime.Now);
+                        model.Field(u => u.IsPublic).DefaultValue(false);
+                    })
                 .Create(update => update.Action("Create", "User"))
                     .Read(read => read.Action("Read", "User"))
                     .Update(update => update.Action("Update", "User"))

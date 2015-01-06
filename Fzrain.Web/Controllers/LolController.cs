@@ -2,13 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Fzrain.Core.Domain;
 using Fzrain.Core.Domain.Lol;
-using Fzrain.Service;
 using Fzrain.Service.Lol;
-using Fzrain.Service.UserManage;
 using Fzrain.Web.Models.Lol;
 using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
@@ -21,14 +17,19 @@ namespace Fzrain.Web.Controllers
         private readonly ILolService lolService;
         public List<string> MyHeroList = new List<string> { "笨笨秒杀上帝", "网络中断突然" };
 
-        public LolController(ILolService lolService, IUserService userService)
+        public LolController(ILolService lolService)
         {
             this.lolService = lolService;
-
         }
+
         // GET: Lol
         public ActionResult Index()
         {
+            ViewBag.AreaInfo = new List<DropDownListItem>
+            {
+                new DropDownListItem{Text ="雷瑟守备",Value ="11"},
+                new DropDownListItem { Text ="皮城警备",Value ="27"}
+            };
             return View();
         }
         public ActionResult Read([DataSourceRequest] DataSourceRequest request)
@@ -62,20 +63,15 @@ namespace Fzrain.Web.Controllers
             }
             return View(model.OrderByDescending(l => l.MyApprance).ToList());
         }
-        public ActionResult WaitUpdate()
+        public ActionResult WaitUpdate(string qq,int areaId)
         {
-            var Ids = lolService.GetUpdateIds();
-            return Json(Ids);
+            var ids = lolService.GetUpdateIds(qq,areaId);
+            return Json(ids);
         }
-        public ActionResult UpdateBattle(string ids)
+        public ActionResult UpdateBattle(string ids,int areaId,string myRoleName)
         {
-            var Ids = ids.Split(',');
-            List<int> gameIds = new List<int>();
-            foreach (var id in Ids)
-            {
-                gameIds.Add(Convert.ToInt32(id));
-            }
-            lolService.UpdateBattle(gameIds, 11);
+            List<int> gameIds = ids.Split(',').Select(id => Convert.ToInt32(id)).ToList();
+            lolService.UpdateBattle(gameIds, areaId, myRoleName);
             return Content("ok");
         }
         public ActionResult GetBattleDetail(int gameId)
@@ -88,11 +84,7 @@ namespace Fzrain.Web.Controllers
         {
             championId = championId ?? 1;
             var records = lolService.GetAllRecords().Where(r => r.ChampionId == championId).ToList();
-            int avg=0;
-            foreach (var r in records)
-            {
-                avg += GetProficiency(r);
-            }
+            int avg= records.Sum(r => GetProficiency(r));
 
             avg = avg/records.Count();
             ViewBag.Avg = new List<double> { avg , avg , avg , avg , avg , avg , avg , avg , avg , avg };
@@ -143,8 +135,9 @@ namespace Fzrain.Web.Controllers
 
         public ActionResult FilterMenuChampion()
         {
-
             return Json(lolService.GetAllRecords().GroupBy(r => r.ChampionId).Select(c => c.Key), JsonRequestBehavior.AllowGet);
         }
+
+        
     }
 }

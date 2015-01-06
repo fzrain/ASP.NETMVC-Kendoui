@@ -10,11 +10,11 @@ namespace Fzrain.Service.Lol
    public  interface ILolService
    {
        
-       void UpdateBattle(List<int> ids,int areaId);
+       void UpdateBattle(List<int> ids,int areaId,string myRoleName);
        IQueryable<Battle> GetAllBattles();
        void InitRecord(string filePath);
        IQueryable<Record> GetRecordsByName(string name);
        IQueryable<Record> GetAllRecords();
-        List<int> GetUpdateIds();
+        List<int> GetUpdateIds(string qq,int areaId);
    }
 }

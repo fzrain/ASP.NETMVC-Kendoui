@@ -10,6 +10,8 @@ namespace Fzrain.Core.Domain.Permission
        public string  DisplayName { get; set; }
        public DateTime Birthday { get; set; }
        public Gender Gender { get; set; }
+       public string MobilePhone { get; set; }
+       public bool IsPublic { get; set; }
 
        public virtual  Department  Department { get; set; }
 
