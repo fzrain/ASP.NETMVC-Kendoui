@@ -84,5 +84,10 @@ namespace Fzrain.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult Notification()
+        {
+            return View();
+        }
     }
 }
