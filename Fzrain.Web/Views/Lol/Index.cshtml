@@ -38,12 +38,12 @@
         .Name("window").Visible(false)
           .Title("弹出页").Content(@<text>
             @Html.Kendo().TextBox().Name("txtQQ").Value("250970574")
-    @Html.Kendo().DropDownList().BindTo(ViewBag.AreaInfo).Name("areaId")
-    @Html.Kendo().TextBox().Name("myRoleName").Value("网络中断突然")
-    @Html.Kendo().Button().Content("获取更新").Name("GetUpdateData").Events(e => e.Click("GetUpdateBattles"))
-    @Html.Kendo().Button().Content("更新").Name("update").Events(e => e.Click("updateAllbattle"))
-    <input type="hidden" id="ids" />
-    <div id="content"></div>
+            @Html.Kendo().DropDownList().BindTo(ViewBag.AreaInfo).Name("areaId")
+            @Html.Kendo().TextBox().Name("myRoleName").Value("网络中断突然")
+            @Html.Kendo().Button().Content("获取更新").Name("GetUpdateData").Events(e => e.Click("GetUpdateBattles"))
+            @Html.Kendo().Button().Content("更新").Name("update").Events(e => e.Click("updateAllbattle"))
+            <input type="hidden" id="ids" />
+            <div id="content"></div>
         </text>)
     .Draggable()
     .Modal(true)
@@ -65,7 +65,7 @@
     $(document).ready(function () {
 
         $("#updateBattle").bind("click", function () {
-        
+
             $("#window").data("kendoWindow").open();
             return false;
         });
@@ -87,6 +87,7 @@
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
         var wnd = $("#window2").data("kendoWindow");
         $.post("/Lol/GetBattleDetail", { GameId: dataItem.GameId }, function (data) {
+           // kendo.alert("haha");
             wnd.content(data);
             wnd.center().open();
         });

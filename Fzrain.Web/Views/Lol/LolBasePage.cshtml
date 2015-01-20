@@ -4,17 +4,20 @@
 }
 
 <style>
-   
-
-    .mainleft div {
-        background-repeat: repeat-y;
+   .mainleft ul {
+        list-style: none;
+       
+   }
+  
+    .mainleft li {
+        width: 100%;
         height: 60px;
         color: white;
         text-align: center;
         line-height: 60px;
     }
 
-        .mainleft div:hover {
+        .mainleft li:hover {
             background-color: #53b3d9;
             color: white;
             height: 60px;
@@ -24,12 +27,13 @@
         }
 </style>
 <div class="mainleft" style="height: 100%; background: #35393a;">
-
-    <div> @Html.ActionLink("战绩首页", "index")</div>
-    <div>@Html.ActionLink("英雄统计", "ShowChampionInfo")</div>
-    <div>@Html.ActionLink("成长曲线", "MyPerformance")</div>
-    <div>乱斗神榜</div>
-    <div>阵容分析</div>
-
+    <ul>
+        <li>@Html.ActionLink("战绩首页", "index")</li>
+        <li>@Html.ActionLink("英雄统计", "ShowChampionInfo")</li>
+        <li>@Html.ActionLink("成长曲线", "MyPerformance")</li>
+        <li>乱斗神榜</li>
+        <li>阵容分析</li>
+    </ul>
+ 
 </div>
 @RenderBody()
