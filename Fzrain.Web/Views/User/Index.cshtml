@@ -21,11 +21,11 @@
         .folder { background-position: 0 0; }
         .file { background-position: 0 -16px; }
         .image { background-position: 0 -32px; }
-      
+
     </style>
     <script type="text/javascript">
-        $(function() {
-            $("#cbAll").change(function() {
+        $(function () {
+            $("#cbAll").change(function () {
                 $('.check_children').prop("checked", this.checked);
             });
         });
@@ -36,17 +36,17 @@
             } else {
                 return "女";
             }
-        
 
-    }
-     
+
+        }
+
     </script>
 }
 
 <div id="page-nav" class="mainleft">
 
     @Html.Kendo().TreeView().Name("page-tree").DataSource(d => d.Read("GetDptTreeData", "Department")).DataTextField("Name").DataSpriteCssClassField("image")
-    
+
 </div>
 
 <div class="mainright">
@@ -62,10 +62,12 @@
                     columns.Bound(u => u.Id).Width(20).Filterable(false);
                     columns.Bound(u => u.UserName).Width(100);
                     columns.Bound(u => u.Password).Width(100);
-                  
+
                     columns.Bound(u => u.Birthday).Width(100).Format("{0:yyyy-MM-dd HH:mm:ss}");
                     columns.Bound(u => u.Gender).Width(100).ClientTemplate("#=showGender(Gender)#");
-                    columns.Command(command => { command.Edit().CancelText("取消").UpdateText("保存"); command.Destroy();
+                    columns.Command(command =>
+                    {
+                        command.Edit().CancelText("取消").UpdateText("保存"); command.Destroy();
                     }).Width(80);
                 })
                 .ToolBar(toolbar =>
@@ -88,12 +90,11 @@
                         model.Field(u => u.Birthday).DefaultValue(DateTime.Now);
                         model.Field(u => u.IsPublic).DefaultValue(true);
                     })
-                .Create(update => update.Action("Create", "User"))
+                    .Create(update => update.Action("Create", "User"))
                     .Read(read => read.Action("Read", "User"))
                     .Update(update => update.Action("Update", "User"))
                     .Destroy(update => update.Action("Destroy", "User"))
             )
-          )
-   
-</div>
+    )
 
+</div>

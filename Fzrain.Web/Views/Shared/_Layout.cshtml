@@ -104,7 +104,7 @@
 <body style="margin: 0 !important; font-size: 14px;">
     @(Html.Kendo().Notification()
       .Name("notification")
-      .Position(p => p.Pinned(true).Bottom(40).Right(30))
+      .Position(p => p.Pinned(true).Bottom(50).Right(30))
       .Stacking(NotificationStackingSettings.Down)
       .HideOnClick(true)
       .Animation(a => a.Open(e => e.SlideIn(SlideDirection.Left)))
@@ -113,9 +113,7 @@
     <script type="text/javascript">
         $(function() {
             $(".themeDiv").click(function() {
-
-                $.cookie("theme", $(this).children("a").text(), { expiresAt: new Date(2099, 1, 1) });
-                //   alert($(this).children("a").text());
+                $.cookie("theme", $(this).children("a").text(), { expiresAt: new Date(2099, 1, 1) });            
                 window.location.href = window.location.href;
             });
 

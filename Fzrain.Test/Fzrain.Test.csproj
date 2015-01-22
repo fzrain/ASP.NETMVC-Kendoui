@@ -116,15 +116,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AutofacTest.cs" />
+    <Compile Include="Core\AutofacTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepositoryTest.cs" />
+    <Compile Include="Data\RepositoryTest.cs" />
     <Compile Include="Service\LolTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

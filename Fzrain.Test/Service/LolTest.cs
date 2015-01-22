@@ -41,5 +41,34 @@ namespace Fzrain.Test.Service
             }
             Assert.AreNotEqual(1, 100);
         }
+           [TestMethod]
+        public void GetChampionContribute()
+        {
+            EngineContext.Initialize(false);
+         
+            var battleRepositpry = EngineContext.Current.Resolve<IRepository<Battle>>();
+            var recordRepositpry = EngineContext.Current.Resolve<IRepository<Record>>();
+            //var champions = from r in recordRepositpry.Table
+            //    group r by r.ChampionId
+            //    into g
+            //    select g.Key;
+            //foreach ( int champion in champions)
+            //{
+              
+            //}
+            int championId = 1;
+            var records = recordRepositpry.Table.Where(r => r.ChampionId == championId).IncludeProperties(r=>r.Battle);
+            List<double> ratioList = new List<double>();
+            foreach (Record record in records)
+            {
+                 List<Record> list= battleRepositpry.Table.Where(b => b.Id == record.Battle.Id).First().Records.Where (r=>r.IsWin ==record.IsWin).ToList ();
+
+              double damageRatio = Math.Round((double)record.TotalDamage / list.Sum(r => r.TotalDamage),2);
+              double killRatio =  Math.Round((double)record.Kill  / list.Sum(r => r.Kill),2);
+              double deathRatio =  Math.Round((double)record.Death  / list.Sum(r => r.Death),2);
+              double assistRatio = Math.Round((double)record.Assist / list.Sum(r => r.Kill), 2);
+            
+            }
+        }
     }
 }

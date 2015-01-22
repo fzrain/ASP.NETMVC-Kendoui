@@ -28,9 +28,7 @@
 
                 .Model(model => model.Id(u => u.Id))
                         .Read(read => read.Action("Read", "Lol"))
-                        .Create(update => update.Action("Create", "Lol"))
-                        .Update(update => update.Action("Update", "Lol"))
-                        .Destroy(update => update.Action("Destroy", "Lol"))
+      
             )
     )
 
@@ -38,17 +36,24 @@
         .Name("window").Visible(false)
           .Title("弹出页").Content(@<text>
             @Html.Kendo().TextBox().Name("txtQQ").Value("250970574")
-            @Html.Kendo().DropDownList().BindTo(ViewBag.AreaInfo).Name("areaId")
+            @{
+                var areaInfo = new List<DropDownListItem>
+                {
+                    new DropDownListItem{Text ="雷瑟守备",Value ="11"},
+                    new DropDownListItem { Text ="皮城警备",Value ="27"}
+                };
+            }
+            @Html.Kendo().DropDownList().BindTo(areaInfo).Name("areaId")
             @Html.Kendo().TextBox().Name("myRoleName").Value("网络中断突然")
             @Html.Kendo().Button().Content("获取更新").Name("GetUpdateData").Events(e => e.Click("GetUpdateBattles"))
             @Html.Kendo().Button().Content("更新").Name("update").Events(e => e.Click("updateAllbattle"))
             <input type="hidden" id="ids" />
             <div id="content"></div>
         </text>)
-    .Draggable()
-    .Modal(true)
-    .Width(600).Height(400)
-    .Actions(actions => actions.Minimize().Maximize().Close()).Position(a => a.Left(335).Top(100))
+                    .Draggable()
+                    .Modal(true)
+                    .Width(600).Height(400)
+                    .Actions(actions => actions.Minimize().Maximize().Close()).Position(a => a.Left(335).Top(100))
     )
 
     @(Html.Kendo().Window()
@@ -65,13 +70,11 @@
     $(document).ready(function () {
 
         $("#updateBattle").bind("click", function () {
-
             $("#window").data("kendoWindow").open();
             return false;
         });
     });
-    var detailsTemplate = kendo.template($("#template").html());
-
+   
     function GetUpdateBattles() {
         $.post("/Lol/WaitUpdate", { qq: $("#txtQQ").val(), areaId: $("#areaId").val() }, function (data) {
             $("#ids").val(data);
@@ -83,13 +86,12 @@
     }
     function showDetails(e) {
         e.preventDefault();
-
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        var wnd = $("#window2").data("kendoWindow");
+        var kendoWindow = $("#window2").data("kendoWindow");
         $.post("/Lol/GetBattleDetail", { GameId: dataItem.GameId }, function (data) {
-           // kendo.alert("haha");
-            wnd.content(data);
-            wnd.center().open();
+            // kendo.alert("haha");
+            kendoWindow.content(data);
+            kendoWindow.center().open();
         });
 
 
@@ -98,7 +100,7 @@
     function updateAllbattle() {
         $.post("Lol/UpdateBattle", { ids: $("#ids").val(), areaId: $("#areaId").val(), myRoleName: $("#myRoleName").val() }, function (data) {
             if (data == "ok") {
-                alert("更新成功！");
+                kendo.alert("更新成功！");
                 $("#window").data("kendoWindow").close();
             }
 

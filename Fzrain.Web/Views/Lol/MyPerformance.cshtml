@@ -39,7 +39,7 @@
           ).Events(e => e.SeriesClick("chart_seriesClick"))
           .Series(series =>
           {
-              series.Line(m => m.Proficiency).Name("我的表现").Color("#44a1c1").Tooltip(t => t.Template("<div>战斗日期：#= dataItem.StartTime#</div><div>熟练度：#= dataItem.Proficiency#</div>"));
+              series.Line(m => m.Proficiency).Name("我的表现").Color("#44a1c1").Tooltip(t => t.Template("<div>战斗日期：#=kendo.toString(dataItem.StartTime, 'yyyy年MM月dd日') #</div><div>熟练度：#= dataItem.Proficiency#</div>"));
               series.Line((IEnumerable<double>)ViewBag.Avg).Name("全服平均表现：" + ((IEnumerable<double>)ViewBag.Avg).First().ToString("0.00")).Color("#ef2323").Markers(false).Tooltip(false).Highlight(false);
           })
           .CategoryAxis(axis => axis
@@ -68,11 +68,11 @@
         window.location.href = "MyPerformance?championId=" + $("#championId").val();
     }
     function chart_seriesClick(e) {
-        //   kendo.alert("haha");
-        var wnd = $("#window2").data("kendoWindow");
+      
+        var kendoWindow = $("#window2").data("kendoWindow");
         $.post("/Lol/GetBattleDetail", { GameId: e.dataItem.GameId }, function (data) {
-            wnd.content(data);
-            wnd.center().open();
+            kendoWindow.content(data);
+            kendoWindow.center().open();
         });
 
     }

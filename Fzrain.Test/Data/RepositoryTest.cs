@@ -3,20 +3,17 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
+using Autofac;
 using Autofac.Integration.Mvc;
 using Fzrain.Core.Configuration;
 using Fzrain.Core.Data;
-using Fzrain.Core.Domain;
+using Fzrain.Core.Domain.Permission;
 using Fzrain.Core.Infrastructure;
 using Fzrain.Core.Infrastructure.DependencyManagement;
-using Fzrain.Data.Initializers;
-using Fzrain.Service;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Autofac;
-using Fzrain.Core.Domain.Permission;
 using Fzrain.Service.UserManage;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Fzrain.Test
+namespace Fzrain.Test.Data
 {
     [TestClass]
     public class RepositoryTest

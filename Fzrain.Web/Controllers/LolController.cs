@@ -9,6 +9,7 @@ using Fzrain.Web.Models.Lol;
 using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using Fzrain.Data;
 
 namespace Fzrain.Web.Controllers
 {
@@ -16,7 +17,7 @@ namespace Fzrain.Web.Controllers
     {
         private readonly ILolService lolService;
         public List<string> MyHeroList = new List<string> { "笨笨秒杀上帝", "网络中断突然" };
-
+        
         public LolController(ILolService lolService)
         {
             this.lolService = lolService;
@@ -25,11 +26,7 @@ namespace Fzrain.Web.Controllers
         // GET: Lol
         public ActionResult Index()
         {
-            ViewBag.AreaInfo = new List<DropDownListItem>
-            {
-                new DropDownListItem{Text ="雷瑟守备",Value ="11"},
-                new DropDownListItem { Text ="皮城警备",Value ="27"}
-            };
+          
             return View();
         }
         public ActionResult Read([DataSourceRequest] DataSourceRequest request)
@@ -41,9 +38,19 @@ namespace Fzrain.Web.Controllers
             return Json(lolService.GetAllBattles().Select(b => new { b.BattleType, b.Duration, b.GameId, b.Id, b.StartTime, b.ChampionId, b.IsWin }).ToDataSourceResult(request));
         }
 
-        public ActionResult ShowChampionInfo()
+        public ActionResult ShowChampionInfo(string filter)
         {
-            var recodes = lolService.GetAllRecords().Where(l => l.Battle.BattleType == 6).Select(l => new { l.ChampionId, l.IsWin, l.Name }).ToList();
+            var allRecodes = lolService.GetAllRecords().IncludeProperties(r=>r.Battle);
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                int num = Convert.ToInt32(filter);
+                if (num == 500)
+                    allRecodes = allRecodes.Take(500);
+                else
+                    allRecodes = allRecodes.Where(r => r.Battle.StartTime > DateTime.Now.AddMonths(-num));
+                
+            }
+           var recodes = allRecodes.Where(l => l.Battle.BattleType == 6).Select(l => new { l.ChampionId, l.IsWin, l.Name }).ToList();
             var champions = from r in recodes
                             group r by r.ChampionId
                             into g
@@ -85,7 +92,7 @@ namespace Fzrain.Web.Controllers
             championId = championId ?? 1;
             var records = lolService.GetAllRecords().Where(r => r.ChampionId == championId).ToList();
             int avg = records.Sum(r => GetProficiency(r));
-
+            
             avg = avg / records.Count();
             ViewBag.Avg = new List<double> { avg, avg, avg, avg, avg, avg, avg, avg, avg, avg };
             ViewBag.AvgInfo = new List<string>
@@ -109,7 +116,7 @@ namespace Fzrain.Web.Controllers
                 {
                     ChampionId = r.ChampionId,
                     GameId = r.Battle.GameId,
-                    StartTime = r.Battle.StartTime.ToString("yyyy年MM月dd日 HH:ss:mm"),
+                    StartTime = r.Battle.StartTime,
                     Proficiency = GetProficiency(r)
                 });
             }

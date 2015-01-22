@@ -9,7 +9,7 @@ namespace Fzrain.Web.Models.Lol
     {
         public int ChampionId { get; set; }
         public int GameId { get; set; }
-        public string StartTime { get; set; }
+        public DateTime StartTime { get; set; }
         public double Proficiency { get; set; }
     }
 }

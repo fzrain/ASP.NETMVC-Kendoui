@@ -13,7 +13,7 @@
     #dataDiv div {
         margin-top: 10px;
     }
-        .btnGrow {
+        #dataDiv a {
             padding: 0 25px 0 25px;
             height: 34px;
             line-height: 34px;
@@ -21,8 +21,7 @@
             border: 1px solid #ffffff;
             border-radius: 1px;
             font-family: 'futura-pt';
-            font-size: 14px;
-           
+            font-size: 14px;         
             display: block;
             float: left;
             color: #ffffff;
@@ -31,7 +30,7 @@
         }
 
    
-        .btnGrow:hover {
+       #dataDiv a:hover {
             background: #e02020;
             color: black;
         }
@@ -59,7 +58,7 @@
 
                 <div style="color: yellow">全服胜率:@totalWinning.ToString("0.00")%</div>
                 <div>
-                    @Html.ActionLink("查看成长", "MyPerformance", new {championId = m.ChampionId}, new {Class = "btnGrow"})
+                    @Html.ActionLink("查看成长", "MyPerformance", new {championId = m.ChampionId})
                 </div>
                 <div style="margin:60px 0 0 10px">☆ ☆ ☆ ☆ ☆</div>
             </div>
