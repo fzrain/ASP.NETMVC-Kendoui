@@ -44,10 +44,14 @@ namespace Fzrain.Web.Controllers
             if (!string.IsNullOrWhiteSpace(filter))
             {
                 int num = Convert.ToInt32(filter);
-                if (num == 500)
-                    allRecodes = allRecodes.Take(500);
+                if (num >= 100)
+                    allRecodes = allRecodes.Take(10*num);
                 else
-                    allRecodes = allRecodes.Where(r => r.Battle.StartTime > DateTime.Now.AddMonths(-num));
+                {
+                    DateTime startTime = DateTime.Now.AddMonths(-num);
+                    allRecodes = allRecodes.Where(r => r.Battle.StartTime > startTime);
+                }
+                
                 
             }
            var recodes = allRecodes.Where(l => l.Battle.BattleType == 6).Select(l => new { l.ChampionId, l.IsWin, l.Name }).ToList();
