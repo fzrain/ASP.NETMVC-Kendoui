@@ -454,6 +454,7 @@
     <Content Include="Content\lolpng\battleSign\7.png" />
     <Content Include="Content\lolpng\battleSign\8.png" />
     <Content Include="Content\lolpng\battleSign\9.png" />
+    <Content Include="Content\styles.css" />
     <Content Include="Content\web\16x16\Chart.png" />
     <Content Include="Content\web\16x16\ComboBox.png" />
     <Content Include="Content\web\16x16\Grid.png" />
@@ -1102,7 +1103,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\web\16x16\Thumbs.db" />

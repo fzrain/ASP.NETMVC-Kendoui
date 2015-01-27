@@ -91,6 +91,7 @@
     <Compile Include="Data\IDataProvider.cs" />
     <Compile Include="Data\IRepository.cs" />
     <Compile Include="Domain\Configuration\Setting.cs" />
+    <Compile Include="Domain\Lol\ChampionInfo.cs" />
     <Compile Include="Domain\Permission\Department.cs" />
     <Compile Include="Domain\Logging\Log.cs" />
     <Compile Include="Domain\Logging\LogLevel.cs" />

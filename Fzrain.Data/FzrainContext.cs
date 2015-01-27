@@ -26,8 +26,7 @@ namespace Fzrain.Data
           
         }
 
-        public FzrainContext()
-            : this(@"Data Source=(localdb)\ProjectsV12;Initial Catalog=FzrainFramework;attachdbfilename=E:\MyFramework\Fzrain.Framework\Fzrain.Web\App_Data\FzrainFramework.mdf;Integrated Security=True;Persist Security Info=False;")
+        public FzrainContext():this(new DataSettingsManager().LoadSettings().DataConnectionString)
         {
 
         }

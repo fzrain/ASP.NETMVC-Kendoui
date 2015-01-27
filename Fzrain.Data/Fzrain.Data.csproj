@@ -64,6 +64,7 @@
     <Compile Include="Mapping\Configuration\SettingMap.cs" />
     <Compile Include="Mapping\Logging\LogMap.cs" />
     <Compile Include="Mapping\Lol\BattleMapping.cs" />
+    <Compile Include="Mapping\Lol\ChampionInfoMapping.cs" />
     <Compile Include="Mapping\Lol\RecordMapping.cs" />
     <Compile Include="Mapping\Permission\DepartmentMapping.cs" />
     <Compile Include="Mapping\Permission\UserMap.cs" />
