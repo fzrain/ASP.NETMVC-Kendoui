@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Fzrain.Core.Domain.Permission
 {
@@ -14,7 +15,8 @@ namespace Fzrain.Core.Domain.Permission
        public bool IsPublic { get; set; }
 
        public virtual  Department  Department { get; set; }
-
+       public virtual ICollection<Role > Roles { get; set; }
+       public virtual ICollection<Module> Modules { get; set; }
     }
   public  enum Gender
    {

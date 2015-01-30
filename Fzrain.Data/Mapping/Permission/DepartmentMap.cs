@@ -3,13 +3,14 @@ using Fzrain.Core.Domain.Permission;
 
 namespace Fzrain.Data.Mapping.Permission
 {
-    class DepartmentMapping : EntityTypeConfiguration<Department>
+    class DepartmentMap : EntityTypeConfiguration<Department>
     {
-        public DepartmentMapping()
+        public DepartmentMap()
         {
             HasKey(d => d.Id);
             HasOptional(d => d.ParentDpt).WithMany (d=>d.ChildrenDpt);        
             Property(d => d.DepartmentName).IsRequired();
+            
         }
     }
 }

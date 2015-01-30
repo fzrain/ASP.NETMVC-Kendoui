@@ -1,8 +1,6 @@
 ﻿namespace Fzrain.Core.Domain.Logging
 {
-    /// <summary>
-    /// Represents a log level
-    /// </summary>
+    
     public enum LogLevel
     {
         Debug = 10,

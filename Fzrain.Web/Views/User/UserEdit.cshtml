@@ -1,17 +1,27 @@
 ﻿@model Fzrain.Core.Domain.Permission.User
+<div style="width:400px;float :left">
+    <div class="editor-label">
+        @Html.LabelFor(u => u.UserName)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(u => u.UserName)
+    </div>
+</div>
+<div style="width:400px;float :left">
+    <div class="editor-label">
+        @Html.LabelFor(u => u.Password)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(u => u.Password)
+    </div>
+</div>
+<div class="editor-label">
+    @Html.LabelFor(u => u.Department.DepartmentName)
+</div>
+<div class="editor-field">
+   @Html.EditorFor(u => u.Department.DepartmentName)
+</div>
 
-<div class="editor-label">
-    @Html.LabelFor(u => u.UserName)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(u => u.UserName)
-</div>
-<div class="editor-label">
-    @Html.LabelFor(u => u.Password)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(u => u.Password)
-</div>
 <div class="editor-label">
     @Html.LabelFor(u => u.Birthday)
 </div>
@@ -34,7 +44,7 @@
 <div class="editor-label">
     @Html.LabelFor(u => u.IsPublic)
 </div>
-<div class="editor-field">
-    @Html.Kendo().CheckBoxFor(u => u.IsPublic).HtmlAttributes(new {value="false"})
- 
+<div class="editor-field" style="margin-top: 5px">
+    @Html.Kendo().CheckBoxFor(u => u.IsPublic)
+
 </div>

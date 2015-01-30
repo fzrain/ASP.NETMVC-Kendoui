@@ -6,15 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Fzrain.Core.Domain.Lol;
 
+
 namespace Fzrain.Data.Mapping.Lol
 {
-    class ChampionInfoMapping : EntityTypeConfiguration<ChampionInfo>
+    class BattleMap : EntityTypeConfiguration<Battle>
     {
-        public ChampionInfoMapping()
+        public BattleMap()
         {
-            ToTable("Lol_ChampionInfo");
+            ToTable("Lol_Battle");
             HasKey(b => b.Id);
-           
+            Property(b => b.StartTime).HasColumnType("datetime2");
         }
     }
 }

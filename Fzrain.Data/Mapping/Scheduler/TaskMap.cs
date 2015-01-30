@@ -7,9 +7,9 @@ using Fzrain.Core.Domain.Scheduler;
 
 namespace Fzrain.Data.Mapping.Scheduler
 {
-    public class TaskMapping : EntityTypeConfiguration<Task>
+    public class TaskMap : EntityTypeConfiguration<Task>
     {
-        public TaskMapping()
+        public TaskMap()
         {
             HasKey(d => d.Id);
           

@@ -8,9 +8,9 @@ using Fzrain.Core.Domain.Lol;
 
 namespace Fzrain.Data.Mapping.Lol
 {
-   public  class RecordMapping : EntityTypeConfiguration<Record>
+   public  class RecordMap : EntityTypeConfiguration<Record>
     {
-       public RecordMapping()
+       public RecordMap()
        {
            ToTable("Lol_Record");
            HasKey(r => r.Id);

@@ -7,12 +7,12 @@
     {
     
         /// <summary>
-        /// Gets or sets the name
+        /// 参数名
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the value
+        /// 参数值
         /// </summary>
         public string Value { get; set; }
 

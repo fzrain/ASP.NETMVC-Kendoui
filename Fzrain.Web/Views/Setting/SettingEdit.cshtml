@@ -1,0 +1,17 @@
+﻿@model Fzrain.Core.Domain.Configuration .Setting 
+
+    <div class="editor-label">
+        @Html.LabelFor(s=>s.Name)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(s => s.Name)
+    </div>
+
+
+    <div class="editor-label">
+        @Html.LabelFor(s => s.Value)
+    </div>
+    <div class="editor-field">
+        @Html.Kendo().EditorFor(s => s.Value)
+    </div>
+
