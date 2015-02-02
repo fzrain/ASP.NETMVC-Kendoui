@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Net.Mime;
 
 namespace Fzrain.Core.Domain.Permission
 {
@@ -13,6 +15,7 @@ namespace Fzrain.Core.Domain.Permission
        public Gender Gender { get; set; }
        public string MobilePhone { get; set; }
        public bool IsPublic { get; set; }
+       public byte[] Photo { get; set; }
 
        public virtual  Department  Department { get; set; }
        public virtual ICollection<Role > Roles { get; set; }

@@ -12,7 +12,7 @@ namespace Fzrain.Data.Mapping.Permission
             Property(u => u.Password).IsRequired().HasMaxLength(50);
             Property(u => u.Birthday).HasColumnType("datetime2");
             HasOptional(u => u.Department).WithMany(d=>d.Users);
-         
+            Property(u => u.Photo).HasColumnType("image");
         }
     }
 }

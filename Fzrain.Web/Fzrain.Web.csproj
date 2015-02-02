@@ -1781,6 +1781,7 @@
     <Content Include="Views\Setting\Index.cshtml" />
     <Content Include="Views\Demo\Notification.cshtml" />
     <Content Include="Views\Setting\SettingEdit.cshtml" />
+    <Content Include="Views\Demo\Tab.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

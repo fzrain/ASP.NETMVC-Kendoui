@@ -146,6 +146,9 @@ namespace Fzrain.Web.Controllers
             return Json(lolService.GetAllRecords().GroupBy(r => r.ChampionId).Select(c => c.Key), JsonRequestBehavior.AllowGet);
         }
 
-
+        public ActionResult GetContribute()
+        {
+            return Json(lolService.GetContributes(), JsonRequestBehavior.AllowGet);
+        }
     }
 }

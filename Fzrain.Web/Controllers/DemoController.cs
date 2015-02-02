@@ -89,5 +89,10 @@ namespace Fzrain.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult Tab()
+        {
+            return View();
+        }
     }
 }

@@ -69,7 +69,11 @@
         </section>
        
         <ul id="menu">
-            <li><a href="#profile">Profile</a></li>
+            <li><a href="#profile">Profile</a>
+                <ul>
+                    <li>Home</li>
+                    <li>Index</li>
+                </ul></li>
             <li><a href="#schedule">Schedule</a></li>
             <li><a href="#orders">Orders</a></li>
             <li><a href="#gallery">Gallery</a></li>
@@ -873,7 +877,7 @@
                     }
                 }
             });
-
+        
             $("#listview").kendoListView({
                 dataSource: {
                     data: [
