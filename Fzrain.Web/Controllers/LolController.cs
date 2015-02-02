@@ -35,7 +35,7 @@ namespace Fzrain.Web.Controllers
             if (request.Sorts.Count == 0)//默认按Id倒序排列
                 request.Sorts.Add(new SortDescriptor { Member = "GameId", SortDirection = ListSortDirection.Descending });
 
-            return Json(lolService.GetAllBattles().Select(b => new { b.BattleType, b.Duration, b.GameId, b.Id, b.StartTime, b.ChampionId, b.IsWin }).ToDataSourceResult(request));
+            return Json(lolService.GetAllBattles().Select(b => new { b.BattleType, b.Duration, b.GameId, b.Id, b.StartTime, b.ChampionId, b.IsWin,b.ContributeOrder  }).ToDataSourceResult(request));
         }
 
         public ActionResult ShowChampionInfo(string filter)

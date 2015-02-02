@@ -12,7 +12,8 @@
             <th>召唤师</th>
             <th style="width:50px">胜负</th>
             <th style="width:50px">金钱</th>
-            <th style="width:70px">杀死助</th>
+            <th style="width: 70px">杀死助</th>
+            <th style="width:50px">评价</th>
             <th>出装</th>
         </tr>
         @foreach (Record r in Model)
@@ -37,7 +38,8 @@
                 </td>
                 <td style="text-align:center">@Html.Raw(r.IsWin==1?"<font color='green'>胜利</font>" : "<font color='red'>失败</font>")</td>
                 <td style="text-align:center">@r.GoldEarned</td>
-                <td style="text-align:center">@r.Kill/@r.Death/@r.Assist</td>
+                <td style="text-align: center">@r.Kill/@r.Death/@r.Assist</td>
+                <td style="text-align:center">@r.Contribute</td>
                 <td style="text-align: center">
 
                     <div class="@ViewBag.Pex@r.Item0" style="float: left; height: 30px; width: 30px;margin-left:1px"></div>

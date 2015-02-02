@@ -75,8 +75,10 @@ namespace Fzrain.Service.Lol
         public List<int> GetUpdateIds(string qq, int areaId)
         {
            var allIds=  GetGameIds(qq, areaId);
-           int maxId=   battleRepository.Table.Select(b => b.GameId).Max();
-          return   allIds.FindAll(id => id > maxId);
+          
+           var ids=   battleRepository.Table.Select(b => b.GameId);
+           
+          return   allIds.Where(id=>!ids.Contains(id)).ToList();
         }
 
         public List<string> GetContributes()
@@ -108,7 +110,7 @@ namespace Fzrain.Service.Lol
                     }
 
                 }
-                battle.ContributeOrder = 0;
+                battle.ContributeOrder = battle.Records.Where(r => r.Name == "网络中断突然" || r.Name == "笨笨秒杀上帝").First().ContributeOrder;
                 battleRepository.Update(battle);
 
                 //Battle battle = battleRepository.Table.IncludeProperties(r => r.Records).Where(b => b.ContributeOrder==0).First();
