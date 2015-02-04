@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Fzrain.Core.Data;
 using Fzrain.Core.Domain;
 using Fzrain.Core.Domain.Permission;
 
 namespace Fzrain.Web.Controllers
 {
-    public class DepartmentController : Controller
+    public class DepartmentController : BaseListController<Department>
     {
         // GET: Department
+        public DepartmentController(IRepository<Department> repository) : base(repository)
+        {
+        }
+
         public ActionResult GetDptTreeData(int? id)
         {
             Department d1 = new Department { Id = 1, DepartmentName = "开发部" };

@@ -1,51 +1,14 @@
 ﻿@using Fzrain.Core.Domain.Permission
-
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@section featured{
-    <style>
-        #page-tree {
-            padding: 20px 20px 40px 30px;
-            white-space: normal;
-            word-break: break-all;
-            overflow: hidden;
-        }
-
-        #page-tree .k-sprite {
-            background-image: url(../../Content/web/treeview/icons-sprite.png);
-        }
-
-        .folder { background-position: 0 0; }
-        .file { background-position: 0 -16px; }
-        .image { background-position: 0 -32px; }
-        .k-edit-form-container {
-            position: relative;
-            width:800px
-        }
-    </style>
-    <script type="text/javascript">
-        $(function() {
-            $("#cbAll").change(function() {
-                $('.check_children').prop("checked", this.checked);
-            });
-        });
-
-        function showGender(gender) {
-            if (gender == "0") {
-                return "男";
-            } else {
-                return "女";
-            }
-
-
-        }
-
-    </script>
-}
-
+@(Html.Kendo().Window()
+    .Name("window").Visible(false)        
+    .Draggable()
+    .Modal(true)   
+    .Actions(actions => actions.Minimize().Maximize().Close()).Position(a => a.Left(335).Top(100))
+)
 <div id="page-nav" class="mainleft">
 
     @Html.Kendo().TreeView().Name("page-tree").DataSource(d => d.Read("GetDptTreeData", "Department")).DataTextField("Name").DataSpriteCssClassField("image")
@@ -54,50 +17,108 @@
 
 <div class="mainright">
     @(Html.Kendo().Grid<User>()
-                .Name("grid").Excel(c => c.FileName("data"))
-                .Columns(columns =>
-                {
-                    columns.Bound(u => u.Id).Filterable(false)
-                     .HeaderTemplate("<input id='cbAll' type='checkbox'  />").HeaderHtmlAttributes(new { style = "text-align: center" })
-                      .ClientTemplate("<input class='check_children'  type='checkbox' value='#=Id#'  />")
-                      .HtmlAttributes(new { style = "text-align: center" })
-                      .Width(20);
-                    columns.Bound(u => u.Id).Width(20).Filterable(false);
-                    columns.Bound(u => u.UserName).Width(100);
-                    columns.Bound(u => u.Password).Width(100);
-
-                    columns.Bound(u => u.Birthday).Width(100).Format("{0:yyyy-MM-dd HH:mm:ss}");
-                    columns.Bound(u => u.Gender).Width(100).ClientTemplate("#=showGender(Gender)#");
-                    columns.Command(command =>
-                    {
-                        command.Edit().CancelText("取消").UpdateText("保存"); command.Destroy();
-                    }).Width(80);
-                })
-                .ToolBar(toolbar =>
-                {
-                    toolbar.Create().Text("新增");
-                    toolbar.Excel().Text("导出Excel");
-                    toolbar.Custom().Text("批量删除");
-                })
-                .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("../../User/UserEdit").Window(c => c.Title("用户信息").Scrollable(true).Name("editWindow") ))
-                .Pageable(c => c.PageSizes(true).Messages(m => m.ItemsPerPage("每页记录数")).Refresh(true))
-                .Filterable()
-                .Scrollable()
-                .HtmlAttributes(new { style = "height:100%;" })
-                .DataSource(dataSource => dataSource
-                    .Ajax()
-                    .PageSize(5)
-                    .Model(model =>
-                    {
-                        model.Id(u => u.Id);
-                        model.Field(u => u.Birthday).DefaultValue(DateTime.Now);
-                        model.Field(u => u.IsPublic).DefaultValue(true);
-                    })
-                    .Create(update => update.Action("Create", "User"))
-                    .Read(read => read.Action("Read", "User"))
-                    .Update(update => update.Action("Update", "User"))
-                    .Destroy(update => update.Action("Destroy", "User"))
-            )
-    )
+          .Name("grid").Excel(c => c.FileName("data"))
+          .Columns(columns =>
+          {
+              columns.Bound(u => u.Id).Filterable(false)
+                  .HeaderTemplate("<input type='checkbox' id='cbAll' class='k-checkbox' ><label class='k-checkbox-label' for='cbAll'></label>").HeaderHtmlAttributes(new { style = "text-align: center" })
+                  .ClientTemplate("<input class='check_children'  type='checkbox' value='#=Id#'  />")
+                  .HtmlAttributes(new { style = "text-align: center" })
+                  .Width(20);
+              columns.Bound(u => u.Id).Width(20).Filterable(false);
+              columns.Bound(u => u.UserName).Width(80);
+              columns.Bound(u => u.Password).Width(100);
+              columns.Bound(u => u.Birthday).Width(100).Format("{0:yyyy-MM-dd HH:mm:ss}");
+              columns.Bound(u => u.Gender).Width(100).ClientTemplate("#=showGender(Gender)#");                  
+              columns.Bound(u => u.Id).ClientTemplate("<a class='setRole' href='javacript:void(0)'>#=Id#</a>").Width(40).Title("设置").Filterable(false);
+                   
+              columns.Command(command =>
+              {
+                  command.Edit().CancelText("取消").UpdateText("保存"); command.Destroy();                     
+              }).Width(80);
+          })
+          .ToolBar(toolbar =>
+          {
+              toolbar.Create().Text("新增");
+              toolbar.Excel().Text("导出Excel");
+              toolbar.Custom().Text("批量删除");
+          })
+          .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("../../User/UserEdit").Window(c => c.Title("用户信息").Scrollable(true).Name("editWindow") ))
+          .Pageable(c => c.PageSizes(true).Messages(m => m.ItemsPerPage("每页记录数")).Refresh(true))
+          .Filterable()
+          .Scrollable()
+          .HtmlAttributes(new { style = "height:100%;" })
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .PageSize(5)
+              .Model(model =>
+              {
+                  model.Id(u => u.Id);
+                  model.Field(u => u.Birthday).DefaultValue(DateTime.Now);
+                  model.Field(u => u.IsPublic).DefaultValue(true);
+              })
+              .Create(update => update.Action("Create", "User"))
+              .Read(read => read.Action("Read", "User"))
+              .Update(update => update.Action("Update", "User"))
+              .Destroy(update => update.Action("Destroy", "User"))
+          )
+          )
     
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#cbAll").change(function () {
+            $('.check_children').prop("checked", this.checked);
+        });
+        $(".setRole").click(function () {
+            var kendoWindow = $("#window").data("kendoWindow");
+            $.post("User/Roles", { id: $(this).text() }, function (data) {
+                kendoWindow.content(data);
+                kendoWindow.center().open();
+            });
+            return false;
+        });
+    });
+
+    function showGender(gender) {
+        if (gender == "0") {
+            return "男";
+        } else {
+            return "女";
+        }
+
+
+    }
+
+</script>
+
+<style>
+    #page-tree {
+        padding: 20px 20px 40px 30px;
+        white-space: normal;
+        word-break: break-all;
+        overflow: hidden;
+    }
+
+        #page-tree .k-sprite {
+            background-image: url(../../Content/web/treeview/icons-sprite.png);
+        }
+
+    .folder {
+        background-position: 0 0;
+    }
+
+    .file {
+        background-position: 0 -16px;
+    }
+
+    .image {
+        background-position: 0 -32px;
+    }
+
+    .k-edit-form-container {
+        position: relative;
+        width: 800px;
+    }
+</style>

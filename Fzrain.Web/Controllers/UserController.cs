@@ -14,13 +14,21 @@ using Fzrain.Service.UserManage;
 using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using Fzrain.Data ;
 
 namespace Fzrain.Web.Controllers
 {
     public class UserController : BaseListController<User>
     {
-        public UserController(IRepository<User> repository) : base(repository)
+        private IUserService userService;
+        public UserController(IRepository<User> repository, IUserService userService) : base(repository)
         {
+            this.userService = userService;
+        }
+
+        public ActionResult Roles(int id)
+        {
+            return PartialView(userService.GetRoles());
         }
     }
 }

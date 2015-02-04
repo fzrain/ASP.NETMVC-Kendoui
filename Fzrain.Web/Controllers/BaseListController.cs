@@ -2,9 +2,11 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Web.Mvc;
 using Fzrain.Core;
 using Fzrain.Core.Data;
+using Fzrain.Web.Framework.Mvc;
 using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -13,7 +15,7 @@ namespace Fzrain.Web.Controllers
 {
     public abstract class BaseListController<T> : Controller where T : BaseEntity
     {
-        private readonly IRepository<T> repository;
+        private  readonly IRepository<T> repository;
 
         protected BaseListController(IRepository<T> repository)
         {
@@ -34,7 +36,7 @@ namespace Fzrain.Web.Controllers
             return Json(repository.Table.AsQueryable().ToDataSourceResult(request));
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         public virtual ActionResult Create([DataSourceRequest] DataSourceRequest request, T entity)
         {
             if (entity != null && ModelState.IsValid)
@@ -45,7 +47,7 @@ namespace Fzrain.Web.Controllers
             return Json(new[] { entity }.ToDataSourceResult(request, ModelState));
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         public virtual ActionResult Update([DataSourceRequest] DataSourceRequest request, T entity)
         {
 
@@ -64,7 +66,7 @@ namespace Fzrain.Web.Controllers
             return Json(new[] { entity }.ToDataSourceResult(request, ModelState));
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         public virtual ActionResult Destroy([DataSourceRequest] DataSourceRequest request, int id)
         {
             var tEntity = repository.GetById(id);
@@ -76,6 +78,15 @@ namespace Fzrain.Web.Controllers
             return Json(new[] { tEntity }.ToDataSourceResult(request, ModelState));
         }
 
-        
+        protected override JsonResult Json(object data, string contentType, Encoding contentEncoding, JsonRequestBehavior behavior)
+        {
+            return new JsonNetResult
+            {
+                Data = data,
+                ContentType = contentType,
+                ContentEncoding = contentEncoding,
+                JsonRequestBehavior = behavior
+            };
+        }
     }
 }

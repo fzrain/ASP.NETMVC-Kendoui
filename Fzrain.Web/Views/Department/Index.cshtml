@@ -1,0 +1,40 @@
+﻿@using Fzrain.Core.Domain.Permission
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@(Html.Kendo().Grid<Department>()
+            .Name("grid").Excel(c => c.FileName("data"))
+            .Columns(columns =>
+            {
+               
+                columns.Bound(s => s.Id).Width(20).Filterable(false);
+                columns.Bound(s => s.DepartmentName).Width(100);               
+                columns.Command(command =>
+                {
+                    command.Edit().CancelText("取消").UpdateText("保存"); command.Destroy();
+                }).Width(80);
+            })
+            .ToolBar(toolbar => toolbar.Create().Text("新增"))
+                .Editable(editable => editable.Mode(GridEditMode.PopUp))
+            .Pageable(c => c.PageSizes(true).Messages(m => m.ItemsPerPage("每页记录数")).Refresh(true))
+            .Filterable()
+            .Scrollable()
+            .HtmlAttributes(new { style = "height:100%;" })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(5)
+                .Model(model =>
+                {
+                    model.Id(u => u.Id);
+                    model.Field(u => u.Id).Editable(false);
+                    model.Field(u => u.DepartmentName);
+                })
+                .Create(update => update.Action("Create", "Department"))
+                            .Read(read => read.Action("Read", "Department"))
+                            .Update(update => update.Action("Update", "Department"))
+                            .Destroy(update => update.Action("Destroy", "Department"))
+            )
+)

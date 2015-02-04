@@ -32,10 +32,36 @@ namespace Fzrain.Service.Lol
             foreach (var id in ids)
             {
                 Thread.Sleep(5000);
-                var b =GetDataById(Convert.ToInt32(id), areaId);
-                b.ChampionId = b.Records.Where(r => r.Name == myRoleName).FirstOrDefault().ChampionId;
-                b.IsWin = b.Records.Where(r => r.Name == myRoleName).FirstOrDefault().IsWin;
-                battleRepository.Insert(b);
+                var battle = GetDataById(Convert.ToInt32(id), areaId);
+                battle.ChampionId = battle.Records.Where(r => r.Name == myRoleName).FirstOrDefault().ChampionId;
+                battle.IsWin = battle.Records.Where(r => r.Name == myRoleName).FirstOrDefault().IsWin;
+
+                List<double> list = new List<double>();
+
+                foreach (Record record in battle.Records)
+                {
+                    double damageRatio = Math.Round((double)record.TotalDamage / battle.Records.Sum(r => r.TotalDamage), 2);
+                    double killRatio = Math.Round((double)record.Kill / battle.Records.Sum(r => r.Kill), 2);
+                    double deathRatio = Math.Round((double)record.Death / battle.Records.Sum(r => r.Death), 2);
+                    double assistRatio = Math.Round((double)(record.Assist + record.Kill) / battle.Records.Where(r => r.IsWin == record.IsWin).Sum(r => r.Kill), 2);
+                    double contribute = Math.Round(damageRatio * 50 + killRatio * 25 - deathRatio * 15 + assistRatio * 5, 2);
+                    list.Add(contribute);
+                    record.Contribute = contribute;
+
+                }
+                foreach (double d in list)
+                {
+                    int index = battle.Records.Where(r => r.Contribute > d).Count();
+                    var records = battle.Records.Where(r => r.Contribute == d).ToList();
+                    foreach (Record record in records)
+                    {
+                        record.ContributeOrder = index + 1;
+                    }
+
+                }
+                battle.ContributeOrder = battle.Records.Where(r => r.Name == myRoleName).First().ContributeOrder;
+             //   battleRepository.Update(battle);
+                battleRepository.Insert(battle);
             }
         }
 

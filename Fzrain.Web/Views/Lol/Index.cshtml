@@ -90,7 +90,7 @@
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
         var kendoWindow = $("#window2").data("kendoWindow");
         $.post("/Lol/GetBattleDetail", { GameId: dataItem.GameId }, function (data) {
-            // kendo.alert("haha");
+         
             kendoWindow.content(data);
             kendoWindow.center().open();
         });
