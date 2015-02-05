@@ -14,7 +14,7 @@
                 columns.Bound(u => u.StartTime).Width(80).Format("{0:yyyy-MM-dd HH:mm:ss}");
                 columns.Bound(u => u.Duration).Width(80).ClientTemplate("#=(Duration/60).toFixed(2)#");
                 columns.Bound(u => u.IsWin).Width(80).ClientTemplate("#=showWinStatus(IsWin)#");
-                columns.Bound(u => u.ContributeOrder).Width(80).ClientTemplate("#=ContributeOrder#"); ;
+                columns.Bound(u => u.ContributeOrder).Width(80).ClientTemplate("#=RenderContribute(ContributeOrder)#"); ;
                 columns.Command(c => c.Custom("战斗详情").Click("showDetails")).Width(80);
             })
             .ToolBar(c => c.Custom().Text("更新战绩").HtmlAttributes(new { id = "updateBattle" }))
@@ -124,6 +124,13 @@
         }
     }
 
+    function RenderContribute(contributeOrder) {
+        if (contributeOrder==1) {
+            return "<img height='40px' src='../../Content/mvp.png' alt='' />";
+        } else {
+            return contributeOrder;
+        }
+    }
 
 
     function championFilter(element) {

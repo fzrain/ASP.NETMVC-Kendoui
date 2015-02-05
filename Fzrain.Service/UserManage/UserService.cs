@@ -2,6 +2,7 @@
 using System.Linq;
 using Fzrain.Core.Data;
 using Fzrain.Core.Domain.Permission;
+using Fzrain.Data;
 
 namespace Fzrain.Service.UserManage
 {
@@ -16,14 +17,19 @@ namespace Fzrain.Service.UserManage
             this.roleRepository = roleRepository;
         }
 
-        public List<Role> GetRoles()
+        public List<Role> GetAllRoles()
         {
           return   roleRepository.Table.ToList();
         }
 
+        public List<Role> GetRoles(int userId)
+        {
+           return  userRepository.GetById(userId).Roles.ToList();
+        }
+
         public void SetRoles(int userId, List<int> roleIds)
         {
-            User user=  userRepository.GetById(userId);
+            User user=  userRepository.Table.Where(u=>u.Id==userId).IncludeProperties(u=>u.Roles).FirstOrDefault();
             user.Roles = roleRepository.Table.Where(r => roleIds.Contains(r.Id)).ToList();
             userRepository.Update(user);
         }

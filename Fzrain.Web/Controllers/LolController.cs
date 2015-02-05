@@ -38,7 +38,7 @@ namespace Fzrain.Web.Controllers
             return Json(lolService.GetAllBattles().Select(b => new { b.BattleType, b.Duration, b.GameId, b.Id, b.StartTime, b.ChampionId, b.IsWin,b.ContributeOrder  }).ToDataSourceResult(request));
         }
 
-        public ActionResult ShowChampionInfo(string filter)
+        public ActionResult ShowChampionInfo(string filter, DateTime? beginDate)
         {
             var allRecodes = lolService.GetAllRecords().IncludeProperties(r=>r.Battle);
             if (!string.IsNullOrWhiteSpace(filter))
@@ -54,7 +54,11 @@ namespace Fzrain.Web.Controllers
                 
                 
             }
-           var recodes = allRecodes.Where(l => l.Battle.BattleType == 6).Select(l => new { l.ChampionId, l.IsWin, l.Name }).ToList();
+            if (beginDate.HasValue)
+            {
+                allRecodes = allRecodes.Where(r => r.Battle.StartTime > beginDate);
+            }
+            var recodes = allRecodes.Where(l => l.Battle.BattleType == 6).Select(l => new { l.ChampionId, l.IsWin, l.Name }).ToList();
             var champions = from r in recodes
                             group r by r.ChampionId
                             into g

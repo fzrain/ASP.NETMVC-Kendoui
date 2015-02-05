@@ -29,12 +29,14 @@ namespace Fzrain.Web.Controllers
         public ActionResult Roles(int id)
         {
             ViewBag.UserId = id;
-            return PartialView(userService.GetRoles());
+            ViewBag.MyRoles = userService.GetRoles(id);
+            return PartialView(userService.GetAllRoles());
         }
 
         public ActionResult SetRoles(List<int> roleIds,int userId)
         {
-            return new EmptyResult();
+            userService.SetRoles(userId, roleIds);
+            return Json("ok");
         }
     }
 }
