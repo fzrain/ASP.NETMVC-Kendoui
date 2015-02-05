@@ -2,8 +2,23 @@
 @model List<Role>
 
 <div>
+    @Html.Hidden("userId", (int)ViewBag.UserId)
     @foreach (Role role in Model)
     {
-  
+        @Html.Kendo().CheckBox().Name(role.Id.ToString()).Label(role.RoleName)
     }
 </div>
+<div class="operate">
+    @Html.Kendo().Button().Content("保存").SpriteCssClass("k-icon k-update").Name("save").HtmlAttributes(new { @class = "k-primary" }).Events(e=>e.Click("save"))
+    @Html.Kendo().Button().Content("取消").SpriteCssClass("k-icon k-cancel").Name("cancel")
+</div>
+<style>
+    .operate {
+        margin-top: 20px;
+        text-align: right;
+        border-width: 1px 0 0;
+        border-style: solid;     
+        padding: .6em;
+        border-color: #ccc;
+    }
+</style>

@@ -20,7 +20,7 @@ namespace Fzrain.Web.Controllers
 {
     public class UserController : BaseListController<User>
     {
-        private IUserService userService;
+        private readonly IUserService userService;
         public UserController(IRepository<User> repository, IUserService userService) : base(repository)
         {
             this.userService = userService;
@@ -28,7 +28,13 @@ namespace Fzrain.Web.Controllers
 
         public ActionResult Roles(int id)
         {
+            ViewBag.UserId = id;
             return PartialView(userService.GetRoles());
+        }
+
+        public ActionResult SetRoles(List<int> roleIds,int userId)
+        {
+            return new EmptyResult();
         }
     }
 }

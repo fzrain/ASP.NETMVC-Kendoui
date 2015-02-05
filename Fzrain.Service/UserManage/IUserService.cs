@@ -7,5 +7,6 @@ namespace Fzrain.Service.UserManage
    public  interface  IUserService
    {
        List<Role> GetRoles();
+       void SetRoles(int userId,List<int> roleIds);
    }
 }

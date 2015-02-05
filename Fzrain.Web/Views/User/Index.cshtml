@@ -4,9 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @(Html.Kendo().Window()
-    .Name("window").Visible(false)        
+    .Name("window").Visible(false).Title("设置角色")
     .Draggable()
-    .Modal(true)   
+    .Modal(true)
     .Actions(actions => actions.Minimize().Maximize().Close()).Position(a => a.Left(335).Top(100))
 )
 <div id="page-nav" class="mainleft">
@@ -29,12 +29,12 @@
               columns.Bound(u => u.UserName).Width(80);
               columns.Bound(u => u.Password).Width(100);
               columns.Bound(u => u.Birthday).Width(100).Format("{0:yyyy-MM-dd HH:mm:ss}");
-              columns.Bound(u => u.Gender).Width(100).ClientTemplate("#=showGender(Gender)#");                  
-              columns.Bound(u => u.Id).ClientTemplate("<a class='setRole' href='javacript:void(0)'>#=Id#</a>").Width(40).Title("设置").Filterable(false);
-                   
+              columns.Bound(u => u.Gender).Width(100).ClientTemplate("#=showGender(Gender)#");
+              columns.Bound(u => u.Id).ClientTemplate("<div onclick='setRole(#=Id#)' class='roleSetIcon'></div>").Width(25).Title("设置").Filterable(false);
+
               columns.Command(command =>
               {
-                  command.Edit().CancelText("取消").UpdateText("保存"); command.Destroy();                     
+                  command.Edit().CancelText("取消").UpdateText("保存"); command.Destroy();
               }).Width(80);
           })
           .ToolBar(toolbar =>
@@ -43,7 +43,7 @@
               toolbar.Excel().Text("导出Excel");
               toolbar.Custom().Text("批量删除");
           })
-          .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("../../User/UserEdit").Window(c => c.Title("用户信息").Scrollable(true).Name("editWindow") ))
+          .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("../../User/UserEdit").Window(c => c.Title("用户信息").Scrollable(true).Name("editWindow")))
           .Pageable(c => c.PageSizes(true).Messages(m => m.ItemsPerPage("每页记录数")).Refresh(true))
           .Filterable()
           .Scrollable()
@@ -62,8 +62,8 @@
               .Update(update => update.Action("Update", "User"))
               .Destroy(update => update.Action("Destroy", "User"))
           )
-          )
-    
+    )
+
 </div>
 
 <script type="text/javascript">
@@ -71,15 +71,18 @@
         $("#cbAll").change(function () {
             $('.check_children').prop("checked", this.checked);
         });
-        $(".setRole").click(function () {
-            var kendoWindow = $("#window").data("kendoWindow");
-            $.post("User/Roles", { id: $(this).text() }, function (data) {
-                kendoWindow.content(data);
-                kendoWindow.center().open();
-            });
-            return false;
-        });
+
     });
+
+    function setRole(id) {
+        var kendoWindow = $("#window").data("kendoWindow");
+        $.post("User/Roles", { id: id }, function (data) {
+            kendoWindow.content(data);
+            kendoWindow.center().open();
+        });
+        return false;
+
+    }
 
     function showGender(gender) {
         if (gender == "0") {
@@ -87,34 +90,25 @@
         } else {
             return "女";
         }
-
-
     }
-
+    function save() {
+        var ids=[];
+        $.each($(".k-checkbox:checked"), function (i) {
+           ids[i]= $(this).attr("name");
+        });       
+        $.post("User/SetRoles", { roleIds: ids, userId: $("#userId").val() }, function (data) {
+            
+        });
+    }
 </script>
 
 <style>
-    #page-tree {
-        padding: 20px 20px 40px 30px;
-        white-space: normal;
-        word-break: break-all;
-        overflow: hidden;
-    }
-
-        #page-tree .k-sprite {
-            background-image: url(../../Content/web/treeview/icons-sprite.png);
-        }
-
-    .folder {
-        background-position: 0 0;
-    }
-
-    .file {
-        background-position: 0 -16px;
-    }
-
-    .image {
-        background-position: 0 -32px;
+    .roleSetIcon {
+        background-image: url(../../Content/kendo/2014.3.1119/Bootstrap/sprite.png);
+        background-position: -111px -109px;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
     }
 
     .k-edit-form-container {

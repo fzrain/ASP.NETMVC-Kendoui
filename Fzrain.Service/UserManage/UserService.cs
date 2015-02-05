@@ -20,5 +20,12 @@ namespace Fzrain.Service.UserManage
         {
           return   roleRepository.Table.ToList();
         }
+
+        public void SetRoles(int userId, List<int> roleIds)
+        {
+            User user=  userRepository.GetById(userId);
+            user.Roles = roleRepository.Table.Where(r => roleIds.Contains(r.Id)).ToList();
+            userRepository.Update(user);
+        }
     }
 }
