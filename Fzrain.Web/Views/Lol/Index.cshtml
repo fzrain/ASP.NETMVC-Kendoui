@@ -9,7 +9,7 @@
             .Columns(columns =>
             {
                 columns.Bound(u => u.ChampionId).ClientTemplate("<img width='50px' src='../../Content/lolpng/#=ChampionId#.png' alt='' />").Width(50).HtmlAttributes(new { style = "text-align:center" }).Filterable(filterable => filterable.UI("championFilter"));
-
+                columns.Bound(u => u.ChampionId).Width(30).HeaderTemplate("Id").Filterable(false);
                 columns.Bound(u => u.BattleType).Width(80).ClientTemplate("#=showGameType(BattleType)#");
                 columns.Bound(u => u.StartTime).Width(80).Format("{0:yyyy-MM-dd HH:mm:ss}");
                 columns.Bound(u => u.Duration).Width(80).ClientTemplate("#=(Duration/60).toFixed(2)#");
@@ -62,7 +62,7 @@
           .Title("战斗详情")
     .Draggable()
     .Modal(true)
-    .Width(600).Height(420)
+    .Width(700).Height(470)
     .Actions(actions => actions.Minimize().Maximize().Close()).Position(a => a.Left(335).Top(100))
     )
 
@@ -134,7 +134,7 @@
 
 
     function championFilter(element) {
-        element.kendoDropDownList({
+        element.kendoComboBox({
             dataSource: {
                 transport: {
                     read: "@Url.Action("FilterMenuChampion")"
