@@ -40,7 +40,7 @@ namespace Fzrain.Web.Controllers
 
         public ActionResult ShowChampionInfo(string filter, DateTime? beginDate)
         {
-            var allRecodes = lolService.GetAllRecords().IncludeProperties(r=>r.Battle);
+            var allRecodes = lolService.GetAllRecords().IncludeProperties(r=>r.Battle).OrderByDescending(r=>r.Battle.StartTime).AsQueryable();
             if (!string.IsNullOrWhiteSpace(filter))
             {
                 int num = Convert.ToInt32(filter);
@@ -58,7 +58,7 @@ namespace Fzrain.Web.Controllers
             {
                 allRecodes = allRecodes.Where(r => r.Battle.StartTime > beginDate);
             }
-            var recodes = allRecodes.Where(l => l.Battle.BattleType == 6).Select(l => new { l.ChampionId, l.IsWin, l.Name }).ToList();
+            var recodes = allRecodes.Where(l => l.Battle.BattleType == 6).Select(l => new { l.ChampionId, l.IsWin, l.Name,l.Contribute ,l.ContributeOrder }).ToList();
             var champions = from r in recodes
                             group r by r.ChampionId
                             into g
@@ -73,7 +73,10 @@ namespace Fzrain.Web.Controllers
                     TotalApprance = heroRecords.Count,
                     TotalWinCount = heroRecords.Where(a => a.IsWin == 1).Count(),
                     MyApprance = heroRecords.Where(a => MyHeroList.Contains(a.Name)).Count(),
-                    MyWinCount = heroRecords.Where(a => MyHeroList.Contains(a.Name)).Count(a => a.IsWin == 1)
+                    MyWinCount = heroRecords.Where(a => MyHeroList.Contains(a.Name)).Count(a => a.IsWin == 1),
+                    MyContribute =!heroRecords.Any(a => MyHeroList.Contains(a.Name))?0 : heroRecords.Where(a => MyHeroList.Contains(a.Name)).Average(a=>a.ContributeOrder ),
+                    TotalContribute = heroRecords.Average(a => a.ContributeOrder)
+
                 });
             }
             return View(model.OrderByDescending(l => l.MyApprance).ToList());
@@ -99,7 +102,7 @@ namespace Fzrain.Web.Controllers
         {
             championId = championId ?? 1;
             var records = lolService.GetAllRecords().Where(r => r.ChampionId == championId).ToList();
-            int avg = records.Sum(r => GetProficiency(r));
+            double avg = records.Sum(r => r.Contribute);
             
             avg = avg / records.Count();
             ViewBag.Avg = new List<double> { avg, avg, avg, avg, avg, avg, avg, avg, avg, avg };
@@ -125,34 +128,18 @@ namespace Fzrain.Web.Controllers
                     ChampionId = r.ChampionId,
                     GameId = r.Battle.GameId,
                     StartTime = r.Battle.StartTime,
-                    Proficiency = GetProficiency(r)
+                    Proficiency =r.Contribute
                 });
             }
             return View(model.OrderBy(m => m.StartTime).ToList());
         }
-        [NonAction]
-        public int GetProficiency(Record r)
-        {
-            int duration = r.Battle.Duration;
-            int killIndex = r.Battle.Records.Where(record => record.Kill >= r.Kill).Count();
-            int goldIndex = r.Battle.Records.Where(record => record.GoldEarned >= r.GoldEarned).Count();
-            int damageIndex = r.Battle.Records.Where(record => record.TotalDamage >= r.TotalDamage).Count();
-            double kda = ((double)(r.Kill * 150 - r.Death * 80 + r.Assist * 30) / duration) * 1300;
-            int contribute = 100 * (33 - killIndex - goldIndex - damageIndex);
-            int specialTag = (r.BattleTagList.Contains("5") ? 300 : 0) + (r.BattleTagList.Contains("6") ? 500 : 0) +
-                             (r.BattleTagList.Contains("7") ? 1000 : 0) + (r.BattleTagList.Contains("8") ? 800 : 0);
-            return Convert.ToInt32(kda) + contribute + specialTag;
-
-        }
+      
 
         public ActionResult FilterMenuChampion()
         {
             return Json(lolService.GetAllRecords().GroupBy(r => r.ChampionId).Select(c => c.Key), JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetContribute()
-        {
-            return Json(lolService.GetContributes(), JsonRequestBehavior.AllowGet);
-        }
+       
     }
 }

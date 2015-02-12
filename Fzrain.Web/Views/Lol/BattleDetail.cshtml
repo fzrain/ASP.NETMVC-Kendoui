@@ -1,6 +1,14 @@
 ﻿@model IEnumerable<Record>
 @using Fzrain.Core.Domain.Lol
-<link href="~/Content/lolpng/ZhuangBei.css" rel="stylesheet" />
+<link href="~/Content/lolpng/ZhuangBei.css" rel="stylesheet"/>
+<style >
+    #tabstrip > .k-tabstrip-items
+{
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+</style>
 @{
     List<double> totalDamage = new List<double>();
     List<double> damageTaken = new List<double>();
@@ -18,7 +26,7 @@
           .Name("tabstrip")
           .Items(tab =>
           {
-              tab.Add().Text("战斗简报").Content(@<text>
+          tab.Add().Text("战斗简报").Content(@<text>
         <div>
             <table>
 
@@ -72,7 +80,7 @@
             </text>).Selected(true);
               tab.Add().Text("伤害统计").Content(@<text>
                 @(Html.Kendo().Chart()
-        .Name("chart").Theme("metro")
+        .Name("chart2").Theme("metro")
         .Title("输出(承受)伤害")
         .Legend(legend => legend
             .Visible(true)
@@ -83,7 +91,7 @@
         .Series(series =>
         {
             series.Bar(totalDamage).Name("输出伤害");
-            series.Bar(damageTaken).Name("承受伤害");
+            series.Bar(damageTaken).Name("承受伤害").Color("red");
         })
         .CategoryAxis(axis => axis
             .Categories(images)

@@ -14,7 +14,7 @@ namespace Fzrain.Core.Domain.Lol
         public int Duration { get; set; }
         public int IsWin { get; set; }
         public int ChampionId { get; set; }
-        public int? ContributeOrder { get; set; }
+        public int ContributeOrder { get; set; }
 
       public virtual  ICollection<Record> Records { get; set; }
     }

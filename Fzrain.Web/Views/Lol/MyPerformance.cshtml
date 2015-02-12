@@ -17,7 +17,7 @@
             text-indent: 2em;
         }
 </style>
-<div class="mainright" style="background-color: black; color: white; overflow: auto">
+<div class="mainright" style="background-color: #35393a; color: white; overflow: auto">
     <div style="height: 119px">
         @Html.Kendo().DropDownList().DataSource(c => c.Read("FilterMenuChampion", "lol")).Name("championId").Template("<img width='50px' src='../../Content/lolpng/#:data#.png' alt='' />")
 
@@ -33,14 +33,14 @@
           .Title("我的英雄成长")
           .Legend(legend => legend
               .Position(ChartLegendPosition.Top)
-          )
+          ).ChartArea(area=>area.Background("#35393a"))
           .SeriesDefaults(seriesDefaults => seriesDefaults
               .Column().Stack(true)
           ).Events(e => e.SeriesClick("chart_seriesClick"))
           .Series(series =>
           {
               series.Line(m => m.Proficiency).Name("我的表现").Color("#44a1c1").Tooltip(t => t.Template("<div>战斗日期：#=kendo.toString(dataItem.StartTime, 'yyyy年MM月dd日') #</div><div>熟练度：#= dataItem.Proficiency#</div>"));
-              series.Line((IEnumerable<double>)ViewBag.Avg).Name("全服平均表现：" + ((IEnumerable<double>)ViewBag.Avg).First().ToString("0.00")).Color("#ef2323").Markers(false).Tooltip(false).Highlight(false);
+              series.Line((IEnumerable<double>)ViewBag.Avg).Name("全服平均表现：" + ((IEnumerable<double>)ViewBag.Avg).First()).Color("#ef2323").Markers(false).Tooltip(false).Highlight(false);
           })
           .CategoryAxis(axis => axis
               .Categories("1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
@@ -48,7 +48,7 @@
           )
           .ValueAxis(axis => axis
               .Numeric()
-              .Line(line => line.Visible(false))
+              .MajorGridLines(lines=>lines.Visible(false))
           )
           .Tooltip(tooltip => tooltip
               .Visible(true)
@@ -59,7 +59,7 @@
           .Title("战斗详情")
     .Draggable()
     .Modal(true)
-    .Width(600).Height(420)
+    .Width(700).Height(470)
     .Actions(actions => actions.Minimize().Maximize().Close()).Position(a => a.Left(335).Top(100))
     )
 </div>

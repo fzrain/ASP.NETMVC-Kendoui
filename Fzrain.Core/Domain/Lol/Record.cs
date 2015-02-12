@@ -11,8 +11,8 @@ namespace Fzrain.Core.Domain.Lol
        public string QQ { get; set; }
        public int IsWin { get; set; }
 
-       public double?  Contribute { get; set; }
-       public int? ContributeOrder { get; set; }
+       public double  Contribute { get; set; }
+       public int ContributeOrder { get; set; }
        public int TotalDamage { get; set; }
        public int ChampionId { get; set; }
        public int GoldEarned { get; set; }

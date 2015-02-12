@@ -13,5 +13,7 @@ namespace Fzrain.Web.Models.Lol
         public int TotalApprance { get; set; }
         public int TotalWinCount { get; set; }
 
+        public double MyContribute { get; set; }
+        public double  TotalContribute { get; set; }
     }
 }

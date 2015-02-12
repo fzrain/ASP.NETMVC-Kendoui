@@ -17,6 +17,6 @@ namespace Fzrain.Service.Lol
        IQueryable<Record> GetAllRecords();
         List<int> GetUpdateIds(string qq,int areaId);
 
-       List<string> GetContributes();
+    
    }
 }

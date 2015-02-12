@@ -107,46 +107,7 @@ namespace Fzrain.Service.Lol
           return   allIds.Where(id=>!ids.Contains(id)).ToList();
         }
 
-        public List<string> GetContributes()
-        {
-          
-            while (battleRepository.Table.Any(b=>!b.ContributeOrder.HasValue))
-            {
-                Battle battle = battleRepository.Table.IncludeProperties(r => r.Records).Where(b => !b.ContributeOrder.HasValue).First();
-                List<double> list = new List<double>();
-
-                foreach (Record record in battle.Records)
-                {
-                    double damageRatio = Math.Round((double)record.TotalDamage / battle.Records.Sum(r => r.TotalDamage), 2);
-                    double killRatio = Math.Round((double)record.Kill / battle.Records.Sum(r => r.Kill), 2);
-                    double deathRatio = Math.Round((double)record.Death / battle.Records.Sum(r => r.Death), 2);
-                    double assistRatio = Math.Round((double)(record.Assist + record.Kill) / battle.Records.Where(r => r.IsWin == record.IsWin).Sum(r => r.Kill), 2);
-                    double contribute = Math.Round(damageRatio * 50 + killRatio * 25 - deathRatio * 15 + assistRatio * 5, 2);
-                    list.Add(contribute);
-                    record.Contribute = contribute;
-
-                }
-                foreach (double d in list)
-                {
-                    int index = battle.Records.Where(r => r.Contribute > d).Count();
-                    var records = battle.Records.Where(r => r.Contribute == d).ToList();
-                    foreach (Record record in records)
-                    {
-                        record.ContributeOrder = index + 1;
-                    }
-
-                }
-                battle.ContributeOrder = battle.Records.Where(r => r.Name == "网络中断突然" || r.Name == "笨笨秒杀上帝").First().ContributeOrder;
-                battleRepository.Update(battle);
-
-                //Battle battle = battleRepository.Table.IncludeProperties(r => r.Records).Where(b => b.ContributeOrder==0).First();
-                //battle.ContributeOrder =
-                //    battle.Records.Where(r => r.Name == "网络中断突然" || r.Name == "笨笨秒杀上帝").First().ContributeOrder;
-                //battleRepository.Update(battle);
-            }
-         
-            return new List<string>{"ok"};
-        }
+    
 
         public List<int> GetGameIds(string qq, int areaId)
         {
