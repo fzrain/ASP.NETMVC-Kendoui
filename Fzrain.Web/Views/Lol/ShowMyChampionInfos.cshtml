@@ -1,0 +1,42 @@
+﻿@using Fzrain.Web.Models.Lol
+@model List<int>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "LolBasePage.cshtml";
+}
+<style>
+    .k-tabstrip > .k-content {
+        padding: 0;
+        border-style: none;
+        border-width: 0;
+        margin: 0;
+    }
+
+    .k-image {
+        border-radius: 50%;
+        width: 80px;
+    }
+
+    #tabstrip-images > .k-tabstrip-items {
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
+</style>
+<div class="mainright" style="background-color: #35393a; color: white; overflow: auto">
+    @(Html.Kendo().TabStrip()
+                .Name("tabstrip-images")
+                .Items(tabstrip =>
+                {
+                    foreach (var model in Model)
+                    {
+                        var childModel = ((List<ChampionGrowupViewModel>) ViewBag.ChampionInfos).Where(c => c.ChampionId == model).OrderBy(c => c.StartTime).ToList();
+                        if (childModel.Count>0)
+                        {
+                            tabstrip.Add().ImageUrl(Url.Content("../../Content/lolpng/" + model + ".png")).Content(Html.Partial("MyPerformance",childModel).ToHtmlString()).Selected(model == (int)ViewBag.CurrentId);
+                        }
+
+                    }
+                }))
+</div>

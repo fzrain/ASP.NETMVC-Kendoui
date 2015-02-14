@@ -23,7 +23,8 @@ namespace Fzrain.Data
             : base(nameOrConnectionString)
         {
             //((IObjectContextAdapter) this).ObjectContext.ContextOptions.LazyLoadingEnabled = true;
-          
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
         }
 
         public FzrainContext():this(new DataSettingsManager().LoadSettings().DataConnectionString)

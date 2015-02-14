@@ -58,7 +58,7 @@
 
                 <div style="color: yellow">全服胜率:@totalWinning.ToString("0.00")%</div>
                 <div>
-                    @Html.ActionLink("查看成长", "MyPerformance", new {championId = m.ChampionId})
+                    @Html.ActionLink("查看成长", "ShowMyChampionInfos", new { heroId = m.ChampionId})
                 </div>
                 <div style="margin:60px 0 0 10px">@m.MyContribute.ToString("0.00")/@m.TotalContribute.ToString("0.00")</div>
             </div>

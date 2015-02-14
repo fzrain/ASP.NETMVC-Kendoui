@@ -1,46 +1,19 @@
 ﻿@model List<Fzrain.Web.Models.Lol.ChampionGrowupViewModel>
-@{ Layout = "LolBasePage.cshtml";}
-<style>
-    #averageInfo ul {
-            list-style: none;
-            padding: 0px;
-            margin: 0px;
-            width: 600px;
-            height: 20px;
 
-        }
-
-       #averageInfo ul li {
-            display: block;
-            width: 33%;
-            float: left;
-            text-indent: 2em;
-        }
-</style>
-<div class="mainright" style="background-color: #35393a; color: white; overflow: auto">
-    <div style="height: 119px">
-        @Html.Kendo().DropDownList().DataSource(c => c.Read("FilterMenuChampion", "lol")).Name("championId").Template("<img width='50px' src='../../Content/lolpng/#:data#.png' alt='' />")
-
-        @Html.Kendo().Button().Content("搜索").Name("btnSearch").Events(e => e.Click("search"))
-        <div id="averageInfo">
-            @{ var averageData = (List<string>)ViewBag.AvgInfo;}
-            <ul><li>[我的]击杀：@averageData[0]</li><li>死亡：@averageData[1]</li><li>助攻：@averageData[2]</li></ul>
-            <ul><li>[平均]击杀：@averageData[3]</li><li>死亡：@averageData[4]</li><li>助攻：@averageData[5]</li></ul>
-        </div>
-    </div>
-    @(Html.Kendo().Chart(Model).Theme("metro").HtmlAttributes(new { style = "background-color:black" })
-          .Name("chart")
+<div>
+    @(Html.Kendo().Chart(Model).Theme("metro")
+          .Name("chart_"+Model.First().ChampionId)
           .Title("我的英雄成长")
           .Legend(legend => legend
               .Position(ChartLegendPosition.Top)
-          ).ChartArea(area=>area.Background("#35393a"))
+          ).ChartArea(area => area.Background("#35393a"))
           .SeriesDefaults(seriesDefaults => seriesDefaults
               .Column().Stack(true)
           ).Events(e => e.SeriesClick("chart_seriesClick"))
           .Series(series =>
           {
               series.Line(m => m.Proficiency).Name("我的表现").Color("#44a1c1").Tooltip(t => t.Template("<div>战斗日期：#=kendo.toString(dataItem.StartTime, 'yyyy年MM月dd日') #</div><div>熟练度：#= dataItem.Proficiency#</div>"));
-              series.Line((IEnumerable<double>)ViewBag.Avg).Name("全服平均表现：" + ((IEnumerable<double>)ViewBag.Avg).First()).Color("#ef2323").Markers(false).Tooltip(false).Highlight(false);
+              series.Line((IEnumerable<double>)ViewData[Model.First().ChampionId.ToString()]).Name("全服平均表现：" + ((IEnumerable<double>)ViewData[Model.First().ChampionId.ToString()]).First()).Color("#ef2323").Markers(false).Tooltip(false).Highlight(false);
           })
           .CategoryAxis(axis => axis
               .Categories("1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
@@ -48,14 +21,14 @@
           )
           .ValueAxis(axis => axis
               .Numeric()
-              .MajorGridLines(lines=>lines.Visible(false))
+              .MajorGridLines(lines => lines.Visible(false))
           )
           .Tooltip(tooltip => tooltip
               .Visible(true)
               .Format("{0}")
           )  )
     @(Html.Kendo().Window()
-        .Name("window2").Visible(false)
+        .Name("window_"+ Model.First().ChampionId).Visible(false)
           .Title("战斗详情")
     .Draggable()
     .Modal(true)
@@ -63,13 +36,14 @@
     .Actions(actions => actions.Minimize().Maximize().Close()).Position(a => a.Left(335).Top(100))
     )
 </div>
+
 <script type="text/javascript">
-    function search(e) {
+    function search() {
         window.location.href = "MyPerformance?championId=" + $("#championId").val();
     }
     function chart_seriesClick(e) {
-      
-        var kendoWindow = $("#window2").data("kendoWindow");
+
+        var kendoWindow = $("#window_"+@Model.First().ChampionId).data("kendoWindow");
         $.post("/Lol/GetBattleDetail", { GameId: e.dataItem.GameId }, function (data) {
             kendoWindow.content(data);
             kendoWindow.center().open();
@@ -77,6 +51,4 @@
 
     }
 
-    //var chart = $("#chart").data("kendoChart");
-    //chart.bind("seriesClick", chart_seriesClick);
 </script>

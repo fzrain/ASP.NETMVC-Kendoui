@@ -97,42 +97,7 @@ namespace Fzrain.Web.Controllers
             var records = lolService.GetAllRecords().Where(r => r.Battle.GameId == gameId).ToList();
             return PartialView("BattleDetail", records);
         }
-
-        public ActionResult MyPerformance(int? championId)
-        {
-            championId = championId ?? 1;
-            var records = lolService.GetAllRecords().Where(r => r.ChampionId == championId).ToList();
-            double avg = records.Sum(r => r.Contribute);
-            
-            avg = avg / records.Count();
-            ViewBag.Avg = new List<double> { avg, avg, avg, avg, avg, avg, avg, avg, avg, avg };
-            ViewBag.AvgInfo = new List<string>
-            {
-                  records.Where(r => MyHeroList.Contains(r.Name)).Average(r => r.Kill).ToString("0.00") ,    
-                  records.Where(r => MyHeroList.Contains(r.Name)).Average(r => r.Death).ToString("0.00"),
-                  records.Where(r => MyHeroList.Contains(r.Name)).Average(r => r.Assist).ToString("0.00"),
-                  records.Average(r => r.Kill).ToString("0.00"),
-                  records.Average(r => r.Death).ToString("0.00"),
-                  records.Average(r => r.Assist).ToString("0.00")
-            };
-            var myRecords = records
-                    .Where(r => MyHeroList.Contains(r.Name))
-                    .OrderByDescending(r => r.Battle.StartTime)
-                    .Take(10)
-                    .ToList();
-            List<ChampionGrowupViewModel> model = new List<ChampionGrowupViewModel>();
-            foreach (var r in myRecords)
-            {
-                model.Add(new ChampionGrowupViewModel
-                {
-                    ChampionId = r.ChampionId,
-                    GameId = r.Battle.GameId,
-                    StartTime = r.Battle.StartTime,
-                    Proficiency =r.Contribute
-                });
-            }
-            return View(model.OrderBy(m => m.StartTime).ToList());
-        }
+      
       
 
         public ActionResult FilterMenuChampion()
@@ -140,6 +105,46 @@ namespace Fzrain.Web.Controllers
             return Json(lolService.GetAllRecords().GroupBy(r => r.ChampionId).Select(c => c.Key), JsonRequestBehavior.AllowGet);
         }
 
-       
+        public ActionResult ShowMyChampionInfos(int? heroId)
+        {
+           
+            var ids = lolService.GetAllBattles().GroupBy(r => r.ChampionId).Select(c => new {c.Key,num= c.Count()}).OrderByDescending(k=>k.num).ToList();
+            List<ChampionGrowupViewModel> model = new List<ChampionGrowupViewModel>();
+            if (!heroId.HasValue)
+            {
+                heroId = ids.Select(id => id.Key).First();
+            }
+            ViewBag.CurrentId = heroId;
+            var recordLists = lolService.GetAllRecords().IncludeProperties(r => r.Battle).ToList();
+            foreach (var championId in ids.Select(id=>id.Key))
+            {
+                var records = recordLists.Where(r => r.ChampionId == championId).ToList();
+                double avg = 0;
+                foreach (var r in records)
+                    avg += r.Contribute;
+                avg = avg / records.Count();
+                ViewData[championId.ToString()] = new List<double> { avg, avg, avg, avg, avg, avg, avg, avg, avg, avg };
+               
+                    var myRecords = records
+                        .Where(r => MyHeroList.Contains(r.Name))
+                        .OrderByDescending(r => r.Battle.StartTime)
+                        .Take(10)
+                        .ToList();
+           
+                foreach (var r in myRecords)
+                {
+                    model.Add(new ChampionGrowupViewModel
+                    {
+                        ChampionId = r.ChampionId,
+                        GameId = r.Battle.GameId,
+                        StartTime = r.Battle.StartTime,
+                        Proficiency = r.Contribute
+                    });
+                }
+            }
+
+            ViewBag.ChampionInfos = model;
+            return View(ids.Select(id => id.Key).ToList());
+        }
     }
 }

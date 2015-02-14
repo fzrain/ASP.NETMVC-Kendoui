@@ -16,7 +16,7 @@ namespace Fzrain.Web.Framework.Theme
             get
             {
                 var cookie = System.Web.HttpContext.Current.Request.Cookies["theme"];
-                return cookie != null && !string.IsNullOrWhiteSpace(cookie.Value) ? cookie.Value : "material";
+                return cookie != null && !string.IsNullOrWhiteSpace(cookie.Value) ? cookie.Value : "default";
             }
         }
 

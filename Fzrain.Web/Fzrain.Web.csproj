@@ -1785,8 +1785,11 @@
     <Content Include="Views\Demo\Tab.cshtml" />
     <Content Include="Views\Department\Index.cshtml" />
     <Content Include="Views\User\Roles.cshtml" />
+    <Content Include="Views\Lol\ShowMyChampionInfos.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="assets\photos\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
