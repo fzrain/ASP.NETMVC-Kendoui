@@ -1,100 +1,87 @@
 ﻿@model IEnumerable<Record>
 @using Fzrain.Core.Domain.Lol
-<link href="~/Content/lolpng/ZhuangBei.css" rel="stylesheet"/>
-<style >
-    #tabstrip > .k-tabstrip-items
-{
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
-}
-</style>
-@{
-    List<double> totalDamage = new List<double>();
-    List<double> damageTaken = new List<double>();
-    List<string> images = new List<string>();
-    foreach (Record record in Model)
-    {
-        totalDamage.Add(record.TotalDamage);
-        damageTaken.Add(record.DamageTaken);
-
-        images.Add(record.ChampionId.ToString());
+<link href="~/Content/lolpng/ZhuangBei.css" rel="stylesheet" />
+<style>
+    table td {
+        text-align: center;
     }
-}
 
+    #equipment div {
+        float: left;
+        height: 30px;
+        width: 30px;
+        margin-left: 1px;
+    }
+</style>
 @(Html.Kendo().TabStrip()
-          .Name("tabstrip")
+          .Name("tabstrip_BattleDetail")
           .Items(tab =>
           {
-          tab.Add().Text("战斗简报").Content(@<text>
-        <div>
-            <table>
+              tab.Add().Text("战斗简报").Content(@<text>
+                <div>
+                    <table>
+                        <tr>
+                            <th>英雄</th>
+                            <th>召唤师</th>
+                            <th style="width:50px">胜负</th>
+                            <th style="width:50px">金钱</th>
+                            <th style="width:70px">杀死助</th>
+                            <th style="width:50px">评价</th>
+                            <th>出装</th>
+                        </tr>
+                        @foreach (Record r in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @{
+                            string url = "../../Content/lolpng/" + r.ChampionId + ".png";
+                            ViewBag.Pex = "n";
+                                    }
+                                    <img width="30" src="@url" alt="" />
+                                </td>
+                                <td>
+                                    <div>@r.Name</div>
+                                    @foreach (var tag in r.BattleTagList.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
+                                    {
+                                        string url2 = "../../Content/lolpng/battleSign/" + tag + ".png";
+                                        ViewBag.Pex = "n";
+                                        <div style="float: left;margin-left:2px">
+                                            <img width="15" src="@url2" alt="" />
+                                        </div>
+                                    }
 
-                <tr>
-                    <th>英雄</th>
-                    <th>召唤师</th>
-                    <th style="width:50px">胜负</th>
-                    <th style="width:50px">金钱</th>
-                    <th style="width: 70px">杀死助</th>
-                    <th style="width:50px">评价</th>
-                    <th>出装</th>
-                </tr>
-                @foreach (Record r in Model)
-                {
-                    <tr>
-                        <td style="text-align:center">
-                            @{
-                                string url = "../../Content/lolpng/" + r.ChampionId + ".png";
-                                ViewBag.Pex = "n";
-                            }
-                            <img width="30" src="@url" alt="" />
-                        </td>
-                        <td style="text-align: center">
-                            <div>@r.Name</div>
-                            @foreach (var tag in r.BattleTagList.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
-                            {
-                                string url2 = "../../Content/lolpng/battleSign/" + tag + ".png";
-                                ViewBag.Pex = "n";
-                                <div style="float: left;margin-left:2px"><img width="15" src="@url2" alt="" /></div>
-                            }
+                                </td>
+                                <td>@Html.Raw(r.IsWin == 1 ? "<font color='green'>胜利</font>" : "<font color='red'>失败</font>")</td>
+                                <td>@r.GoldEarned</td>
+                                <td>@r.Kill/@r.Death/@r.Assist</td>
+                                <td>@r.Contribute</td>
+                                <td id="equipment">
+                                    <div class="@ViewBag.Pex@r.Item0"></div>
+                                    <div class="@ViewBag.Pex@r.Item1"></div>
+                                    <div class="@ViewBag.Pex@r.Item2"></div>
+                                    <div class="@ViewBag.Pex@r.Item3"></div>
+                                    <div class="@ViewBag.Pex@r.Item4"></div>
+                                    <div class="@ViewBag.Pex@r.Item5"></div>
+                                </td>
+                            </tr>
+                        }
+                    </table>
 
-                        </td>
-                        <td style="text-align:center">@Html.Raw(r.IsWin == 1 ? "<font color='green'>胜利</font>" : "<font color='red'>失败</font>")</td>
-                        <td style="text-align:center">@r.GoldEarned</td>
-                        <td style="text-align: center">@r.Kill/@r.Death/@r.Assist</td>
-                        <td style="text-align:center">@r.Contribute</td>
-                        <td style="text-align: center">
-
-                            <div class="@ViewBag.Pex@r.Item0" style="float: left; height: 30px; width: 30px;margin-left:1px"></div>
-                            <div class="@ViewBag.Pex@r.Item1" style="float: left; height: 30px; width: 30px;margin-left:1px"></div>
-                            <div class="@ViewBag.Pex@r.Item2" style="float: left; height: 30px; width: 30px;margin-left:1px"></div>
-                            <div class="@ViewBag.Pex@r.Item3" style="float: left; height: 30px; width: 30px;margin-left:1px"></div>
-                            <div class="@ViewBag.Pex@r.Item4" style="float: left; height: 30px; width: 30px;margin-left:1px"></div>
-                            <div class="@ViewBag.Pex@r.Item5" style="float: left; height: 30px; width: 30px;margin-left:1px"></div>
-                        </td>
-                    </tr>
-                                }
-            </table>
-
-        </div>
+                </div>
             </text>).Selected(true);
               tab.Add().Text("伤害统计").Content(@<text>
-                @(Html.Kendo().Chart()
-        .Name("chart2").Theme("metro")
+        @(Html.Kendo().Chart(Model)
+        .Name("chart_BattleDetail").Theme("metro")
         .Title("输出(承受)伤害")
-        .Legend(legend => legend
-            .Visible(true)
-        )
-        .ChartArea(chartArea => chartArea
-            .Background("transparent")
-        )
+        .Legend(legend => legend.Visible(true))
+        .ChartArea(chartArea => chartArea.Background("transparent"))
         .Series(series =>
         {
-            series.Bar(totalDamage).Name("输出伤害");
-            series.Bar(damageTaken).Name("承受伤害").Color("red");
+            series.Bar(model => model.TotalDamage).Name("输出伤害");
+            series.Bar(model => model.DamageTaken).Name("承受伤害").Color("red");
         })
         .CategoryAxis(axis => axis
-            .Categories(images)
+            .Categories(model => model.ChampionId)
             .MajorGridLines(lines => lines.Visible(false))
         )
         .ValueAxis(axis => axis
@@ -102,13 +89,7 @@
             .Line(line => line.Visible(false))
             .MajorGridLines(lines => lines.Visible(true))
         )
-        .Tooltip(tooltip => tooltip
-            .Visible(true)
-            .Template("#= series.name #: #= value #")
-        )
-                )
-
-
+        .Tooltip(tooltip => tooltip.Visible(true).Template("#= series.name #: #= value #")))
             </text>);
           }))
 

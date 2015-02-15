@@ -63,6 +63,7 @@
     <Compile Include="Mapping\Configuration\SettingMap.cs" />
     <Compile Include="Mapping\Logging\LogMap.cs" />
     <Compile Include="Mapping\Lol\BattleMap.cs" />
+    <Compile Include="Mapping\Lol\BrilliantTimeMap.cs" />
     <Compile Include="Mapping\Lol\ChampionInfoMap.cs" />
     <Compile Include="Mapping\Lol\RecordMap.cs" />
     <Compile Include="Mapping\Permission\DepartmentMap.cs" />

@@ -92,6 +92,7 @@
     <Compile Include="Data\IRepository.cs" />
     <Compile Include="Domain\Configuration\Setting.cs" />
     <Compile Include="Domain\Logging\LogType.cs" />
+    <Compile Include="Domain\Lol\BrilliantTime.cs" />
     <Compile Include="Domain\Lol\ChampionInfo.cs" />
     <Compile Include="Domain\Permission\Department.cs" />
     <Compile Include="Domain\Logging\Log.cs" />

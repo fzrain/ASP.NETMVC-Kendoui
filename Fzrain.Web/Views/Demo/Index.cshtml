@@ -81,30 +81,31 @@
     </script>
 </div>
 <div class="mainright">
+   
     @(Html.Kendo().Chart()
-        .Name("chart").Theme("metro")
-        .Title("Site Visitors Stats \n /thousands/")
-        .Legend(legend => legend
-            .Visible(false)
-        )
-        .ChartArea(chartArea => chartArea
-            .Background("transparent")
-        )
-        .Series(series => series.Bar(new double[] { 56000, 63000, 74000, 91000, 117000, 138000 }).Name("Total Visits"))
-        .CategoryAxis(axis => axis
-            .Categories("Jan", "Feb", "Mar", "Apr", "May", "Jun")
-            .MajorGridLines(lines => lines.Visible(false))
-        )
-        .ValueAxis(axis => axis
-            .Numeric()
+          .Name("chart").Theme("metro")
+          .Title("Site Visitors Stats \n /thousands/")
+          .Legend(legend => legend
+              .Visible(false)
+          )
+          .ChartArea(chartArea => chartArea
+              .Background("transparent")
+          )
+          .Series(series => series.Bar(new double[] { 56000, 63000, 74000, 91000, 117000, 138000 }).Name("Total Visits"))
+          .CategoryAxis(axis => axis
+              .Categories("Jan", "Feb", "Mar", "Apr", "May", "Jun")
+              .MajorGridLines(lines => lines.Visible(false))
+          )
+          .ValueAxis(axis => axis
+              .Numeric()
           
-            .Line(line => line.Visible(false))
-            .MajorGridLines(lines => lines.Visible(true))
-        )
-        .Tooltip(tooltip => tooltip
-            .Visible(true)
-            .Template("#= series.name #: #= value #")
-        )
-    )
+              .Line(line => line.Visible(false))
+              .MajorGridLines(lines => lines.Visible(true))
+          )
+          .Tooltip(tooltip => tooltip
+              .Visible(true)
+              .Template("#= series.name #: #= value #")
+          )
+          )
     
 </div>

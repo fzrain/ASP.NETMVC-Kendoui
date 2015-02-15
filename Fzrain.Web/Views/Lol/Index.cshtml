@@ -1,10 +1,102 @@
 ﻿@using Fzrain.Core.Domain.Lol
+@using Fzrain.Web.Framework.Theme
 @{
     ViewBag.Title = "Index";
-    Layout = "LolBasePage.cshtml";
+    Layout = "../Shared/_LayoutEmpty.cshtml";
 }
-<div class="mainright">
-    @(Html.Kendo().Grid<Battle>()
+
+<header>
+    <div class="container" class="row">
+        <h1 class="col-sm-3 hidden-sm">My Develop Plamform</h1>
+
+        <div id="configurator-wrap" class="col-sm-9 hidden-xs">
+            <div id="configurator" class="row">
+                <label class="col-sm-4">
+                    <div class="description">界面风格</div>
+                    <select id="dimensions"></select>
+
+                </label>
+
+                <label class="col-sm-4">
+                    <div class="description">控件样式</div>
+                    <select id="theme"></select>
+                </label>
+
+                <label class="col-sm-4">
+                    <div class="description">字体大小</div>
+                    <select id="font-size"></select>
+                </label>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div id="example" class="container">
+    <ul id="menu">
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="#orders">Orders</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+    </ul>
+
+    <div class="row clearfix">
+        <div class="col-lg-4">
+            <section id="profile" class="well">
+                <h2 class="ra-well-title">Profile</h2>
+
+                <div class="row">
+                    <div class="col-lg-5 col-sm-2">
+                        <img src="assets/avatar.jpg" class="ra-avatar img-responsive" />
+                    </div>
+
+                    <div class="col-lg-7 col-sm-2">
+                        <span class="ra-first-name">Jonathan</span>
+                        <span class="ra-last-name">Dodsworth</span>
+                        <div class="ra-position">Inside Sales Coordinator</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="col-lg-8">
+            <div id="tabstrip" class="ra-section">
+                <ul>
+                    <li class="k-state-active"><span class="km-icon revenue"></span><span class="hidden-xs">Revenue</span></li>
+                    <li><span class="km-icon spd"></span><span class="hidden-xs">Sales / day</span></li>
+                    <li><span class="km-icon spr"></span><span class="hidden-xs">Sales / region</span></li>
+                    <li><span class="km-icon share"></span><span class="hidden-xs">Market share</span></li>
+                </ul>
+                <div>
+                    <div style="width:340px;">
+                    @(Html.Kendo().Chart()
+                                .Name("chart1").Theme("metro")                                             
+                                .Series(series => series.Pie(new dynamic[] {
+                                    new {category = "Football",value = 35},
+                                    new {category = "Basketball",value = 25},
+                                    new {category = "Volleyball",value = 20},
+                                    new {category = "Rugby",value = 10},
+                                    new {category = "Tennis",value = 10}
+                                }))
+                                .Tooltip(tooltip => tooltip
+                                            .Visible(true).Template("#= category # - #= kendo.format('{0:P}', percentage)#(#= value #)"))
+                    )
+                    </div>
+                </div>
+                <div><div id="sales-per-day"></div></div>
+                <div><div id="sales-per-region"></div></div>
+                <div>
+                    <div id="market-alice-mutton" class="market-donut"></div>
+                    <div id="market-gravad-lax" class="market-donut"></div>
+                    <div id="market-inlagd-sill" class="market-donut"></div>
+                    <div id="market-spegesild" class="market-donut"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="orders" class="ra-section" style="height:800px">
+        @(Html.Kendo().Grid<Battle>()
             .Name("grid").Excel(c => c.FileName("data"))
             .Columns(columns =>
             {
@@ -14,7 +106,7 @@
                 columns.Bound(u => u.StartTime).Width(80).Format("{0:yyyy-MM-dd HH:mm:ss}");
                 columns.Bound(u => u.Duration).Width(80).ClientTemplate("#=(Duration/60).toFixed(2)#");
                 columns.Bound(u => u.IsWin).Width(80).ClientTemplate("#=showWinStatus(IsWin)#");
-                columns.Bound(u => u.ContributeOrder).Width(80).ClientTemplate("#=RenderContribute(ContributeOrder)#"); ;
+                columns.Bound(u => u.ContributeOrder).Width(80).ClientTemplate("#=RenderContribute(ContributeOrder)#");
                 columns.Command(c => c.Custom("战斗详情").Click("showDetails")).Width(80);
             })
             .ToolBar(c => c.Custom().Text("更新战绩").HtmlAttributes(new { id = "updateBattle" }))
@@ -31,9 +123,34 @@
                         .Read(read => read.Action("Read", "Lol"))
 
             )
-    )
+        )
+    </div>
 
-    @(Html.Kendo().Window()
+    <section id="gallery" class="well">
+        <h2 class="ra-well-title">Latest photo uploads<span style="float:right"><a href="#">更多></a> </span></h2>
+
+        <script id="listview-template" type="x-kendo-template">
+            <div class="col-xs-6 col-md-4 col-lg-2">
+                <figure>
+                    <img src="assets/photos/#= id #.jpg" class="img-responsive" />
+                    <figcaption class="hidden-xs">
+                        <h4>#: title #</h4>
+                        <p class="hidden-sm">
+                            #: description #
+                        </p>
+                    </figcaption>
+                </figure>
+            </div>
+        </script>
+        <div id="listview" class="ra-well-overlay row"></div>
+    </section>
+
+
+
+    <footer>Copyright &copy; 2013 <a href="http://telerik.com/">Telerik Inc</a>. All rights reserved.</footer>
+</div>
+
+@(Html.Kendo().Window()
         .Name("window").Visible(false)
           .Title("弹出页").Content(@<text>
             @Html.Kendo().TextBox().Name("txtQQ").Value("250970574")
@@ -51,22 +168,118 @@
             <input type="hidden" id="ids" />
             <div id="content"></div>
         </text>)
-                    .Draggable()
-                    .Modal(true)
-                    .Width(600).Height(400)
-                    .Actions(actions => actions.Minimize().Maximize().Close()).Position(a => a.Left(335).Top(100))
-    )
+        .Draggable()
+        .Modal(true)
+        .Width(600).Height(400)
+        .Actions(actions => actions.Minimize().Maximize().Close()).Position(a => a.Left(335).Top(100))
+)
 
-    @(Html.Kendo().Window()
+@(Html.Kendo().Window()
         .Name("window2").Visible(false)
           .Title("战斗详情")
     .Draggable()
     .Modal(true)
     .Width(700).Height(470)
     .Actions(actions => actions.Minimize().Maximize().Close()).Position(a => a.Left(335).Top(100))
-    )
+)
+<script type="text/javascript">
+    $("#dimensions").kendoDropDownList({
+        dataTextField: "text",
+        dataValueField: "value",
+        value: "@ThemeSetting.CurrentDimensions",
+        dataSource: [
+            { text: "Default", value: "common" },
+            { text: "Bootstrap", value: "common-bootstrap" },
+            { text: "Material", value: "common-material" }
+        ],
+        change: function () {
+            $.cookie("Dimensions", this.value(), { expiresAt: new Date(2099, 1, 1) });
+            window.location.reload();
+        }
+    });
 
-</div>
+    $("#theme").kendoDropDownList({
+        dataTextField: "text",
+        dataValueField: "value",
+        value: "@ThemeSetting.CurrentTheme",
+        dataSource: [
+            { text: "Default", value: "default" },
+            { text: "Blue Opal", value: "blueopal" },
+            { text: "Bootstrap", value: "bootstrap" },
+            { text: "Silver", value: "silver" },
+            { text: "Uniform", value: "uniform" },
+            { text: "Metro", value: "metro" },
+            { text: "Black", value: "black" },
+            { text: "Material", value: "material" },
+            { text: "Metro Black", value: "metroblack" },
+            { text: "High Contrast", value: "highcontrast" },
+            { text: "Moonlight", value: "moonlight" },
+            { text: "Flat", value: "flat" }
+        ],
+        change: function () {
+            $.cookie("theme", this.value(), { expiresAt: new Date(2099, 1, 1) });
+            window.location.reload();
+        }
+    });
+    //切换字体大小
+    function changeFontSize() {
+        var value = $("#font-size").kendoDropDownList("value");
+        $("body").css("font-size", value + "px");
+    }
+    $("#font-size").kendoDropDownList({
+        dataTextField: "text",
+        dataValueField: "value",
+        value: 14,
+        height: 204,
+        dataSource: [
+            { text: "10px", value: 10 },
+            { text: "12px", value: 12 },
+            { text: "14px", value: 14 },
+            { text: "16px", value: 16 },
+            { text: "18px", value: 18 },
+            { text: "20px", value: 20 }
+        ],
+        change: changeFontSize
+    });
+    changeFontSize();
+
+    $("#menu").kendoMenu();
+
+    function resizeTabStripContent() {
+        kendo.resize("#tabstrip");
+    }
+
+    $("#tabstrip").kendoTabStrip({
+        animation: {
+            open: { effects: "fadeIn" }
+        }
+    });
+
+    // resize nested charts when window resizes
+    $(window).resize(resizeTabStripContent);
+
+    $("#listview").kendoListView({
+        dataSource: {
+            data: [
+                { id: 1, title: "Sunrise", description: "And what a great July morning it was..." },
+                { id: 2, title: "Fisherman", description: "Fishing on the north shore" },
+                { id: 3, title: "Green Forest", description: "Summer is everywhere" },
+                { id: 4, title: "Cactus", description: "A yellow one..." },
+                { id: 5, title: "Moss", description: "Nice mossy green" },
+                { id: 6, title: "Red Boat", description: "In the middle of nowhere" },
+                { id: 7, title: "Country Road", description: "On my way home" },
+                { id: 8, title: "Bloom", description: "Cherry blossoms in full bloom" },
+                { id: 9, title: "San Francisco", description: "San Francisco by sunset" },
+                { id: 10, title: "Peaks", description: "Was a great holiday" },
+                { id: 11, title: "Thunderstorm", description: "Midnight storm on its way" },
+                { id: 12, title: "Leafs", description: "Autumn leafs on the patio" }
+            ]
+        },
+        template: $("#listview-template").html()
+    });
+
+</script>
+
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -75,7 +288,7 @@
             return false;
         });
     });
-   
+
     function GetUpdateBattles() {
         $.post("/Lol/WaitUpdate", { qq: $("#txtQQ").val(), areaId: $("#areaId").val() }, function (data) {
             $("#ids").val(data);
@@ -90,7 +303,7 @@
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
         var kendoWindow = $("#window2").data("kendoWindow");
         $.post("/Lol/GetBattleDetail", { GameId: dataItem.GameId }, function (data) {
-         
+
             kendoWindow.content(data);
             kendoWindow.center().open();
         });
@@ -125,7 +338,7 @@
     }
 
     function RenderContribute(contributeOrder) {
-        if (contributeOrder==1) {
+        if (contributeOrder == 1) {
             return "<img height='40px' src='../../Content/mvp.png' alt='' />";
         } else {
             return contributeOrder;

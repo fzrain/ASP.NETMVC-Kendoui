@@ -26,7 +26,7 @@ namespace Fzrain.Web.Controllers
         // GET: Lol
         public ActionResult Index()
         {
-          
+            List<string> model = new List<string> {};
             return View();
         }
         public ActionResult Read([DataSourceRequest] DataSourceRequest request)
@@ -74,7 +74,7 @@ namespace Fzrain.Web.Controllers
                     TotalWinCount = heroRecords.Where(a => a.IsWin == 1).Count(),
                     MyApprance = heroRecords.Where(a => MyHeroList.Contains(a.Name)).Count(),
                     MyWinCount = heroRecords.Where(a => MyHeroList.Contains(a.Name)).Count(a => a.IsWin == 1),
-                    MyContribute =!heroRecords.Any(a => MyHeroList.Contains(a.Name))?0 : heroRecords.Where(a => MyHeroList.Contains(a.Name)).Average(a=>a.ContributeOrder ),
+                    MyContribute =heroRecords.Any(a => MyHeroList.Contains(a.Name)) ? heroRecords.Where(a => MyHeroList.Contains(a.Name)).Average(a=>a.ContributeOrder ) : 0,
                     TotalContribute = heroRecords.Average(a => a.ContributeOrder)
 
                 });

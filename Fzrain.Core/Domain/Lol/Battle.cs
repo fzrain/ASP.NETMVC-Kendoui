@@ -16,6 +16,7 @@ namespace Fzrain.Core.Domain.Lol
         public int ChampionId { get; set; }
         public int ContributeOrder { get; set; }
 
-      public virtual  ICollection<Record> Records { get; set; }
+       public virtual  ICollection<Record> Records { get; set; }
+       public virtual ICollection<BrilliantTime> BrilliantTimes { get; set; }
     }
 }
