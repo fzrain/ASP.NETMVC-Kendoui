@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
-using Fzrain.Core.Domain.Lol;
+using Fzrain.Data;
 using Fzrain.Service.Lol;
 using Fzrain.Web.Models.Lol;
 using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
-using Fzrain.Data;
 
 namespace Fzrain.Web.Controllers
 {
