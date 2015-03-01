@@ -24,10 +24,10 @@ namespace Fzrain.Web.Controllers
 
         // GET: Lol
         public ActionResult Index()
-        {
-            List<string> model = new List<string> {};
+        {       
             return View();
         }
+
         public ActionResult Read([DataSourceRequest] DataSourceRequest request)
         {
 
@@ -144,6 +144,16 @@ namespace Fzrain.Web.Controllers
 
             ViewBag.ChampionInfos = model;
             return View(ids.Select(id => id.Key).ToList());
+        }
+
+        public ActionResult GetPictures()
+        {
+            List<LolPictureViewModel> list = new List<LolPictureViewModel> {new LolPictureViewModel
+            {
+                Uri ="1.jpg",
+                Name ="2015-01-01 杰斯 三杀"
+            } };
+            return Json(list);
         }
     }
 }

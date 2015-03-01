@@ -79,6 +79,7 @@
         {
             series.Bar(model => model.TotalDamage).Name("输出伤害");
             series.Bar(model => model.DamageTaken).Name("承受伤害").Color("red");
+           
         })
         .CategoryAxis(axis => axis
             .Categories(model => model.ChampionId)

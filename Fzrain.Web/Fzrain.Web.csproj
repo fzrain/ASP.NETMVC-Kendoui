@@ -163,6 +163,7 @@
     </Compile>
     <Compile Include="Models\Lol\ChampionGrowupViewModel.cs" />
     <Compile Include="Models\Lol\LolChampionInfoViewModel.cs" />
+    <Compile Include="Models\Lol\LolPictureViewModel.cs" />
     <Compile Include="Models\Scheduler\TaskViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -454,6 +455,7 @@
     <Content Include="Content\lolpng\battleSign\7.png" />
     <Content Include="Content\lolpng\battleSign\8.png" />
     <Content Include="Content\lolpng\battleSign\9.png" />
+    <Content Include="Content\lolpng\touxiang.png" />
     <Content Include="Content\mvp.png" />
     <Content Include="Content\styles.css" />
     <Content Include="Content\web\16x16\Chart.png" />
