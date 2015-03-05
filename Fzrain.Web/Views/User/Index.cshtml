@@ -21,7 +21,7 @@
           .Columns(columns =>
           {
               columns.Bound(u => u.Id).Filterable(false)
-                  .HeaderTemplate("<input type='checkbox' id='cbAll' class='k-checkbox' ><label class='k-checkbox-label' for='cbAll'></label>").HeaderHtmlAttributes(new { style = "text-align: center" })
+                  .HeaderTemplate("<input type='checkbox' id='cbAll' >").HeaderHtmlAttributes(new { style = "text-align: center" })
                   .ClientTemplate("<input class='check_children'  type='checkbox' value='#=Id#'  />")
                   .HtmlAttributes(new { style = "text-align: center" })
                   .Width(20);
@@ -69,7 +69,7 @@
 <script type="text/javascript">
     $(function () {
         $("#cbAll").change(function () {
-            $('.check_children').prop("checked", this.checked);
+            $(".check_children").prop("checked", this.checked);
         });
 
     });

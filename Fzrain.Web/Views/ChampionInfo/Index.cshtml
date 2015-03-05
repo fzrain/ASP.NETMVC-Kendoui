@@ -1,0 +1,66 @@
+﻿@using Fzrain.Core.Domain.Lol
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .k-edit-form-container {
+        position: relative;
+        width: 800px;
+    }
+    td,th span{
+        text-align:center
+    }
+</style>
+@(Html.Kendo().Grid<ChampionInfo>()
+            .Name("grid").Excel(c => c.FileName("data"))
+            .Columns(columns =>
+            {
+
+                columns.Bound(u => u.ChampionId).ClientTemplate("<img width='50px' src='../../Content/lolpng/#=ChampionId#.png' alt='' />").Width(50).Filterable(filterable => filterable.UI("championFilter"));
+                columns.Bound(s => s.PreCnName).Width(50);
+                columns.Bound(c => c.ChineseName).Width(50);
+                columns.Bound(c => c.EnglishName ).Width(50);
+                columns.Bound(s => s.NickName).Width(50);
+                columns.Bound(s => s.Position).Width(50);
+                columns.Bound(s => s.SecondPosition).Width(50);
+                columns.Bound(s => s.GoldPrice).Width(50);
+                columns.Bound(s => s.PointTicket).Width(50);
+                columns.Command(command =>
+                {
+                    command.Edit().CancelText("取消").UpdateText("保存"); command.Destroy();
+                }).Width(80);
+            })
+            .ToolBar(toolbar =>
+            {
+                toolbar.Create().Text("新增");
+           
+            })
+                .Editable(editable => editable.Mode(GridEditMode.PopUp).Window(c => c.Title("设置信息").Scrollable(true).Name("editWindow")))
+            .Pageable(c => c.PageSizes(true).Messages(m => m.ItemsPerPage("每页记录数")).Refresh(true))
+            .Filterable()
+            .Scrollable()
+            .HtmlAttributes(new { style = "height:100%;" })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(5)
+                .Model(model => model.Id(u => u.Id))
+                .Create(update => update.Action("Create", "ChampionInfo"))
+                        .Read(read => read.Action("Read", "ChampionInfo"))
+                        .Update(update => update.Action("Update", "ChampionInfo"))
+                        .Destroy(update => update.Action("Destroy", "ChampionInfo"))
+            )
+      )
+<script type="text/javascript">
+    function championFilter(element) {
+        element.kendoComboBox({
+            dataSource: {
+                transport: {
+                    read: "@Url.Action("FilterMenuChampion","lol")"
+            }
+        },
+            template: "<img width='50px' src='../../Content/lolpng/#:data#.png' alt='' />"
+    });
+    }
+</script>

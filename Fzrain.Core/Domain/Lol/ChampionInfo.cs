@@ -7,18 +7,27 @@ using System.Threading.Tasks;
 
 namespace Fzrain.Core.Domain.Lol
 {
-   public   class ChampionInfo:BaseEntity
+    public class ChampionInfo : BaseEntity
     {
-       public int ChampionId { get; set; }
-       public string  EnglishName { get; set; }
-       public string  PreCnName { get; set; }
-       public string  ChineseName { get; set; }
-       public string  NickName { get; set; }
-       public string  Position { get; set; }
-       public string  SecondPosition { get; set; }
-       public int GoldPrice { get; set; }
-       public int PointTicket { get; set; }
-     
+        [DisplayName("英雄")]
+        public int ChampionId { get; set; }
+        [DisplayName("英文名")]
+        public string EnglishName { get; set; }
+        [DisplayName("中文前缀")]
+        public string PreCnName { get; set; }
+        [DisplayName("中文名")]
+        public string ChineseName { get; set; }
+        [DisplayName("俗名")]
+        public string NickName { get; set; }
+        [DisplayName("主要定位")]
+        public string Position { get; set; }
+        [DisplayName("次要定位")]
+        public string SecondPosition { get; set; }
+        [DisplayName("金币价格")]
+        public int GoldPrice { get; set; }
+        [DisplayName("点券价格")]
+        public int PointTicket { get; set; }
+
 
     }
 }

@@ -3,47 +3,47 @@
     Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
 }
 
-    <div>
-        @(Html.Kendo().TabStrip()
+<div>
+    @(Html.Kendo().TabStrip()
           .Name("tabstrip")
           .Items(tabstrip =>
           {
               tabstrip.Add().Text("Paris")
                   .Selected(true)
                   .Content(@<text>
-                    <div class="weather">
-                        <h2>17<span>&ordm;C</span></h2>
-                        <p>Rainy weather in Paris.</p>
-                    </div>
-                    <span class="rainy">&nbsp;</span>
-                </text>);
+                               <div class="weather">
+                                   <h2>17<span>&ordm;C</span></h2>
+                                   <p>Rainy weather in Paris.</p>
+                               </div>
+                               <span class="rainy">&nbsp;</span>
+                            </text>);
 
               tabstrip.Add().Text("New York")
                   .Content(@<text>
-                    <div class="weather">
-                        <h2>29<span>&ordm;C</span></h2>
-                        <p>Sunny weather in New York.</p>
-                    </div>
-                    <span class="sunny">&nbsp;</span>
-                </text>);
+                               <div class="weather">
+                                   <h2>29<span>&ordm;C</span></h2>
+                                   <p>Sunny weather in New York.</p>
+                               </div>
+                               <span class="sunny">&nbsp;</span>
+                            </text>);
 
               tabstrip.Add().Text("Moscow")
                   .Content(@<text>
-                    <div class="weather">
-                        <h2>16<span>&ordm;C</span></h2>
-                        <p>Cloudy weather in Moscow.</p>
-                    </div>
-                    <span class="cloudy">&nbsp;</span>
-                </text>);
+                               <div class="weather">
+                                   <h2>16<span>&ordm;C</span></h2>
+                                   <p>Cloudy weather in Moscow.</p>
+                               </div>
+                               <span class="cloudy">&nbsp;</span>
+                            </text>);
 
               tabstrip.Add().Text("Sydney")
                   .Content(@<text>
-                    <div class="weather">
-                        <h2>17<span>&ordm;C</span></h2>
-                        <p>Rainy weather in Sidney.</p>
-                    </div>
-                    <span class="rainy">&nbsp;</span>
-                </text>);
+                               <div class="weather">
+                                   <h2>17<span>&ordm;C</span></h2>
+                                   <p>Rainy weather in Sidney.</p>
+                               </div>
+                               <span class="rainy">&nbsp;</span>
+                            </text>);
           })
-        ) 
-    </div>
+          )
+</div>

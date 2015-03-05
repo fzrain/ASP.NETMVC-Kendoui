@@ -24,7 +24,8 @@ namespace Fzrain.Service.UserManage
 
         public List<Role> GetRoles(int userId)
         {
-           return  userRepository.GetById(userId).Roles.ToList();
+           User user= userRepository.Table.Where(u => u.Id == userId).IncludeProperties(u => u.Roles).FirstOrDefault();
+            return  user.Roles.ToList();
         }
 
         public void SetRoles(int userId, List<int> roleIds)
