@@ -5,47 +5,50 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
-      .k-edit-form-container {
-            position: relative;
-            width:800px
-        }
+    .k-edit-form-container {
+        position: relative;
+        width: 800px
+    }
 </style>
-@(Html.Kendo().Grid<Setting>()
-            .Name("grid").Excel(c => c.FileName("data"))
-            .Columns(columns =>
-            {
-                columns.Bound(s => s.Id).Filterable(false)
-                 .HeaderTemplate("<input id='cbAll' type='checkbox'/>").HeaderHtmlAttributes(new { style = "text-align: center" })
+<div class="mainright" style="width:100%">
+    @(Html.Kendo().Grid<Setting>()
+          .Name("grid").Excel(c => c.FileName("data"))
+          .Columns(columns =>
+          {
+              columns.Bound(s => s.Id).Filterable(false)
+                  .HeaderTemplate("<input id='cbAll' type='checkbox'/>").HeaderHtmlAttributes(new {style = "text-align: center"})
                   .ClientTemplate("<input class='check_children'  type='checkbox' value='#=Id#'/>")
-                  .HtmlAttributes(new { style = "text-align: center" })
+                  .HtmlAttributes(new {style = "text-align: center"})
                   .Width(20);
-                columns.Bound(s => s.Id).Width(20).Filterable(false);
-                columns.Bound(s => s.Name).Width(100);
-                columns.Bound(s => s.Value ).Width(100);
-                columns.Bound(s => s.Describe).Width(100);              
-                columns.Command(command =>
-                {
-                    command.Edit().CancelText("取消").UpdateText("保存"); command.Destroy();
-                }).Width(80);
-            })
-            .ToolBar(toolbar =>
-            {
-                toolbar.Create().Text("新增");
-                toolbar.Excel().Text("导出Excel");
-                toolbar.Custom().Text("批量删除");
-            })
-                .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("../../Setting/SettingEdit").Window(c => c.Title("设置信息").Scrollable(true).Name("editWindow")))
-            .Pageable(c => c.PageSizes(true).Messages(m => m.ItemsPerPage("每页记录数")).Refresh(true))
-            .Filterable()
-            .Scrollable()
-            .HtmlAttributes(new { style = "height:100%;" })
-            .DataSource(dataSource => dataSource
-                .Ajax()
-                .PageSize(5)
-                .Model(model => model.Id(u => u.Id))
-                .Create(update => update.Action("Create", "Setting"))
-                        .Read(read => read.Action("Read", "Setting"))
-                        .Update(update => update.Action("Update", "Setting"))
-                        .Destroy(update => update.Action("Destroy", "Setting"))
-            )
-)
+              columns.Bound(s => s.Id).Width(20).Filterable(false);
+              columns.Bound(s => s.Name).Width(100);
+              columns.Bound(s => s.Value).Width(100);
+              columns.Bound(s => s.Describe).Width(100);
+              columns.Command(command =>
+              {
+                  command.Edit().CancelText("取消").UpdateText("保存");
+                  command.Destroy();
+              }).Width(80);
+          })
+          .ToolBar(toolbar =>
+          {
+              toolbar.Create().Text("新增");
+              toolbar.Excel().Text("导出Excel");
+              toolbar.Custom().Text("批量删除");
+          })
+          .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("../../Setting/SettingEdit").Window(c => c.Title("设置信息").Scrollable(true).Name("editWindow")))
+          .Pageable(c => c.PageSizes(true).Messages(m => m.ItemsPerPage("每页记录数")).Refresh(true))
+          .Filterable()
+          .Scrollable()
+          .HtmlAttributes(new {style = "height:100%;"})
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .PageSize(5)
+              .Model(model => model.Id(u => u.Id))
+              .Create(update => update.Action("Create", "Setting"))
+              .Read(read => read.Action("Read", "Setting"))
+              .Update(update => update.Action("Update", "Setting"))
+              .Destroy(update => update.Action("Destroy", "Setting"))
+          )
+          )
+</div>

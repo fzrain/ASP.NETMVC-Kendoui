@@ -1,4 +1,6 @@
-﻿namespace Fzrain.Core.Domain.Configuration
+﻿using System.ComponentModel;
+
+namespace Fzrain.Core.Domain.Configuration
 {
     /// <summary>
     /// Represents a setting
@@ -6,14 +8,10 @@
     public partial class Setting : BaseEntity
     {
     
-        /// <summary>
-        /// 参数名
-        /// </summary>
+       [DisplayName("参数名")]
         public string Name { get; set; }
 
-        /// <summary>
-        /// 参数值
-        /// </summary>
+        [DisplayName("参数值")]
         public string Value { get; set; }
 
    

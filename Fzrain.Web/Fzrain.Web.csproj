@@ -47,8 +47,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Autofac.Integration.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -93,8 +93,8 @@
     <Reference Include="MiniProfiler.EntityFramework6">
       <HintPath>..\packages\MiniProfiler.EF6.3.0.11\lib\net40\MiniProfiler.EntityFramework6.dll</HintPath>
     </Reference>
-    <Reference Include="MiniProfiler.Mvc, Version=3.0.10.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
-      <HintPath>..\packages\MiniProfiler.Mvc4.3.0.10\lib\net40\MiniProfiler.Mvc.dll</HintPath>
+    <Reference Include="MiniProfiler.Mvc, Version=3.0.11.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\MiniProfiler.Mvc4.3.0.11\lib\net40\MiniProfiler.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
@@ -153,13 +153,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseListController.cs" />
-    <Compile Include="Controllers\ChampionInfoController.cs" />
+    <Compile Include="Controllers\CommonControllerForList.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CommonControllerForList.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\DemoController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LolController.cs" />
     <Compile Include="Controllers\SchedulerController.cs" />
-    <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1103,6 +1106,10 @@
     <Content Include="Content\web\window\egg-chair.png" />
     <Content Include="Content\web\window\kubus-armchair.png" />
     <Content Include="Content\ZhuangBei.jpg" />
+    <Content Include="Controllers\CommonControllerForList.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CommonControllerForList.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -1645,18 +1652,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Email.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\EmailAddress.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\GridForeignKey.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Integer.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Number.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Password.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Views\User\UserEdit.cshtml" />
     <Content Include="Views\Demo\Index.cshtml" />
     <Content Include="Views\Demo\Window.cshtml" />
@@ -1789,10 +1784,14 @@
     <Content Include="Views\Demo\Notification.cshtml" />
     <Content Include="Views\Setting\SettingEdit.cshtml" />
     <Content Include="Views\Demo\Tab.cshtml" />
-    <Content Include="Views\Department\Index.cshtml" />
     <Content Include="Views\User\Roles.cshtml" />
     <Content Include="Views\Lol\ShowMyChampionInfos.cshtml" />
-    <Content Include="Views\ChampionInfo\Index.cshtml" />
+    <Content Include="Views\Shared\Components\Header.cshtml" />
+    <Content Include="Views\Shared\Components\Notification.cshtml" />
+    <Content Include="Views\Shared\Components\TreeView.cshtml" />
+    <Content Include="Views\Shared\ImportReferences.cshtml" />
+    <Content Include="Views\Shared\Components\Menu.cshtml" />
+    <Content Include="Views\Common\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\photos\" />
@@ -1801,6 +1800,9 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

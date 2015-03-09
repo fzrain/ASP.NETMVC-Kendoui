@@ -13,6 +13,7 @@ namespace Fzrain.Web.Framework.Theme
         /// </summary>
         public static string CurrentTheme
         {
+  
             get
             {
                 var cookie = System.Web.HttpContext.Current.Request.Cookies["theme"];

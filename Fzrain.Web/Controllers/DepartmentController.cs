@@ -9,12 +9,10 @@ using Fzrain.Core.Domain.Permission;
 
 namespace Fzrain.Web.Controllers
 {
-    public class DepartmentController : BaseListController<Department>
+    public partial class DepartmentController
     {
         // GET: Department
-        public DepartmentController(IRepository<Department> repository) : base(repository)
-        {
-        }
+     
 
         public ActionResult GetDptTreeData(int? id)
         {

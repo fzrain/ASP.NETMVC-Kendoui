@@ -3,133 +3,104 @@
 <html>
 <head>
     <title>@ViewBag.Title </title>
-    @*<link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />*@
-    <link href="@Url.Content("~/Content/kendo/2014.3.1119/kendo.common.min.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/kendo/2014.3.1119/kendo.mobile.all.min.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/kendo/2014.3.1119/kendo.dataviz.min.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/kendo/2014.3.1119/kendo."+ThemeSetting.CurrentTheme+".min.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/kendo/2014.3.1119/kendo.dataviz."+ThemeSetting.CurrentTheme+".min.css")" rel="stylesheet" type="text/css" />
-    <script src="@Url.Content("~/Scripts/kendo/2014.3.1119/jquery.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/kendo/2014.3.1119/jszip.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/kendo/2014.3.1119/kendo.all.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/kendo/2014.3.1119/kendo.aspnetmvc.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/kendo/2014.3.1119/messages/kendo.messages.zh-CN.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/kendo/2014.3.1119/cultures/kendo.culture.zh-CN.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/jquery.cookie.js")"></script>
-    <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
-    <script src="~/Scripts/kendo.all.min.intellisense.js"></script>
-    @StackExchange.Profiling.MiniProfiler.RenderIncludes()
-    @* ReSharper disable RequiresFallbackColor *@
+    @Html.Partial("ImportReferences")
     <style>
         * {
             margin: 0;
             padding: 0;
         }
-        a {
+
+        a, a:hover {
             text-decoration: none;
         }
+
+        td, th span {
+            text-align: center;
+        }
+
+            td i {
+                cursor: pointer;
+            }
+
         .mainleft {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 20%;
             height: 100%;
             overflow: auto;
             background: #f5f7f8;
-            z-index: 1;
+            float: left;
         }
 
         .mainright {
             width: 80%;
             background-color: #fff;
             line-height: 1.5;
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            -webkit-box-sizing: border-box;
+            float: left;
         }
 
-        #page-tree {
-            padding: 20px 20px 40px 30px;
-            white-space: normal;
-            word-break: break-all;
+
+        section {
+            width: 100%;
             overflow: hidden;
+            margin: 0;
         }
 
-            #page-tree .k-sprite {
-                background-image: url(../../Content/web/treeview/icons-sprite.png);
-            }
-
-        .folder {
-            background-position: 0 0;
-        }
-
-        .file {
-            background-position: 0 -16px;
-        }
-
-        .image {
-            background-position: 0 -32px;
-        }
-
-        /* Success template */
-        .k-notification-successAlert.k-group {
-            background: rgba(0%, 60%, 0%, .7);
+        footer {
+            background-color: #2a2d33;
             color: #fff;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            box-sizing: border-box;
+            padding: 0 1em 0 0;
+            font: 400 14px Arial, Helvetica, sans-serif;
+            list-style: none;
+            line-height: 40px;
         }
 
-        .messageClose {
-            margin: 2px 2px 0 0;
-            float: right;
-            font-size: 24px;
-        }
-
-            .messageClose:hover {
-                background: rgba(0, 153, 0, 0.2);
-                cursor: pointer;
+            footer p {
+                margin: 0;
             }
-    </style>
-    @* ReSharper restore RequiresFallbackColor *@
-    <script id="successTemplate" type="text/x-kendo-template">
-        <div class="successAlert" style="height:100px;width:382px;padding-left:30px;">
-            <img src="../../content/web/notification/success-icon.png" style="float:left;margin-top:32px" />
-            <div style="float:left;height:100px;line-height:100px;margin-left:10px"> #= message #</div>
-            <span class="messageClose">×</span>
-        </div>
-    </script>
-</head>
-<body style="margin: 0 !important; font-size: 14px;">
-    @(Html.Kendo().Notification()
-      .Name("notification")
-      .Position(p => p.Pinned(true).Bottom(50).Right(30))
-      .Stacking(NotificationStackingSettings.Down)
-      .HideOnClick(true)
-      .Animation(a => a.Open(e => e.SlideIn(SlideDirection.Left)))
-      .Templates(t => t.Add().Type("successAlert").ClientTemplateID("successTemplate"))
-    )
 
+        ::-webkit-scrollbar {
+            width: 10px;
+   
+        }
+
+        ::-webkit-scrollbar-track,
+        ::-webkit-scrollbar-thumb {
+            border-radius: 999px;
+        }
+
+        ::-webkit-scrollbar-track {
+            box-shadow: 1px 1px 5px rgba(0,0,0,.2) inset;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            box-shadow: 0 0 0 15px rgba(0,0,0,.2) inset;
+        }
+
+        ::-webkit-scrollbar-corner {
+            background: transparent;
+        }
+    </style>
     <script type="text/javascript">
         $(function () {
+            $(".mainright,.mainleft").height($(document).height() - 125 - $("#menu").height());
 
-            var notification = $("#notification").data("kendoNotification");
-            kendo.alert = function (message) {
-                notification.show({
-                    message: message
-                }, "successAlert");
-            }
         })
     </script>
-    <header style="background-color: #2a2d33; color: #fff; font-size: 12px; height: 80px; padding-right: 20px">
-        <div style="float: left; margin: 9px 0 0 20px">
-            @*<img src="@Url.Content("~/Content/logo.png")" alt="www.fzrain.com"/>*@
-        </div>
-
-    </header>
-    <section style="position: absolute; top: 80px; bottom: 40px; width: 100%; overflow: hidden; margin: 0;">
+</head>
+<body>
+    @Html.Partial("Components/Notification")
+    @Html.Partial("Components/Header")
+    <section>
+        @Html.Partial("Components/Menu")
         @RenderBody()
     </section>
-    <footer style="background-color: #2a2d33; color: #fff; text-align: center; position: absolute; bottom: 0; left: 0; width: 100%; height: 40px;box-sizing: border-box; padding: 0 1em 0 0; font: 400 14px Arial, Helvetica, sans-serif; list-style: none;line-height:40px">
+    <footer>
         <p>&copy; @DateTime.Now.Year - Fzrain Application</p>
     </footer>
 

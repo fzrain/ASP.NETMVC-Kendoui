@@ -1,0 +1,26 @@
+﻿<ul id="menu">
+    <li>
+        @Html.ActionLink("权限模块", "index", "user")
+        <ul>
+            <li>@Html.ActionLink("模块管理", "index", "module")</li>
+            <li>@Html.ActionLink("用户管理", "index", "user")</li>
+            <li>@Html.ActionLink("角色管理", "index", "role")</li>
+            <li>@Html.ActionLink("部门管理", "index", "department")</li>
+        </ul>
+    </li>
+    <li>
+        @Html.ActionLink("战绩首页", "index", "lol")
+        <ul>
+            <li>@Html.ActionLink("英雄信息", "index", "ChampionInfo")</li>
+            <li>@Html.ActionLink("英雄统计", "ShowChampionInfo", "lol", new {beginDate = "2014-10-19"}, null)</li>
+            <li>@Html.ActionLink("成长曲线", "ShowMyChampionInfos", "lol")</li>
+        </ul>
+    </li>
+    <li>
+        @Html.ActionLink("系统参数", "index", "setting")
+      
+    </li>
+</ul>
+<script type="text/javascript">
+    $("#menu").kendoMenu();
+</script>

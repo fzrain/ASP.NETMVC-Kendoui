@@ -1,0 +1,47 @@
+﻿@using Fzrain.Core
+@model Fzrain.Core.BaseEntity
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mainright" style="width: 100%">
+
+    @(Html.Kendo().Grid<dynamic>()
+          .Name("grid")
+          .Columns(columns =>
+          {
+              foreach (string column in (List<string>) ViewBag.Columns)
+              {
+                  columns.Bound(column).Width(50);
+              }
+              columns.Command(command =>
+              {
+                  command.Edit().CancelText("取消").UpdateText("保存");
+                  command.Destroy();
+              }).Width(80);
+          })
+          .ToolBar(toolbar =>
+          {
+              toolbar.Create().Text("新增");
+
+          }).Editable(editable => editable.Mode(GridEditMode.PopUp).Window(c => c.Title("设置信息").Scrollable(true).Name("editWindow")))
+          .Pageable(c => c.PageSizes(true).Messages(m => m.ItemsPerPage("每页记录数")).Refresh(true))
+          .Filterable()
+          .Scrollable()
+          .HtmlAttributes(new {style = "height:100%;"})
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .PageSize(10)
+              .Model(model =>
+              {
+                  model.Id("Id");
+                  model.Field("Id", typeof (int)).Editable(false);
+              })
+              .Create(update => update.Action("Create", (string) ViewBag.ControllerName))
+              .Read(read => read.Action("Read", (string) ViewBag.ControllerName))
+              .Update(update => update.Action("Update", (string) ViewBag.ControllerName))
+              .Destroy(update => update.Action("Destroy", (string) ViewBag.ControllerName))
+          )
+          )
+</div>

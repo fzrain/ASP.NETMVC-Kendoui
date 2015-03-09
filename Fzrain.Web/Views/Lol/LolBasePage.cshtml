@@ -1,13 +1,35 @@
 ﻿@{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "../Shared/_Layout.cshtml";
 }
 
 <style>
-   .mainleft ul {
+   
+     .mainleft {
+         position: absolute;
+         top: 85px;
+         left: 0;
+         width: 20%;
+         height: 100%;
+         overflow: auto;
+         background: #f5f7f8;
+         /*z-index: 1;*/
+     }
+
+    .mainright {
+        width: 80%;
+        background-color: #fff;
+        line-height: 1.5;
+        position: absolute;
+        top: 85px;
+        right: 0;
+        bottom: 0;
+        -webkit-box-sizing: border-box;
+    }
+    .mainleft ul {
         list-style: none;
        
-   }
+    }
   
     .mainleft li {
         width: 100%;
@@ -16,21 +38,24 @@
         text-align: center;
         line-height: 60px;
     }
-
-        .mainleft li:hover {
-            background-color: #53b3d9;
-            color: white;
-            height: 60px;
-            text-align: center;
-            line-height: 60px;
-            cursor: pointer;
-        }
+    .mainleft a {
+        padding: 22px 95px 22px 95px;
+     
+    }
+    .mainleft li:hover {
+        background-color: #53b3d9;
+        color: white;
+        height: 60px;
+        text-align: center;
+        line-height: 60px;
+        cursor: pointer;
+    }
 </style>
 <div class="mainleft" style="height: 100%; background: #35393a;">
     <ul>
-        <li>@Html.ActionLink("战绩首页", "index")</li>
-        <li>@Html.ActionLink("英雄统计", "ShowChampionInfo",new { beginDate ="2014-10-19"})</li>
-        <li>@Html.ActionLink("成长曲线", "ShowMyChampionInfos")</li>
+        <li><a href="index"><i class="fa fa-home fa-fw"></i>&nbsp;战绩首页</a></li>
+        <li><a href="ShowChampionInfo?beginDate =2014-10-19"><i class="fa fa-user fa-fw"></i>&nbsp;英雄统计</a></li>
+        <li><a href="ShowMyChampionInfos"><i class="fa fa-line-chart fa-fw"></i>&nbsp;成长曲线</a></li>
         <li>乱斗神榜</li>
         <li>阵容分析</li>
     </ul>

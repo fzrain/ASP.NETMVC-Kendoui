@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -16,15 +17,24 @@ namespace Fzrain.Web.Controllers
     public abstract class BaseListController<T> : Controller where T : BaseEntity
     {
         private  readonly IRepository<T> repository;
-
+        public bool UseCommonPage { get; set; } 
         protected BaseListController(IRepository<T> repository)
         {
+            UseCommonPage = true;
             this.repository = repository;
         }
 
         public ActionResult Index()
         {
-            return View();
+            ViewBag.ControllerName = typeof(T).Name;
+            var props = typeof(T).GetProperties().Where(p => !p.GetMethod.IsVirtual);
+            List<string> list = new List<string>();
+            foreach (PropertyInfo prop in props )
+            {
+                list.Add(prop.Name);
+            }
+            ViewBag.Columns = list;
+            return View(UseCommonPage?"../Common/Index":"");
         }
 
         public virtual ActionResult Read([DataSourceRequest] DataSourceRequest request)

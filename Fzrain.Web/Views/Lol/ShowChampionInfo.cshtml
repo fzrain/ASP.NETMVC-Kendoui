@@ -1,14 +1,12 @@
 ﻿@using Fzrain.Web.Models.Lol
-@model System.Collections.Generic.List<Fzrain.Web.Models.Lol.LolChampionInfoViewModel>
+@model List<LolChampionInfoViewModel>
 
 @{
     ViewBag.Title = "Index";
     Layout = "LolBasePage.cshtml";
 }
 <style>
-    /*#main:hover {
-       border:1px solid orange
-    }*/
+
 
     #dataDiv div {
         margin-top: 10px;
@@ -19,7 +17,7 @@
             line-height: 34px;
             text-align: center;
             border: 1px solid #ffffff;
-            border-radius: 1px;
+            border-radius: 8px;
             font-family: 'futura-pt';
             font-size: 14px;         
             display: block;
@@ -31,7 +29,7 @@
 
    
        #dataDiv a:hover {
-            background: #e02020;
+            background: #b9bfbf;
             color: black;
         }
 </style>

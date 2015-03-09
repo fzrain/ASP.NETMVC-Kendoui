@@ -1,0 +1,87 @@
+﻿@using Fzrain.Web.Framework.Theme
+<header>
+    <div class="container" class="row">
+        <h1 class="col-sm-3 hidden-sm">FZRAIN云开发平台</h1>
+
+        <div id="configurator-wrap" class="col-sm-9 hidden-xs">
+            <div id="configurator" class="row">
+                <label class="col-sm-4">
+                    <div class="description">界面风格</div>
+                    <select id="dimensions"></select>
+
+                </label>
+
+                <label class="col-sm-4">
+                    <div class="description">控件样式</div>
+                    <select id="theme"></select>
+                </label>
+
+                <label class="col-sm-4">
+                    <div class="description">字体大小</div>
+                    <select id="font-size"></select>
+                </label>
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+    $("#dimensions").kendoDropDownList({
+        dataTextField: "text",
+        dataValueField: "value",
+        value: "@ThemeSetting.CurrentDimensions",
+        dataSource: [
+            { text: "Default", value: "common" },
+            { text: "Bootstrap", value: "common-bootstrap" },
+            { text: "Material", value: "common-material" }
+        ],
+        change: function () {
+            $.cookie("Dimensions", this.value(), { expiresAt: new Date(2099, 1, 1) });
+            window.location.reload();
+        }
+    });
+
+    $("#theme").kendoDropDownList({
+        dataTextField: "text",
+        dataValueField: "value",
+        value: "@ThemeSetting.CurrentTheme",
+        dataSource: [
+            { text: "Default", value: "default" },
+            { text: "Blue Opal", value: "blueopal" },
+            { text: "Bootstrap", value: "bootstrap" },
+            { text: "Silver", value: "silver" },
+            { text: "Uniform", value: "uniform" },
+            { text: "Metro", value: "metro" },
+            { text: "Black", value: "black" },
+            { text: "Material", value: "material" },
+            { text: "Metro Black", value: "metroblack" },
+            { text: "High Contrast", value: "highcontrast" },
+            { text: "Moonlight", value: "moonlight" },
+            { text: "Flat", value: "flat" }
+        ],
+        change: function () {
+            $.cookie("theme", this.value(), { expiresAt: new Date(2099, 1, 1) });
+            window.location.reload();
+        }
+    });
+    //切换字体大小
+    function changeFontSize() {
+        var value = $("#font-size").kendoDropDownList("value");
+        $("body").css("font-size", value + "px");
+    }
+    $("#font-size").kendoDropDownList({
+        dataTextField: "text",
+        dataValueField: "value",
+        value: 14,
+        height: 204,
+        dataSource: [
+            { text: "10px", value: 10 },
+            { text: "12px", value: 12 },
+            { text: "14px", value: 14 },
+            { text: "16px", value: 16 },
+            { text: "18px", value: 18 },
+            { text: "20px", value: 20 }
+        ],
+        change: changeFontSize
+    });
+    changeFontSize();
+</script>

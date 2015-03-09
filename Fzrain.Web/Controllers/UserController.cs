@@ -18,12 +18,13 @@ using Fzrain.Data ;
 
 namespace Fzrain.Web.Controllers
 {
-    public class UserController : BaseListController<User>
+    public partial  class UserController
     {
         private readonly IUserService userService;
         public UserController(IRepository<User> repository, IUserService userService) : base(repository)
         {
             this.userService = userService;
+            UseCommonPage = false;
         }
 
         public ActionResult Roles(int id)

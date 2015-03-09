@@ -1,23 +1,41 @@
 ﻿@using Fzrain.Core.Domain.Permission
 @model List<Role>
+<script type="text/javascript">
+    function save() {
+        var ids = [];
+        $.each($(".k-checkbox:checked"), function (i) {
+            ids[i] = $(this).attr("name");
+        });
+        $.post("User/SetRoles", { roleIds: ids, userId: $("#userId").val() }, function (data) {
+            if (data == "ok") {
+                kendo.alert("设置成功！");
+                $("#window").data("kendoWindow").close();
+            }
+        });
+    }
 
+    function cancel() {
+        $("#window").data("kendoWindow").close();
+    }
+</script>
 <div>
     @Html.Hidden("userId", (int)ViewBag.UserId)
     @foreach (Role role in Model)
     {
         @Html.Kendo().CheckBox().Name(role.Id.ToString()).Label(role.RoleName).Checked(((List<Role>)ViewBag.MyRoles).Contains(role))
+        <span> &nbsp;</span>      
     }
 </div>
 <div class="operate">
     @Html.Kendo().Button().Content("保存").SpriteCssClass("k-icon k-update").Name("save").HtmlAttributes(new { @class = "k-primary" }).Events(e=>e.Click("save"))
-    @Html.Kendo().Button().Content("取消").SpriteCssClass("k-icon k-cancel").Name("cancel")
+    @Html.Kendo().Button().Content("取消").SpriteCssClass("k-icon k-cancel").Name("cancel").Events(e=>e.Click("cancel"))
 </div>
 <style>
     .operate {
         margin-top: 20px;
         text-align: right;
         border-width: 1px 0 0;
-        border-style: solid;     
+        border-style: solid;
         padding: .6em;
         border-color: #ccc;
     }

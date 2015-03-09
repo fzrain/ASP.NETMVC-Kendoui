@@ -4,7 +4,7 @@
         @Html.LabelFor(u => u.UserName)
     </div>
     <div class="editor-field">
-        @Html.EditorFor(u => u.UserName)
+        @Html.Kendo().TextBoxFor(u => u.UserName)
     </div>
 </div>
 <div style="width:400px;float :left">
@@ -12,14 +12,14 @@
         @Html.LabelFor(u => u.Password)
     </div>
     <div class="editor-field">
-        @Html.EditorFor(u => u.Password)
+        @Html.Kendo().TextBoxFor(u => u.Password)
     </div>
 </div>
 <div class="editor-label">
     @Html.LabelFor(u => u.Department.DepartmentName)
 </div>
 <div class="editor-field">
-   @Html.EditorFor(u => u.Department.DepartmentName)
+   @Html.Kendo().TextBoxFor(u => u.Department.DepartmentName)
 </div>
 
 <div class="editor-label">
@@ -44,7 +44,7 @@
 <div class="editor-label">
     @Html.LabelFor(u => u.IsPublic)
 </div>
-<div class="editor-field" style="margin-top: 5px">
+<div class="editor-field">
     @Html.Kendo().CheckBoxFor(u => u.IsPublic)
 
 </div>

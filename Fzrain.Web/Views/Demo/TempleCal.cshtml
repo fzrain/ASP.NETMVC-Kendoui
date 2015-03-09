@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="demo-section">
@@ -8,7 +8,7 @@
         @(Html.Kendo().Calendar()
         .Name("calendar")
         .Value(DateTime.Today)
-        .Footer(" ")
+   
         .MonthTemplate("#= RenderCal(data)#")
         )
     </div>

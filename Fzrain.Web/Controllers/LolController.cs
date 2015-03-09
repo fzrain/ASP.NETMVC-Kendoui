@@ -121,7 +121,7 @@ namespace Fzrain.Web.Controllers
                 double avg = 0;
                 foreach (var r in records)
                     avg += r.Contribute;
-                avg = avg / records.Count();
+                avg = Math.Round(avg / records.Count(),2);
                 ViewData[championId.ToString()] = new List<double> { avg, avg, avg, avg, avg, avg, avg, avg, avg, avg };
                
                     var myRecords = records
