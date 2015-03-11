@@ -31,7 +31,10 @@ namespace Fzrain.Web.Controllers
             List<string> list = new List<string>();
             foreach (PropertyInfo prop in props )
             {
-                list.Add(prop.Name);
+              DisplayNameAttribute attr=  prop.GetCustomAttribute<DisplayNameAttribute>();
+                string name = attr!=null ? attr.DisplayName : prop.Name;
+             
+                list.Add(prop.Name+";"+name);
             }
             ViewBag.Columns = list;
             return View(UseCommonPage?"../Common/Index":"");

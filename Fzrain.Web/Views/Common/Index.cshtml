@@ -13,7 +13,7 @@
           {
               foreach (string column in (List<string>) ViewBag.Columns)
               {
-                  columns.Bound(column).Width(50);
+                  columns.Bound(column.Split(';')[0]).Width(150).Title(column.Split(';')[1]);
               }
               columns.Command(command =>
               {
@@ -21,11 +21,7 @@
                   command.Destroy();
               }).Width(80);
           })
-          .ToolBar(toolbar =>
-          {
-              toolbar.Create().Text("新增");
-
-          }).Editable(editable => editable.Mode(GridEditMode.PopUp).Window(c => c.Title("设置信息").Scrollable(true).Name("editWindow")))
+          .ToolBar(toolbar => toolbar.Create().Text("新增")).Editable(editable => editable.Mode(GridEditMode.PopUp).Window(c => c.Title("设置信息").Scrollable(true).Name("editWindow")))
           .Pageable(c => c.PageSizes(true).Messages(m => m.ItemsPerPage("每页记录数")).Refresh(true))
           .Filterable()
           .Scrollable()
