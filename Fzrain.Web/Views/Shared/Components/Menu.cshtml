@@ -9,7 +9,7 @@
         </ul>
     </li>
     <li>
-        @Html.ActionLink("战绩首页", "index", "lol")
+        @Html.ActionLink("战绩首页",string.Empty, "lol")
         <ul>
             <li>@Html.ActionLink("英雄信息", "index", "ChampionInfo")</li>
             <li>@Html.ActionLink("英雄统计", "ShowChampionInfo", "lol", new {beginDate = "2014-10-19"}, null)</li>
@@ -18,8 +18,8 @@
     </li>
     <li>
         @Html.ActionLink("系统参数", "index", "setting")
-      
     </li>
+ 
 </ul>
 <script type="text/javascript">
     $("#menu").kendoMenu();

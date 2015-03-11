@@ -14,13 +14,6 @@
     @Html.Partial("Components/TreeView")
     @Html.Kendo().TreeView().Name("page-tree").DataSource(d => d.Read("GetDptTreeData", "Department")).DataTextField("Name").DataSpriteCssClassField("image")
 </div>
-@{
-    const string temple = "<span class='fa-stack fa-lg' style='color:transparent' onclick='setRole({Id})'>" +
-                          "<i class='fa fa-circle fa-stack-2x'></i>" +
-                          "<i class='fa fa-cog fa-stack-1x fa-inverse' style='color:black'></i>" +
-                          "</span>";
-}
-
 <div class="mainright">
     @(Html.Kendo().Grid<User>()
           .Name("grid").Excel(c => c.FileName("data"))
@@ -35,7 +28,7 @@
               columns.Bound(u => u.UserName).Width(80);
               columns.Bound(u => u.Password).Width(80);
               columns.Bound(u => u.Birthday).Width(80).Format("{0:yyyy-MM-dd HH:mm:ss}");
-              columns.Bound(u => u.Gender).Width(50).ClientTemplate("#=showGender(Gender)#");
+              columns.Bound(u => u.Gender).Width(50).ClientTemplate("#=Gender=='0'?'男':'女'#");
 
               columns.Bound(u => u.Id).ClientTemplate("<i class='fa fa-cog' onclick='setRole(#=Id#)'></i>").Width(24).Title("角色").Filterable(false);
               columns.Bound(u => u.Id).ClientTemplate("<i class='fa fa-search-plus' onclick='setRole(#=Id#)'></i>").Width(24).Title("权限").Filterable(false);
@@ -91,39 +84,17 @@
 
     }
 
-    function showGender(gender) {
-        if (gender == "0") {
-            return "男";
-        } else {
-            return "女";
-        }
-    }
+  
    
 </script>
 
 <style>
-    .tdIcon {
-        cursor: pointer;
-    }
-    .tdIcon:hover {
-        background-color: rgb(222, 221, 221);
-        border-radius:50%
-    }
+  
     .k-edit-form-container {
         position: relative;
         width: 800px;
     }
-   /*td span {
-       transition: background 0.2s ease-out 0;
-         border-radius:50%
-   }
-  td span:hover {
-      background-color: rgb(204, 199, 199);
-      border-radius:50%
-  }
-  td span:last-child:hover {
-      color: white ;
-  }*/
+ 
     td i:hover {
         color: #ff8300 ;
       

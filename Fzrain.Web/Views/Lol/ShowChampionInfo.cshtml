@@ -32,12 +32,18 @@
             background: #b9bfbf;
             color: black;
         }
+       #main {
+           float: left; margin: 20px 0 0 20px; width: 330px; height: 280px;
+       }
+       #mianright {
+           background-color: #373434; color: white;overflow:auto
+       }
 </style>
 
-<div class="mainright" style="background-color: black; color: white;overflow:auto">
+<div class="mainright" >
     @foreach (LolChampionInfoViewModel m in Model)
     {
-        <div id="main" style="float: left; margin: 20px 0 0 20px; width: 330px; height: 280px;">
+        <div id="main">
             @{
                 string url = "http://cdn.tgp.qq.com/pallas/images/card/" + m.ChampionId + ".jpg";
                 double myWinning = m.MyApprance == 0 ? 0 : (Convert.ToDouble(m.MyWinCount) / Convert.ToDouble(m.MyApprance)) * 100;

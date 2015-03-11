@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Record>
 @using Fzrain.Core.Domain.Lol
 <link href="~/Content/lolpng/ZhuangBei.css" rel="stylesheet" />
-<style>
+<style scoped>
     table td {
         text-align: center;
     }
@@ -11,6 +11,12 @@
         height: 30px;
         width: 30px;
         margin-left: 1px;
+    }
+    #tabstrip_BattleDetail .k-content{
+        padding: 10px;
+        border-style: solid;
+        border-width: 1px;
+        /*margin: 0;*/
     }
 </style>
 @(Html.Kendo().TabStrip()
@@ -77,8 +83,8 @@
         .ChartArea(chartArea => chartArea.Background("transparent"))
         .Series(series =>
         {
-            series.Bar(model => model.TotalDamage).Name("输出伤害");
-            series.Bar(model => model.DamageTaken).Name("承受伤害").Color("red");
+            series.Bar(model => model.TotalDamage).Name("输出伤害").Color("#1fc35c");
+            series.Bar(model => model.DamageTaken).Name("承受伤害").Color("#f64242");
            
         })
         .CategoryAxis(axis => axis

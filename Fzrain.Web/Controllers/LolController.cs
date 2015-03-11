@@ -21,7 +21,6 @@ namespace Fzrain.Web.Controllers
         {
             this.lolService = lolService;
         }
-
         // GET: Lol
         public ActionResult Index()
         {       
@@ -96,14 +95,10 @@ namespace Fzrain.Web.Controllers
             var records = lolService.GetAllRecords().Where(r => r.Battle.GameId == gameId).ToList();
             return PartialView("BattleDetail", records);
         }
-      
-      
-
         public ActionResult FilterMenuChampion()
         {
             return Json(lolService.GetAllRecords().GroupBy(r => r.ChampionId).Select(c => c.Key), JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult ShowMyChampionInfos(int? heroId)
         {
            
@@ -145,7 +140,6 @@ namespace Fzrain.Web.Controllers
             ViewBag.ChampionInfos = model;
             return View(ids.Select(id => id.Key).ToList());
         }
-
         public ActionResult GetPictures()
         {
             List<LolPictureViewModel> list = new List<LolPictureViewModel> {new LolPictureViewModel
