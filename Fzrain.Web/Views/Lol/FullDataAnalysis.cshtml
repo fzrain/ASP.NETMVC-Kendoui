@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "LolBasePage.cshtml";
+}
+<div>
+    @foreach (var m in Model)
+    {
+        <span>@(m.Key)</span>
+        <span>@(m.Value)</span>
+    }
+</div>

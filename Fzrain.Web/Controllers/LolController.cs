@@ -149,5 +149,11 @@ namespace Fzrain.Web.Controllers
             } };
             return Json(list);
         }
+
+        public ActionResult FullDataAnalysis()
+        {
+            var champions = lolService.GetAllRecords().GroupBy(r => r.ChampionId).OrderBy(s => s.Key).Select(s => new{s.Key,Value=s.Average(r=>r.Contribute)}).ToList();
+            return View(champions);
+        }
     }
 }
