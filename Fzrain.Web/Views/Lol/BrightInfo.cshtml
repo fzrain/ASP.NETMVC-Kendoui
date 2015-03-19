@@ -1,0 +1,15 @@
+﻿@using Fzrain.Core.Domain.Lol
+@model IList<Record>
+
+    @(Html.Kendo().Grid(Model)
+        .Name("grid")
+        .Columns(columns =>
+        {
+         
+            columns.Bound(r => r.ChampionId).ClientTemplate("<img width='50px' src='../../Content/lolpng/#=ChampionId#.png' alt='' />").Width(50).HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(r => r.Battle.StartTime).Width(80).Format("{0:yyyy-MM-dd HH:mm:ss}");
+            columns.Bound(r => r.Battle.IsWin).Width(80).ClientTemplate("#=showWinStatus(Battle.IsWin)#");
+            columns.Bound(r => r.Name).Width(80);
+            columns.Bound(r => r.Contribute).Width(80);         
+        })
+          )

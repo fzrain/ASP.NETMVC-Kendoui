@@ -12,15 +12,15 @@
           ).Events(e => e.SeriesClick("chart_seriesClick"))
           .Series(series =>
           {
-              series.Line(m => m.Proficiency).Name("我的表现").Color("#44a1c1").Tooltip(t => t.Template("<div>战斗日期：#=kendo.toString(dataItem.StartTime, 'yyyy年MM月dd日') #</div><div>熟练度：#= dataItem.Proficiency#</div>"));
+              series.Line(m => m.Proficiency).Name("我的表现").Color("#44a1c1").Tooltip(t => t.Template("<div>战斗日期：#=kendo.toString(dataItem.StartTime, 'yyyy年MM月dd日') #</div><div>熟练度：#= dataItem.Proficiency#</div>")).Labels(c=>c.Visible(true).Color("#44a1c1"));
               series.Line((IEnumerable<double>)ViewData[Model.First().ChampionId.ToString()]).Name("全服平均表现：" + ((IEnumerable<double>)ViewData[Model.First().ChampionId.ToString()]).First()).Color("#ef2323").Markers(false).Tooltip(false).Highlight(false);
           })
           .CategoryAxis(axis => axis
-              .Categories("1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
+              .Categories("1", "2", "3", "4", "5", "6", "7", "8", "9", "10").Color("#428bca")
               .MajorGridLines(lines => lines.Visible(false))
           )
           .ValueAxis(axis => axis
-              .Numeric()
+              .Numeric().Color("#428bca")
               .MajorGridLines(lines => lines.Visible(false))
           )
           .Tooltip(tooltip => tooltip

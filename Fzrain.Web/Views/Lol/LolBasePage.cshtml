@@ -50,15 +50,36 @@
         line-height: 60px;
         cursor: pointer;
     }
+     .dataDiv a {
+            padding: 0 25px 0 25px;
+            height: 34px;
+            line-height: 34px;
+            text-align: center;
+            border: 1px solid #ffffff;
+            border-radius: 8px;
+            font-family: 'futura-pt';
+            font-size: 14px;         
+            display: block;
+            float: left;
+            color: #ffffff;
+            transition: background 0.2s ease-out 0;
+            text-transform: uppercase;
+        }
+
+   
+      .dataDiv a:hover {
+            background: #b9bfbf;
+            color: black;
+        }
 </style>
 <div class="mainleft" style="height: 100%; background: #35393a;">
     <ul>
         <li><a href="index"><i class="fa fa-home fa-fw"></i>&nbsp;战绩首页</a></li>
-        <li><a href="ShowChampionInfo?beginDate =2014-10-19"><i class="fa fa-user fa-fw"></i>&nbsp;英雄统计</a></li>
+        <li><a href="ShowChampionInfo?beginDate=2014-10-19"><i class="fa fa-user fa-fw"></i>&nbsp;英雄统计</a></li>
         <li><a href="ShowMyChampionInfos"><i class="fa fa-line-chart fa-fw"></i>&nbsp;成长曲线</a></li>
-        <li>乱斗神榜</li>
+        <li><a href="FullDataAnalysis"><i class="fa fa-bar-chart fa-fw"></i>&nbsp;综合统计</a></li>
         <li>阵容分析</li>
     </ul>
- 
+
 </div>
 @RenderBody()

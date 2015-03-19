@@ -8,35 +8,18 @@
 <style>
 
 
-    #dataDiv div {
+    .dataDiv div {
         margin-top: 10px;
     }
-        #dataDiv a {
-            padding: 0 25px 0 25px;
-            height: 34px;
-            line-height: 34px;
-            text-align: center;
-            border: 1px solid #ffffff;
-            border-radius: 8px;
-            font-family: 'futura-pt';
-            font-size: 14px;         
-            display: block;
-            float: left;
-            color: #ffffff;
-            transition: background 0.2s ease-out 0;
-            text-transform: uppercase;
-        }
-
-   
-       #dataDiv a:hover {
-            background: #b9bfbf;
-            color: black;
-        }
+      
        #main {
            float: left; margin: 20px 0 0 20px; width: 330px; height: 280px;
        }
-       #mianright {
+       .mainright {
            background-color: #373434; color: white;overflow:auto
+       }
+       .dataDiv {
+           width: 148px; float: left; margin-left: 30px
        }
 </style>
 
@@ -53,7 +36,7 @@
             <div style="float: left; border: 1px solid gray">
                 <img width="150" src="@url" alt="" />
             </div>
-            <div id="dataDiv" style="width: 148px; float: left; margin-left: 30px">
+            <div  class="dataDiv">
                 <div>胜场/出场(我)</div>
                 <div style="color: #47aec8">@m.MyWinCount/@m.MyApprance</div>
                 <div style="color: @color">我的胜率:@myWinning.ToString("0.00")%</div>

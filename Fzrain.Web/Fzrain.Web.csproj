@@ -167,6 +167,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Common\KeyValuePairViewModel.cs" />
     <Compile Include="Models\Lol\ChampionGrowupViewModel.cs" />
     <Compile Include="Models\Lol\LolChampionInfoViewModel.cs" />
     <Compile Include="Models\Lol\LolPictureViewModel.cs" />
@@ -1792,6 +1793,8 @@
     <Content Include="Views\Shared\ImportReferences.cshtml" />
     <Content Include="Views\Shared\Components\Menu.cshtml" />
     <Content Include="Views\Common\Index.cshtml" />
+    <Content Include="Views\Lol\FullDataAnalysis.cshtml" />
+    <Content Include="Views\Lol\BrightInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\photos\" />
