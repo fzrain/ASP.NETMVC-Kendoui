@@ -56,7 +56,9 @@
             { text: "Metro Black", value: "metroblack" },
             { text: "High Contrast", value: "highcontrast" },
             { text: "Moonlight", value: "moonlight" },
-            { text: "Flat", value: "flat" }
+            { text: "Flat", value: "flat" },
+            { text: "Fiori", value: "fiori" }
+            
         ],
         change: function () {
             $.cookie("theme", this.value(), { expiresAt: new Date(2099, 1, 1) });

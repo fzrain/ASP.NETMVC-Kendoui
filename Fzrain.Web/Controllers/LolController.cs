@@ -147,7 +147,7 @@ namespace Fzrain.Web.Controllers
             List<LolPictureViewModel> list = new List<LolPictureViewModel> {new LolPictureViewModel
             {
                 Uri ="1.jpg",
-                Name ="2015-01-01 杰斯 三杀"
+                Name ="2015-01-01 js t"
             } };
             return Json(list);
         }
