@@ -1,0 +1,18 @@
+﻿@(Html.Kendo().Window()
+    .Name("AjaxDataWindow").Visible(false)
+    .Draggable()
+    .Modal(true)
+    .Actions(actions => actions.Minimize().Maximize().Close()).Position(a => a.Left(335).Top(100))
+)
+<script>
+    function openWindowWithAjax(id,url,title) {
+        var kendoWindow = $("#AjaxDataWindow").data("kendoWindow");    
+        kendoWindow.title(title);    
+        $.post(url, { id: id }, function (data) {
+            kendoWindow.content(data);
+            kendoWindow.center().open();
+        });
+        return false;
+
+    }
+</script>

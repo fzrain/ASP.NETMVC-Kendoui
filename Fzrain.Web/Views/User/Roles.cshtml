@@ -9,13 +9,13 @@
         $.post("User/SetRoles", { roleIds: ids, userId: $("#userId").val() }, function (data) {
             if (data == "ok") {
                 kendo.alert("设置成功！");
-                $("#window").data("kendoWindow").close();
+                $("#AjaxDataWindow").data("kendoWindow").close();
             }
         });
     }
 
     function cancel() {
-        $("#window").data("kendoWindow").close();
+        $("#AjaxDataWindow").data("kendoWindow").close();
     }
 </script>
 <div>

@@ -3,30 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Kendo UI &hearts; Twitter Bootstrap: Responsive demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel=" stylesheet" type="text/css">
-    <link href="@Url.Content("~/Content/styles.css")" rel=" stylesheet" type="text/css">
-    <link href="@Url.Content("~/Content/kendo/2014.3.1119/kendo."+ThemeSetting.CurrentDimensions+".min.css")"  rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/kendo/2014.3.1119/kendo.mobile.all.min.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/kendo/2014.3.1119/kendo.dataviz.min.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/kendo/2014.3.1119/kendo."+ThemeSetting.CurrentTheme+".min.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/kendo/2014.3.1119/kendo.dataviz."+ThemeSetting.CurrentTheme+".min.css")" rel="stylesheet" type="text/css" />
-    <script src="@Url.Content("~/Scripts/kendo/2014.3.1119/jquery.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/kendo/2014.3.1119/jszip.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/kendo/2014.3.1119/kendo.all.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/kendo/2014.3.1119/kendo.aspnetmvc.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/kendo/2014.3.1119/messages/kendo.messages.zh-CN.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/kendo/2014.3.1119/cultures/kendo.culture.zh-CN.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/jquery.cookie.js")"></script>
-    <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
-    <script src="~/Scripts/kendo.all.min.intellisense.js"></script>
-    @StackExchange.Profiling.MiniProfiler.RenderIncludes()
+    <title>FzrainCloudPlanform</title>
+    @Html.Partial("ImportReferences")
 
-   
-
-    
-   
 </head>
 <body>
     <header>
@@ -56,7 +35,7 @@
     </header>
 
     <div id="example" class="container">
-        @*<section class="well">
+        <section class="well">
             <h2 class="ra-well-title">What is this page?</h2>
 
             <p>This page shows how to use Kendo UI alongside Twitter Bootstrap.</p>
@@ -64,9 +43,9 @@
             <p>The grid layout and responsive CSS is provided by Bootstrap, and widgets are provided by Kendo UI.</p>
 
             <p>Resize the page or customize it using the pickers above to see its responsive features.</p>
-        </section>*@
+        </section>
        
-        <ul id="menu">
+        <ul id="menu" style="margin-bottom:30px">
             <li><a href="#profile">Profile</a>
                 <ul>
                     <li>Home</li>

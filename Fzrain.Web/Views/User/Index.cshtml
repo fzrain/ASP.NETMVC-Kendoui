@@ -3,13 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@(Html.Kendo().Window()
-    .Name("window").Visible(false).Title("设置角色")
-    .Draggable()
-    .Modal(true)
-    .Actions(actions => actions.Minimize().Maximize().Close()).Position(a => a.Left(335).Top(100))
-      )
-
+@Html.Partial("Components/Window")
 <div  class="mainleft">
     @Html.Partial("Components/TreeView")
     @Html.Kendo().TreeView().Name("page-tree").DataSource(d => d.Read("GetDptTreeData", "Department")).DataTextField("Name").DataSpriteCssClassField("image")
@@ -30,8 +24,8 @@
               columns.Bound(u => u.Birthday).Width(80).Format("{0:yyyy-MM-dd HH:mm:ss}");
               columns.Bound(u => u.Gender).Width(50).ClientTemplate("#=Gender=='0'?'男':'女'#");
 
-              columns.Bound(u => u.Id).ClientTemplate("<i class='fa fa-cog' onclick='setRole(#=Id#)'></i>").Width(24).Title("角色").Filterable(false);
-              columns.Bound(u => u.Id).ClientTemplate("<i class='fa fa-search-plus' onclick='setRole(#=Id#)'></i>").Width(24).Title("权限").Filterable(false);
+              columns.Bound(u => u.Id).ClientTemplate("<i class='fa fa-cog' onclick=\"openWindowWithAjax(#=Id#,'User/Roles','设置角色')\"></i>").Width(24).Title("角色").Filterable(false);
+              columns.Bound(u => u.Id).ClientTemplate("<i class='fa fa-search-plus' onclick=\"openWindowWithAjax(#=Id#,'User/Modules','设置权限')\"></i>").Width(24).Title("权限").Filterable(false);
               columns.Command(command =>
               {
                   command.Edit().CancelText("取消").UpdateText("保存"); command.Destroy();
@@ -72,29 +66,14 @@
             $(".check_children").prop("checked", this.checked);
         });
 
-    });
-  
-    function setRole(id) {
-        var kendoWindow = $("#window").data("kendoWindow");
-        $.post("User/Roles", { id: id }, function (data) {
-            kendoWindow.content(data);
-            kendoWindow.center().open();
-        });
-        return false;
-
-    }
-
-  
-   
+    });   
 </script>
 
-<style>
-  
+<style> 
     .k-edit-form-container {
         position: relative;
         width: 800px;
-    }
- 
+    } 
     td i:hover {
         color: #ff8300 ;
       

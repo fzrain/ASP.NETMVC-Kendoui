@@ -102,11 +102,13 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -141,6 +143,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
@@ -173,6 +176,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Settings.txt" />
+    <Content Include="assets\photos\1.jpg" />
+    <Content Include="assets\photos\10.jpg" />
+    <Content Include="assets\photos\2.jpg" />
+    <Content Include="assets\photos\3.jpg" />
+    <Content Include="assets\photos\4.jpg" />
+    <Content Include="assets\photos\5.jpg" />
+    <Content Include="assets\photos\6.jpg" />
+    <Content Include="assets\photos\7.jpg" />
+    <Content Include="assets\photos\8.jpg" />
+    <Content Include="assets\photos\9.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\kendo\2015.1.318\Black\editor.png" />
@@ -468,6 +481,139 @@
     <Content Include="Content\kendo\2015.1.318\Uniform\sprite_kpi.png" />
     <Content Include="Content\kendo\2015.1.318\Uniform\sprite_kpi_2x.png" />
     <Content Include="Content\logo.png" />
+    <Content Include="Content\lolpng\1.png" />
+    <Content Include="Content\lolpng\10.png" />
+    <Content Include="Content\lolpng\101.png" />
+    <Content Include="Content\lolpng\102.png" />
+    <Content Include="Content\lolpng\103.png" />
+    <Content Include="Content\lolpng\104.png" />
+    <Content Include="Content\lolpng\105.png" />
+    <Content Include="Content\lolpng\106.png" />
+    <Content Include="Content\lolpng\107.png" />
+    <Content Include="Content\lolpng\11.png" />
+    <Content Include="Content\lolpng\110.png" />
+    <Content Include="Content\lolpng\111.png" />
+    <Content Include="Content\lolpng\112.png" />
+    <Content Include="Content\lolpng\113.png" />
+    <Content Include="Content\lolpng\114.png" />
+    <Content Include="Content\lolpng\115.png" />
+    <Content Include="Content\lolpng\117.png" />
+    <Content Include="Content\lolpng\119.png" />
+    <Content Include="Content\lolpng\12.png" />
+    <Content Include="Content\lolpng\120.png" />
+    <Content Include="Content\lolpng\121.png" />
+    <Content Include="Content\lolpng\122.png" />
+    <Content Include="Content\lolpng\126.png" />
+    <Content Include="Content\lolpng\127.png" />
+    <Content Include="Content\lolpng\13.png" />
+    <Content Include="Content\lolpng\131.png" />
+    <Content Include="Content\lolpng\133.png" />
+    <Content Include="Content\lolpng\134.png" />
+    <Content Include="Content\lolpng\14.png" />
+    <Content Include="Content\lolpng\143.png" />
+    <Content Include="Content\lolpng\15.png" />
+    <Content Include="Content\lolpng\150.png" />
+    <Content Include="Content\lolpng\154.png" />
+    <Content Include="Content\lolpng\157.png" />
+    <Content Include="Content\lolpng\16.png" />
+    <Content Include="Content\lolpng\161.png" />
+    <Content Include="Content\lolpng\17.png" />
+    <Content Include="Content\lolpng\18.png" />
+    <Content Include="Content\lolpng\19.png" />
+    <Content Include="Content\lolpng\2.png" />
+    <Content Include="Content\lolpng\20.png" />
+    <Content Include="Content\lolpng\201.png" />
+    <Content Include="Content\lolpng\21.png" />
+    <Content Include="Content\lolpng\22.png" />
+    <Content Include="Content\lolpng\222.png" />
+    <Content Include="Content\lolpng\23.png" />
+    <Content Include="Content\lolpng\236.png" />
+    <Content Include="Content\lolpng\238.png" />
+    <Content Include="Content\lolpng\24.png" />
+    <Content Include="Content\lolpng\25.png" />
+    <Content Include="Content\lolpng\254.png" />
+    <Content Include="Content\lolpng\26.png" />
+    <Content Include="Content\lolpng\266.png" />
+    <Content Include="Content\lolpng\267.png" />
+    <Content Include="Content\lolpng\268.png" />
+    <Content Include="Content\lolpng\27.png" />
+    <Content Include="Content\lolpng\28.png" />
+    <Content Include="Content\lolpng\29.png" />
+    <Content Include="Content\lolpng\3.png" />
+    <Content Include="Content\lolpng\30.png" />
+    <Content Include="Content\lolpng\31.png" />
+    <Content Include="Content\lolpng\32.png" />
+    <Content Include="Content\lolpng\33.png" />
+    <Content Include="Content\lolpng\34.png" />
+    <Content Include="Content\lolpng\35.png" />
+    <Content Include="Content\lolpng\36.png" />
+    <Content Include="Content\lolpng\37.png" />
+    <Content Include="Content\lolpng\38.png" />
+    <Content Include="Content\lolpng\39.png" />
+    <Content Include="Content\lolpng\4.png" />
+    <Content Include="Content\lolpng\40.png" />
+    <Content Include="Content\lolpng\41.png" />
+    <Content Include="Content\lolpng\412.png" />
+    <Content Include="Content\lolpng\42.png" />
+    <Content Include="Content\lolpng\421.png" />
+    <Content Include="Content\lolpng\429.png" />
+    <Content Include="Content\lolpng\43.png" />
+    <Content Include="Content\lolpng\44.png" />
+    <Content Include="Content\lolpng\45.png" />
+    <Content Include="Content\lolpng\48.png" />
+    <Content Include="Content\lolpng\5.png" />
+    <Content Include="Content\lolpng\50.png" />
+    <Content Include="Content\lolpng\51.png" />
+    <Content Include="Content\lolpng\53.png" />
+    <Content Include="Content\lolpng\54.png" />
+    <Content Include="Content\lolpng\55.png" />
+    <Content Include="Content\lolpng\56.png" />
+    <Content Include="Content\lolpng\57.png" />
+    <Content Include="Content\lolpng\58.png" />
+    <Content Include="Content\lolpng\59.png" />
+    <Content Include="Content\lolpng\6.png" />
+    <Content Include="Content\lolpng\60.png" />
+    <Content Include="Content\lolpng\61.png" />
+    <Content Include="Content\lolpng\62.png" />
+    <Content Include="Content\lolpng\63.png" />
+    <Content Include="Content\lolpng\64.png" />
+    <Content Include="Content\lolpng\67.png" />
+    <Content Include="Content\lolpng\68.png" />
+    <Content Include="Content\lolpng\69.png" />
+    <Content Include="Content\lolpng\7.png" />
+    <Content Include="Content\lolpng\72.png" />
+    <Content Include="Content\lolpng\74.png" />
+    <Content Include="Content\lolpng\75.png" />
+    <Content Include="Content\lolpng\76.png" />
+    <Content Include="Content\lolpng\77.png" />
+    <Content Include="Content\lolpng\78.png" />
+    <Content Include="Content\lolpng\79.png" />
+    <Content Include="Content\lolpng\8.png" />
+    <Content Include="Content\lolpng\80.png" />
+    <Content Include="Content\lolpng\81.png" />
+    <Content Include="Content\lolpng\82.png" />
+    <Content Include="Content\lolpng\83.png" />
+    <Content Include="Content\lolpng\84.png" />
+    <Content Include="Content\lolpng\85.png" />
+    <Content Include="Content\lolpng\86.png" />
+    <Content Include="Content\lolpng\89.png" />
+    <Content Include="Content\lolpng\9.png" />
+    <Content Include="Content\lolpng\90.png" />
+    <Content Include="Content\lolpng\91.png" />
+    <Content Include="Content\lolpng\92.png" />
+    <Content Include="Content\lolpng\96.png" />
+    <Content Include="Content\lolpng\98.png" />
+    <Content Include="Content\lolpng\99.png" />
+    <Content Include="Content\lolpng\assets\photos\1.jpg" />
+    <Content Include="Content\lolpng\assets\photos\10.jpg" />
+    <Content Include="Content\lolpng\assets\photos\2.jpg" />
+    <Content Include="Content\lolpng\assets\photos\3.jpg" />
+    <Content Include="Content\lolpng\assets\photos\4.jpg" />
+    <Content Include="Content\lolpng\assets\photos\5.jpg" />
+    <Content Include="Content\lolpng\assets\photos\6.jpg" />
+    <Content Include="Content\lolpng\assets\photos\7.jpg" />
+    <Content Include="Content\lolpng\assets\photos\8.jpg" />
+    <Content Include="Content\lolpng\assets\photos\9.jpg" />
     <Content Include="Content\lolpng\battleSign\1.png" />
     <Content Include="Content\lolpng\battleSign\10.png" />
     <Content Include="Content\lolpng\battleSign\11.png" />
@@ -1897,10 +2043,10 @@
     <Content Include="Scripts\kendo\2015.1.318\kendo.virtuallist.min.js.map" />
     <Content Include="Scripts\kendo\2015.1.318\kendo.web.min.js.map" />
     <Content Include="Scripts\kendo\2015.1.318\kendo.window.min.js.map" />
+    <Content Include="Views\User\Modules.cshtml" />
+    <Content Include="Views\Shared\Components\Window.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="assets\photos\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>

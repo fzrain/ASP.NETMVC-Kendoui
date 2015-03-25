@@ -1,0 +1,42 @@
+﻿@using Fzrain.Core.Domain.Permission
+@model List<Module>
+<script type="text/javascript">
+    function save() {
+        var ids = [];
+        $.each($(".k-checkbox:checked"), function (i) {
+            ids[i] = $(this).attr("name");
+        });
+        $.post("User/SetModules", { moduleIds: ids, userId: $("#userId").val() }, function (data) {
+            if (data == "ok") {
+                kendo.alert("设置成功！");
+                $("#AjaxDataWindow").data("kendoWindow").close();
+            }
+        });
+    }
+
+    function cancel() {
+        $("#AjaxDataWindow").data("kendoWindow").close();
+    }
+</script>
+<div>
+    @Html.Hidden("userId", (int)ViewBag.UserId)
+    @foreach (Module module in Model)
+    {
+        @Html.Kendo().CheckBox().Name(module.Id.ToString()).Label(module.ModuleName).Checked(((List<Module>)ViewBag.Mymodules).Contains(module))
+        <span> &nbsp;</span>
+    }
+</div>
+<div class="operate">
+    @Html.Kendo().Button().Content("保存").SpriteCssClass("k-icon k-update").Name("save").HtmlAttributes(new { @class = "k-primary" }).Events(e => e.Click("save"))
+    @Html.Kendo().Button().Content("取消").SpriteCssClass("k-icon k-cancel").Name("cancel").Events(e => e.Click("cancel"))
+</div>
+<style>
+    .operate {
+        margin-top: 20px;
+        text-align: right;
+        border-width: 1px 0 0;
+        border-style: solid;
+        padding: .6em;
+        border-color: #ccc;
+    }
+</style>
