@@ -8,51 +8,23 @@
 //------------------------------------------------------------------------------
 
 using Fzrain.Core.Data;
+using Fzrain.Core.Domain.Configuration;
+using Fzrain.Core.Domain.Lol;
+using Fzrain.Core.Domain.Lol;
+using Fzrain.Core.Domain.Permission;
+using Fzrain.Core.Domain.Logging;
+using Fzrain.Core.Domain.Lol;
+using Fzrain.Core.Domain.Lol;
+using Fzrain.Core.Domain.Permission;
+using Fzrain.Core.Domain.Permission;
 using Fzrain.Core.Domain.Scheduler;
 using Fzrain.Core.Domain.Permission;
-using Fzrain.Core.Domain.Permission;
-using Fzrain.Core.Domain.Permission;
-using Fzrain.Core.Domain.Permission;
-using Fzrain.Core.Domain.Lol;
-using Fzrain.Core.Domain.Lol;
-using Fzrain.Core.Domain.Lol;
-using Fzrain.Core.Domain.Lol;
-using Fzrain.Core.Domain.Logging;
-using Fzrain.Core.Domain.Configuration;
 namespace Fzrain.Web.Controllers
 {
 	
-  public partial class TaskController : BaseListController<Task>
+  public partial class SettingController : BaseListController<Setting>
     {
-        public TaskController(IRepository<Task> repository) : base(repository)
-        {
-        }
-    }
-	
-  public partial class DepartmentController : BaseListController<Department>
-    {
-        public DepartmentController(IRepository<Department> repository) : base(repository)
-        {
-        }
-    }
-	
-  public partial class ModuleController : BaseListController<Module>
-    {
-        public ModuleController(IRepository<Module> repository) : base(repository)
-        {
-        }
-    }
-	
-  public partial class RoleController : BaseListController<Role>
-    {
-        public RoleController(IRepository<Role> repository) : base(repository)
-        {
-        }
-    }
-	
-  public partial class UserController : BaseListController<User>
-    {
-        public UserController(IRepository<User> repository) : base(repository)
+        public SettingController(IRepository<Setting> repository) : base(repository)
         {
         }
     }
@@ -71,6 +43,20 @@ namespace Fzrain.Web.Controllers
         }
     }
 	
+  public partial class DepartmentController : BaseListController<Department>
+    {
+        public DepartmentController(IRepository<Department> repository) : base(repository)
+        {
+        }
+    }
+	
+  public partial class LogController : BaseListController<Log>
+    {
+        public LogController(IRepository<Log> repository) : base(repository)
+        {
+        }
+    }
+	
   public partial class BattleController : BaseListController<Battle>
     {
         public BattleController(IRepository<Battle> repository) : base(repository)
@@ -85,16 +71,30 @@ namespace Fzrain.Web.Controllers
         }
     }
 	
-  public partial class LogController : BaseListController<Log>
+  public partial class ModuleController : BaseListController<Module>
     {
-        public LogController(IRepository<Log> repository) : base(repository)
+        public ModuleController(IRepository<Module> repository) : base(repository)
         {
         }
     }
 	
-  public partial class SettingController : BaseListController<Setting>
+  public partial class RoleController : BaseListController<Role>
     {
-        public SettingController(IRepository<Setting> repository) : base(repository)
+        public  RoleController(IRepository<Role> repository) : base(repository)
+        {
+        }
+    }
+	
+  public partial class SchedulerController : BaseListController<Scheduler>
+    {
+        public SchedulerController(IRepository<Scheduler> repository) : base(repository)
+        {
+        }
+    }
+	
+  public partial class UserController : BaseListController<User>
+    {
+        public UserController(IRepository<User> repository) : base(repository)
         {
         }
     }

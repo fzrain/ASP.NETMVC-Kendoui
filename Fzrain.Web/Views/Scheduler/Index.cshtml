@@ -4,48 +4,47 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-@(Html.Kendo().Scheduler<TaskViewModel>()
+<div class="mainright" style="width: 100%;overflow:auto">
+    @(Html.Kendo().Scheduler<SchedulerViewModel>()
     .Name("scheduler")
     .Date(DateTime.Now)
     .StartTime(new DateTime(2013, 6, 13, 7, 00, 00))
-    .Height(600)
-    .Views(views =>
-    {
-        views.DayView();
-        views.WorkWeekView(workWeekView => workWeekView.Selected(true).SelectedDateFormat("{0:yyyy年MM月dd日}-{1:yyyy年MM月dd日}") );
-        views.WeekView();
-        views.MonthView();
-        views.AgendaView();
 
-    })
-    .Timezone("RPC")
-    .Resources(resource => resource.Add(m => m.OwnerID)
-        .Title("所有者")
+    .Views(views =>
+            {
+                views.DayView();
+                views.WorkWeekView(workWeekView => workWeekView.Selected(true).SelectedDateFormat("{0:yyyy年MM月dd日}-{1:yyyy年MM月dd日}"));
+                views.WeekView();
+                views.MonthView();
+                views.AgendaView();
+                
+            })
+        .Timezone("Etc/UTC")
+        .Resources(resource => resource.Add(m => m.SchedulerType)
+        .Title("重要性")
         .DataTextField("Text")
         .DataValueField("Value")
         .DataColorField("Color")
         .BindTo(new[] {
-            new { Text = "Alex", Value = 1, Color = "#f8a398" } ,
-            new { Text = "Bob", Value = 2, Color = "#51a0ed" } ,
-            new { Text = "Charlie", Value = 3, Color = "#56ca85" }
+            new { Text = "紧急", Value = 1, Color = "#f8a398" } ,
+            new { Text = "重要", Value = 2, Color = "#51a0ed" } ,
+            new { Text = "一般", Value = 3, Color = "#56ca85" }
         })).DateHeaderTemplate("#= kendo.toString(date, 'yy年MM月dd日') #")
     .DataSource(d => d
         .Model(m =>
         {
-            m.Id(f => f.TaskID);
+            m.Id(f => f.SchedulerID);
             m.Field(f => f.Title).DefaultValue("No title");
-            m.Field(f => f.OwnerID).DefaultValue(1);
-            m.Field(f => f.Title).DefaultValue("No title");
+            m.Field(f => f.SchedulerType).DefaultValue(1);
             m.RecurrenceId(f => f.RecurrenceID);
         })
         .Read("Read", "Scheduler")
         .Create("Create", "Scheduler")
         .Destroy("Destroy", "Scheduler")
         .Update("Update", "Scheduler")
-        .Filter(filters => filters.Add(model => model.OwnerID).IsEqualTo(1).Or().IsEqualTo(2))
+        .Filter(filters => filters.Add(model => model.SchedulerType).IsEqualTo(1).Or().IsEqualTo(2))
     )
-)
+    )
 
-
+    </div> 
 

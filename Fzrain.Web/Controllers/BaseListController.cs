@@ -17,11 +17,11 @@ namespace Fzrain.Web.Controllers
     public abstract class BaseListController<T> : Controller where T : BaseEntity
     {
         private  readonly IRepository<T> repository;
-        public bool UseCommonPage { get; set; } 
-        protected BaseListController(IRepository<T> repository)
-        {
-            UseCommonPage = true;
-            this.repository = repository;
+        private readonly bool useCommonPage;
+        protected BaseListController(IRepository<T> repository,bool useCommonPage=true)
+        {           
+           this.repository = repository;
+           this.useCommonPage = useCommonPage;
         }
 
         public ActionResult Index()
@@ -37,7 +37,7 @@ namespace Fzrain.Web.Controllers
                 list.Add(prop.Name+";"+name);
             }
             ViewBag.Columns = list;
-            return View(UseCommonPage?"../Common/Index":"");
+            return View(useCommonPage ? "../Common/Index" : "");
         }
 
         public virtual ActionResult Read([DataSourceRequest] DataSourceRequest request)

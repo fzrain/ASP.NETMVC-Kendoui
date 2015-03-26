@@ -71,7 +71,7 @@
     <Compile Include="Mapping\Permission\ModuleMap.cs" />
     <Compile Include="Mapping\Permission\RoleMap.cs" />
     <Compile Include="Mapping\Permission\UserMap.cs" />
-    <Compile Include="Mapping\Scheduler\TaskMap.cs" />
+    <Compile Include="Mapping\Schedulers\SchedulerMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryableExtensions.cs" />
     <Compile Include="SqlServerDataProvider.cs" />

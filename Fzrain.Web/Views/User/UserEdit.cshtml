@@ -26,8 +26,8 @@
     @Html.LabelFor(u => u.Gender)
 </div>
 <div class="editor-field" style="margin-top: 5px">
-    @Html.Kendo().RadioButtonFor(u => u.Gender).Label("男").HtmlAttributes(new { id = "male", value = 0 })
-    @Html.Kendo().RadioButtonFor(u => u.Gender).Label("女").HtmlAttributes(new { id = "frmale", value = 1 })
+    @Html.Kendo().RadioButtonFor(u => u.Gender).Label("男").Value(0)
+    @Html.Kendo().RadioButtonFor(u => u.Gender).Label("女").Value(1)
 </div>
 <div class="editor-label">
     @Html.LabelFor(u => u.MobilePhone)

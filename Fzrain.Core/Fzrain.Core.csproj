@@ -102,7 +102,7 @@
     <Compile Include="Domain\Lol\Record.cs" />
     <Compile Include="Domain\Permission\Module.cs" />
     <Compile Include="Domain\Permission\Role.cs" />
-    <Compile Include="Domain\Scheduler\Task.cs" />
+    <Compile Include="Domain\Scheduler\Scheduler.cs" />
     <Compile Include="Domain\Permission\User.cs" />
     <Compile Include="FzrainException.cs" />
     <Compile Include="Infrastructure\AppDomainTypeFinder.cs" />

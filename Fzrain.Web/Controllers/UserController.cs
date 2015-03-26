@@ -21,12 +21,11 @@ namespace Fzrain.Web.Controllers
     public partial  class UserController
     {
         private readonly IUserService userService;
-        public UserController(IRepository<User> repository, IUserService userService) : base(repository)
+        public UserController(IRepository<User> repository, IUserService userService) : base(repository,false)
         {
-            this.userService = userService;
-            UseCommonPage = false;
+            this.userService = userService;        
         }
-
+     
         public ActionResult Roles(int id)
         {
             ViewBag.UserId = id;
@@ -34,9 +33,9 @@ namespace Fzrain.Web.Controllers
             return PartialView(userService.GetAllRoles());
         }
 
-        public ActionResult SetRoles(List<int> moduleIds,int userId)
+        public ActionResult SetRoles(List<int> roleIds, int userId)
         {
-            userService.SetRoles(userId, moduleIds);
+            userService.SetRoles(userId, roleIds);
             return Json("ok");
         }
         public ActionResult Modules(int id)

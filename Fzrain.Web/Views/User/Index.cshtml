@@ -49,7 +49,7 @@
               {
                   model.Id(u => u.Id);
                   model.Field(u => u.Birthday).DefaultValue(DateTime.Now);
-                  model.Field(u => u.IsPublic).DefaultValue(true);
+                
               })
               .Create(update => update.Action("Create", "User"))
               .Read(read => read.Action("Read", "User"))
