@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace Fzrain.Core.Domain.Lol
 {
@@ -10,7 +6,7 @@ namespace Fzrain.Core.Domain.Lol
    {
        public string QQ { get; set; }
        public int IsWin { get; set; }
-
+       [DisplayName("贡献值")]
        public double  Contribute { get; set; }
        public int ContributeOrder { get; set; }
        public int TotalDamage { get; set; }
@@ -19,6 +15,7 @@ namespace Fzrain.Core.Domain.Lol
        public int Kill { get; set; }
        public int Death { get; set; }
        public int Assist { get; set; }
+       [DisplayName("召唤师")]
        public string Name { get; set; }
        public int DamageTaken { get; set; }
        public int Item0 { get; set; }

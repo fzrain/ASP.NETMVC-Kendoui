@@ -1,28 +1,31 @@
-﻿
+﻿@using Fzrain.Core.Domain.Lol
 @{
     ViewBag.Title = "Index";
     Layout = "LolBasePage.cshtml";
 }
 <style>
     .mainright {
-        background-color: #373434;color: white;overflow: auto
+        background-color: #373434;
+        color: white;
+        overflow: auto;
     }
+
     .dataDiv {
-        width: 150px;
-        float: left
+        width: 250px;
+        float: left;
     }
 </style>
 @(Html.Kendo().Window()
-        .Name("window").Visible(false)
-          .Title("巅峰战绩")
+        .Name("window2").Visible(false)
+          .Title("战斗详情")
     .Draggable()
     .Modal(true)
-    .Width(1000).Height(470)
+    .Width(700).Height(470)
     .Actions(actions => actions.Minimize().Maximize().Close()).Position(a => a.Left(335).Top(100))
 )
 <div class="mainright">
     <div>
-     
+
         @Html.Kendo().Button().Content("获取数据").Name("btnGetData").Events(e => e.Click("GetData"))
         @{
             var dataInfo = new List<DropDownListItem>
@@ -38,35 +41,76 @@
         @Html.Kendo().CheckBox().Name("isAsc").Label("是否升序")
         @Html.Kendo().CheckBox().Name("isMine").Label("我的数据")
     </div>
+    <div class='dataDiv'>
+    </div>
+    <div id="divDetail" style="float:left;width:800px;height:450px;overflow:auto">
+        @(Html.Kendo().Grid<Record>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(r => r.Battle.StartTime).Width(80).Format("{0:yyyy-MM-dd HH:mm:ss}");
+            columns.Bound(r => r.IsWin).Width(60).ClientTemplate("#=IsWin==1?'<font color=\"green\">胜利</font>':'<font color=\"red\">失败</font>'#");
+            columns.Bound(r => r.Name).Width(80);
+            columns.Bound(r => r.Contribute).Width(60);
+            columns.Command(c => c.Custom("战斗详情").Click("showDetails")).Width(80);
+        })
+        )
 
+
+    </div>
 </div>
 
 <script type="text/javascript">
+    $(function () {
+     
+      
+      
+    });
     function GetData() {
         //  $("#div1").html("");
-        $.post("AnalysisData", { dataType: $("#dataInfo").val(), isAsc: $("#isAsc").prop("checked"), isMine: $("#isMine").prop("checked") }, function(data) {
-            var html = "<div  class='dataDiv'>";
+        $.post("AnalysisData", { dataType: $("#dataInfo").val(), isAsc: $("#isAsc").prop("checked"), isMine: $("#isMine").prop("checked") }, function (data) {
+            var html = "";
             for (var i = 0; i < data.length; i++) {
                 html += "<div>" +
-                    "<span><img width='50' src='../../Content/lolpng/" + data[i].Key + ".png' alt='' /></span>" +
-                    "<span>" + data[i].Value.toFixed(2) + "<a url='" + data[i].Key + "'>巅峰战绩</a></span>" +
-                    "" +
+                    "<div style='float:left'><img width='50' src='../../Content/lolpng/" + data[i].Key + ".png' alt='' /></div>" +
+                    "<div style='float:left;height:50px;line-height:50px;width:50px;text-align:center'>" + data[i].Value.toFixed(2) + "</div>" +
+                    "<div style='height:50px;padding:8px 0'><a url='" + data[i].Key + "'>巅峰战绩</a></div>" +
                     "</div>";
 
             }
-            $(".mainright").append(html + "</div>");
+            $(".dataDiv").html(html);
             regeditBtn();
         });
 
     }
 
     function regeditBtn() {
-        $("a[url]").click(function() {
-            var kendoWindow = $("#window").data("kendoWindow");
-            $.post("BrightInfo", { championId: $(this).attr("url"), isMine: $("#isMine").prop("checked") }, function(data) {
-                kendoWindow.content(data);
-                kendoWindow.center().open();
+        $("a[url]").click(function () {
+            $.ajax({
+                url: "BrightInfo",
+                data: { championId: $(this).attr("url"), isMine: $("#isMine").prop("checked") },
+                traditional: true,
+                method: "post",
+                success: function (result) {
+                    var dataSource = new kendo.data.DataSource({ data: result });
+                    var grid = $('#grid').data("kendoGrid");
+                    dataSource.read();
+                    grid.setDataSource(dataSource);
+                    $('#grid').data('kendoGrid').refresh();
+                }
             });
+          
         });
+    }
+    function showDetails(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var kendoWindow = $("#window2").data("kendoWindow");
+        $.post("/Lol/GetBattleDetail", { GameId: dataItem.Battle.GameId }, function (data) {
+            kendoWindow.content(data);
+            kendoWindow.center().open();
+        });
+
+
     }
 </script>

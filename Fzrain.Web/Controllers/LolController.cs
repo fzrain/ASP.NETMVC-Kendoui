@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using Fzrain.Core.Domain.Lol;
-using Fzrain.Data;
 using Fzrain.Service.Lol;
+using Fzrain.Web.Framework.Mvc;
 using Fzrain.Web.Models.Common;
 using Fzrain.Web.Models.Lol;
 using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
-
+using Fzrain.Data;
 namespace Fzrain.Web.Controllers
 {
     public class LolController : Controller
@@ -119,12 +120,12 @@ namespace Fzrain.Web.Controllers
                 foreach (var r in records)
                     avg += r.Contribute;
                 avg = Math.Round(avg / records.Count(), 2);
-                ViewData[championId.ToString()] = new List<double> { avg, avg, avg, avg, avg, avg, avg, avg, avg, avg };
+                ViewData[championId.ToString()] = new List<double> { avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg };
 
                 var myRecords = records
                     .Where(r => MyHeroList.Contains(r.Name))
                     .OrderByDescending(r => r.Battle.StartTime)
-                    .Take(10)
+                    .Take(20)
                     .ToList();
 
                 foreach (var r in myRecords)
@@ -218,9 +219,19 @@ namespace Fzrain.Web.Controllers
         public ActionResult BrightInfo(int championId, bool isMine)
         {       
                var  records = lolService.GetAllRecords().IncludeProperties(r => r.Battle).Where(r => r.ChampionId == championId&&(!isMine || MyHeroList.Contains(r.Name)));
-               return PartialView(records.OrderByDescending(r=>r.Contribute).ToList());
+               return Json(records.OrderByDescending(r => r.Contribute).ToList().Select(r =>new { r.Name,r.IsWin,r.Contribute,Battle=new {r.Battle.StartTime,r.Battle.GameId}}));
 
 
+        }
+        protected override JsonResult Json(object data, string contentType, Encoding contentEncoding, JsonRequestBehavior behavior)
+        {
+            return new JsonNetResult
+            {
+                Data = data,
+                ContentType = contentType,
+                ContentEncoding = contentEncoding,
+                JsonRequestBehavior = behavior
+            };
         }
     }
 }

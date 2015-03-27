@@ -8,7 +8,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using Chsword;
 using Fzrain.Core.Data;
-using Fzrain.Data;
 using Fzrain.Core.Domain.Lol;
 using Fzrain.Service.Configuration;
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Fzrain.Core.Domain;
+﻿using System.Data.Entity.Migrations;
 using Fzrain.Core.Domain.Permission;
 
 namespace Fzrain.Data.Initializers

@@ -16,7 +16,7 @@
               series.Line((IEnumerable<double>)ViewData[Model.First().ChampionId.ToString()]).Name("全服平均表现：" + ((IEnumerable<double>)ViewData[Model.First().ChampionId.ToString()]).First()).Color("#ef2323").Markers(false).Tooltip(false).Highlight(false);
           })
           .CategoryAxis(axis => axis
-              .Categories("1", "2", "3", "4", "5", "6", "7", "8", "9", "10").Color("#428bca")
+                      .Categories("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20").Color("#428bca")
               .MajorGridLines(lines => lines.Visible(false))
           )
           .ValueAxis(axis => axis

@@ -24,7 +24,7 @@ namespace Fzrain.Web.Controllers
            this.useCommonPage = useCommonPage;
         }
 
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             ViewBag.ControllerName = typeof(T).Name;
             var props = typeof(T).GetProperties().Where(p => !p.GetMethod.IsVirtual);

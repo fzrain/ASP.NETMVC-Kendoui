@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Fzrain.Core;
+﻿using Fzrain.Core;
 using Fzrain.Core.Data;
 using Fzrain.Core.Infrastructure;
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fzrain.Web.Framework.Theme
+﻿namespace Fzrain.Web.Framework.Theme
 {
     public  class ThemeSetting
     {
