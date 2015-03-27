@@ -13,7 +13,7 @@
         <input type="checkbox" id="charlie" value="3">
     </div>
 </div>
-@(Html.Kendo().Scheduler<TaskViewModel>()
+@(Html.Kendo().Scheduler<SchedulerViewModel>()
     .Name("scheduler")
     .Date(DateTime.Now)
     .StartTime(new DateTime(2013, 6, 13, 7, 00, 00))
@@ -28,7 +28,7 @@
      
     })
     .Timezone("Etc/UTC")
-    .Resources(resource => resource.Add(m => m.OwnerID)
+    .Resources(resource => resource.Add(m => m.SchedulerType)
         .Title("所有者")
         .DataTextField("Text")
         .DataValueField("Value")
@@ -41,17 +41,16 @@
     .DataSource(d => d
         .Model(m =>
         {
-            m.Id(f => f.TaskID);
+            m.Id(f => f.SchedulerID);
             m.Field(f => f.Title).DefaultValue("No title");
-            m.Field(f => f.OwnerID).DefaultValue(1);
-            m.Field(f => f.Title).DefaultValue("No title");
+            m.Field(f => f.SchedulerType).DefaultValue(1);
             m.RecurrenceId(f => f.RecurrenceID);
         })
         .Read("Read", "Scheduler")
         .Create("Create", "Scheduler")
         .Destroy("Destroy", "Scheduler")
         .Update("Update", "Scheduler")
-        .Filter(filters => filters.Add(model => model.OwnerID).IsEqualTo(1).Or().IsEqualTo(2))
+        .Filter(filters => filters.Add(model => model.SchedulerType).IsEqualTo(1).Or().IsEqualTo(2))
     )
 )
 

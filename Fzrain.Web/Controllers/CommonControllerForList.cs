@@ -80,7 +80,7 @@ namespace Fzrain.Web.Controllers
 	
   public partial class RoleController : BaseListController<Role>
     {
-        public  RoleController(IRepository<Role> repository) : base(repository)
+        public RoleController(IRepository<Role> repository) : base(repository)
         {
         }
     }

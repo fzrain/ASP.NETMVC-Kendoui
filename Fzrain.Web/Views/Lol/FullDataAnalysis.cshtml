@@ -22,7 +22,7 @@
 )
 <div class="mainright">
     <div>
-        @Html.Kendo().Button().Content("重置数据").Name("resetData")
+     
         @Html.Kendo().Button().Content("获取数据").Name("btnGetData").Events(e => e.Click("GetData"))
         @{
             var dataInfo = new List<DropDownListItem>

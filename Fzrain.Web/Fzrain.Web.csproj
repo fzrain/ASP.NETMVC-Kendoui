@@ -171,7 +171,7 @@
     <Compile Include="Models\Lol\ChampionGrowupViewModel.cs" />
     <Compile Include="Models\Lol\LolChampionInfoViewModel.cs" />
     <Compile Include="Models\Lol\LolPictureViewModel.cs" />
-    <Compile Include="Models\Scheduler\TaskViewModel.cs" />
+    <Compile Include="Models\Scheduler\SchedulerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +188,10 @@
     <Content Include="assets\photos\9.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\indexPage\banner.jpg" />
+    <Content Include="Content\indexPage\bootstrap.css" />
+    <Content Include="Content\indexPage\popuo-box.css" />
+    <Content Include="Content\indexPage\style.css" />
     <Content Include="Content\kendo\2015.1.318\Black\editor.png" />
     <Content Include="Content\kendo\2015.1.318\Black\imagebrowser.png" />
     <Content Include="Content\kendo\2015.1.318\Black\indeterminate.gif" />

@@ -1,5 +1,4 @@
 ﻿@using Fzrain.Core.Domain.Lol
-@using Fzrain.Web.Framework.Theme
 @{
     ViewBag.Title = "Index";
     Layout = "../Shared/_LayoutEmpty.cshtml";
@@ -18,7 +17,7 @@
 
                 <div class="row">
                     <div class="col-lg-5 col-sm-2">
-                        <img src="/Content/lolpng/touxiang.png" style="width: 88px; margin-left: 10px"/>
+                        <img src="/Content/lolpng/touxiang.png" style="width: 88px; margin-left: 10px" alt=""/>
                     </div>
 
                     <div class="col-lg-7 col-sm-2">
@@ -98,7 +97,6 @@
               .DataSource(dataSource => dataSource
                   .Ajax()
                   .PageSize(20)
-
                   .Model(model => model.Id(u => u.Id))
                   .Read(read => read.Action("Read", "Lol"))
 
@@ -126,10 +124,10 @@
             color: #fff;
             cursor: pointer;
             background-color: rgba(0, 0, 0, 0.75);
-            transition: background .2s linear, color .2s linear;
             -moz-transition: background .2s linear, color .2s linear;
             -webkit-transition: background .2s linear, color .2s linear;
             -o-transition: background .2s linear, color .2s linear;
+            transition: background .2s linear, color .2s linear;
         }
     </style>
     <section id="gallery" class="well">
