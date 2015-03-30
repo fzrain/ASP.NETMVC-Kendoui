@@ -4,12 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
-using Chsword;
 using Fzrain.Core.Data;
 using Fzrain.Core.Domain.Lol;
 using Fzrain.Service.Configuration;
+using Newtonsoft.Json;
 
 namespace Fzrain.Service.Lol
 {
@@ -51,6 +50,7 @@ namespace Fzrain.Service.Lol
                 foreach (double d in list)
                 {
                     int index = battle.Records.Where(r => r.Contribute > d).Count();
+// ReSharper disable once CompareOfFloatsByEqualityOperator
                     var records = battle.Records.Where(r => r.Contribute == d).ToList();
                     foreach (Record record in records)
                     {
@@ -106,57 +106,50 @@ namespace Fzrain.Service.Lol
           return   allIds.Where(id=>!ids.Contains(id)).ToList();
         }
 
-    
-
-        public List<int> GetGameIds(string qq, int areaId)
+        public dynamic GetJsonResponse(string url)
         {
-
-            string p = "[[3,{\"qquin\":\"" + qq + "\",\"area_id\":\"" + areaId + "\",\"champion_id\":0,\"offset\":0,\"limit \":0}]]";
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://api.pallas.tgp.qq.com/core/tcall?callback=getGameDetailCallback&dtag=profile&p=" + p + "&t=1417937593108");
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "Get";
             request.Headers.Add(HttpRequestHeader.Cookie, settingService.GetValueByName("lolCookie"));
 
             request.UserAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729)";
-         
+
             // ReSharper disable once AssignNullToNotNullAttribute
             var reader = new StreamReader(request.GetResponseAsync().Result.GetResponseStream());
             var r = reader.ReadToEnd();
             string json = r.Substring(26, r.Length - 38);
-            dynamic record = new JDynamic(json);
+            return  JsonConvert.DeserializeObject(json);
+        }
+
+
+        public List<int> GetGameIds(string qq, int areaId)
+        {
+            string p = "[[3,{\"qquin\":\"" + qq + "\",\"area_id\":\"" + areaId + "\",\"champion_id\":0,\"offset\":0,\"limit \":0}]]";
+            string url = "http://api.pallas.tgp.qq.com/core/tcall?callback=getGameDetailCallback&dtag=profile&p=" + p +
+                         "&t=1417937593108";
+            dynamic record = GetJsonResponse(url);
             dynamic d = record.data[0].battle_list;
             List<int> list = new List<int>();
-            for (int i = 0; i < d.Length; i++)
+            for (int i = 0; i < d.Count; i++)
             {
-                list.Add(d[i].game_id);
+                list.Add(Convert.ToInt32(d[i].game_id));
             }
             return list;
         }
         public Battle GetDataById(int id, int areaId)
         {
-            //  string id = "633344492";
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://api.pallas.tgp.qq.com/core/tcall?callback=getGameDetailCallback&dtag=profile&p=[[4,{\"area_id\":\"" + areaId + "\",\"game_id\":\"" + id + "\"}]]&t=1417937593108");
 
-            request.Method = "Get";
-            request.Headers.Add(HttpRequestHeader.Cookie, settingService.GetValueByName("lolCookie"));
-
-            request.UserAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729)";
-
-            // ReSharper disable once AssignNullToNotNullAttribute
-            var reader = new StreamReader(request.GetResponseAsync().Result.GetResponseStream());
-            var r = reader.ReadToEnd();
-            string json = r.Substring(26, r.Length - 38);
-            dynamic record = new JDynamic(json);
-            string time = record.data[0].battle.start_time.ToString();
-            if (string.IsNullOrWhiteSpace(time))
-            {
-                return null;
-            }
+            dynamic record =
+                GetJsonResponse(
+                    "http://api.pallas.tgp.qq.com/core/tcall?callback=getGameDetailCallback&dtag=profile&p=[[4,{\"area_id\":\"" +
+                    areaId + "\",\"game_id\":\"" + id + "\"}]]&t=1417937593108");
+        
             dynamic rs = record.data[0].battle.gamer_records;
             List<Record> list = new List<Record>();
-            for (int i = 0; i < rs.Length; i++)
+            for (int i = 0; i < rs.Count; i++)
             {
                 string tagList = string.Empty;
-                for (int j = 0; j < rs[i].battle_tag_list.Length; j++)
+                for (int j = 0; j < rs[i].battle_tag_list.Count; j++)
                 {
                     tagList += rs[i].battle_tag_list[j].tag_id + ";";
                 }
@@ -167,7 +160,7 @@ namespace Fzrain.Service.Lol
                     GoldEarned = rs[i].gold_earned,
                     DamageTaken = rs[i].total_damage_taken,
                     TotalDamage = rs[i].total_damage_dealt_to_champions,
-                    Name = Regex.Unescape(rs[i].name),
+                    Name = rs[i].name,
                     IsWin = rs[i].win,
                     Kill = rs[i].champions_killed,
                     Death = rs[i].num_deaths,
@@ -183,8 +176,6 @@ namespace Fzrain.Service.Lol
                     LargestKillingSpree = rs[i].largest_killing_spree,
 
                 });
-
-
             }
             return new Battle
             {
@@ -196,11 +187,6 @@ namespace Fzrain.Service.Lol
                 //   IsWin = record.data[0].battle.win,
                 Records = list
             };
-
-
-
-
-
         }
     }
 }

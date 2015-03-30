@@ -81,10 +81,10 @@
               {
                   columns.Bound(u => u.ChampionId).ClientTemplate("<img width='50px' src='../../Content/lolpng/#=ChampionId#.png' alt='' />").Width(50).HtmlAttributes(new {style = "text-align:center"}).Filterable(filterable => filterable.UI("championFilter"));
                   columns.Bound(u => u.ChampionId).Width(30).HeaderTemplate("Id").Filterable(false);
-                  columns.Bound(u => u.BattleType).Width(80).ClientTemplate("#=showGameType(BattleType)#");
+                  columns.Bound(u => u.BattleType).Width(80).ClientTemplate("#=BattleType==6?'极地大乱斗':'召唤师峡谷'#");
                   columns.Bound(u => u.StartTime).Width(80).Format("{0:yyyy-MM-dd HH:mm:ss}");
                   columns.Bound(u => u.Duration).Width(80).ClientTemplate("#=(Duration/60).toFixed(2)#");
-                  columns.Bound(u => u.IsWin).Width(80).ClientTemplate("#=showWinStatus(IsWin)#");
+                  columns.Bound(u => u.IsWin).Width(80).ClientTemplate("#=IsWin==1?'<font color=\"green\">胜利</font>':'<font color=\"red\">失败</font>'#");
                   columns.Bound(u => u.ContributeOrder).Width(80).ClientTemplate("#=RenderContribute(ContributeOrder)#");
                   columns.Command(c => c.Custom("战斗详情").Click("showDetails")).Width(80);
               })
@@ -145,12 +145,8 @@
             </div>
         </script>
         <div id="listview" class="ra-well-overlay row"></div>
-
     </section>
-
-
-
-    <footer>Copyright &copy; 2013 <a href="http://telerik.com/">Telerik Inc</a>. All rights reserved.</footer>
+    <footer>Copyright &copy; @DateTime.Now.Year <a href="http://fzrain.apphb.com">Fzrain Inc</a>. All rights reserved.</footer>
 </div>
 
 @(Html.Kendo().Window()
@@ -266,21 +262,21 @@
         });
     }
 
-    function showGameType(gameType) {
-        if (gameType == "6") {
-            return "极地大乱斗";
-        } else {
-            return "召唤师峡谷";
-        }
-    }
+    //function showGameType(gameType) {
+    //    if (gameType == "6") {
+    //        return "极地大乱斗";
+    //    } else {
+    //        return "召唤师峡谷";
+    //    }
+    //}
 
-    function showWinStatus(isWin) {
-        if (isWin == "1") {
-            return "<font color='green'>胜利</font>";
-        } else {
-            return "<font color='red'>失败</font>";
-        }
-    }
+    //function showWinStatus(isWin) {
+    //    if (isWin == "1") {
+    //        return "<font color='green'>胜利</font>";
+    //    } else {
+    //        return "<font color='red'>失败</font>";
+    //    }
+    //}
 
     function RenderContribute(contributeOrder) {
         if (contributeOrder == 1) {

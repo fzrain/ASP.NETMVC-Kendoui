@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
-using Fzrain.Core.Domain.Lol;
 using Fzrain.Service.Lol;
 using Fzrain.Web.Framework.Mvc;
 using Fzrain.Web.Models.Common;
@@ -39,17 +38,17 @@ namespace Fzrain.Web.Controllers
             return Json(lolService.GetAllBattles().Select(b => new { b.BattleType, b.Duration, b.GameId, b.Id, b.StartTime, b.ChampionId, b.IsWin, b.ContributeOrder }).ToDataSourceResult(request));
         }
 
-        public ActionResult ShowChampionInfo(string filter, DateTime? beginDate)
+        public ActionResult ShowChampionInfo(int filter, DateTime? beginDate)
         {
             var allRecodes = lolService.GetAllRecords().IncludeProperties(r => r.Battle).OrderByDescending(r => r.Battle.StartTime).AsQueryable();
-            if (!string.IsNullOrWhiteSpace(filter))
+            if (!string.IsNullOrWhiteSpace(filter.ToString()))
             {
-                int num = Convert.ToInt32(filter);
-                if (num >= 100)
-                    allRecodes = allRecodes.Take(10 * num);
+                //int num = Convert.ToInt32(filter);
+                if (filter >= 100)
+                    allRecodes = allRecodes.Take(10 * filter);
                 else
                 {
-                    DateTime startTime = DateTime.Now.AddMonths(-num);
+                    DateTime startTime = DateTime.Now.AddMonths(-filter);
                     allRecodes = allRecodes.Where(r => r.Battle.StartTime > startTime);
                 }
 
@@ -87,10 +86,10 @@ namespace Fzrain.Web.Controllers
             var ids = lolService.GetUpdateIds(qq, areaId);
             return Json(ids);
         }
-        public ActionResult UpdateBattle(string ids, int areaId, string myRoleName)
+        public ActionResult UpdateBattle(List<int> ids, int areaId, string myRoleName)
         {
-            List<int> gameIds = ids.Split(',').Select(id => Convert.ToInt32(id)).ToList();
-            lolService.UpdateBattle(gameIds, areaId, myRoleName);
+           // List<int> gameIds = ids.Split(',').Select(id => Convert.ToInt32(id)).ToList();
+            lolService.UpdateBattle(ids, areaId, myRoleName);
             return Content("ok");
         }
         public ActionResult GetBattleDetail(int gameId)
