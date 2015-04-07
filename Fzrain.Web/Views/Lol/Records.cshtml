@@ -1,0 +1,56 @@
+﻿@using Fzrain.Core.Domain.Lol
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "LolBasePage.cshtml";
+}
+<div class="mainright">
+    @(Html.Kendo().Grid<Record>()
+          .Name("grid")
+          .Columns(columns =>
+          {
+              columns.Bound(u => u.ChampionId).ClientTemplate("<img width='50px' src='../../Content/lolpng/#=ChampionId#.png' alt='' />").Width(50).HtmlAttributes(new {style = "text-align:center"}).Filterable(filterable => filterable.UI("championFilter"));
+              columns.Bound(u => u.ChampionId).Width(30).HeaderTemplate("Id").Filterable(false);
+              columns.Bound(u => u.Name).Width(80);
+              //    columns.Bound(u => u.Battle.StartTime).Width(80).Format("{0:yyyy-MM-dd HH:mm:ss}");
+              columns.Bound(u => u.Kill).Width(80);
+              columns.Bound(u => u.Death).Width(80);
+              columns.Bound(u => u.Assist).Width(80);
+              columns.Bound(u => u.TotalDamage).Width(80);
+              columns.Bound(u => u.IsWin).Width(80).ClientTemplate("#=IsWin==1?'<font color=\"green\">胜利</font>':'<font color=\"red\">失败</font>'#");
+              columns.Bound(u => u.ContributeOrder).Width(80).ClientTemplate("#=RenderContribute(ContributeOrder)#");
+
+          })
+          .Pageable(c => c.PageSizes(true).Messages(m => m.Next("下一页").ItemsPerPage("每页记录数")).Refresh(true))
+          .Filterable(filterable => filterable
+              .Extra(false))
+          .Scrollable().Sortable()
+          .HtmlAttributes(new {style = "height:100%;"})
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .PageSize(20)
+              .Model(model => model.Id(u => u.Id))
+              .Read(read => read.Action("RecordsRead", "Lol"))
+
+          )
+          )
+</div>
+<script type="text/javascript">
+    function championFilter(element) {
+        element.kendoComboBox({
+            dataSource: {
+                transport: {
+                    read: "@Url.Action("FilterMenuChampion")"
+            }
+        },
+            template: "<img width='50px' src='../../Content/lolpng/#:data#.png' alt='' />"
+    });
+    }
+    function RenderContribute(contributeOrder) {
+        if (contributeOrder == 1) {
+            return "<img height='40px' src='../../Content/mvp.png' alt='' />";
+        } else {
+            return contributeOrder;
+        }
+    }
+</script>

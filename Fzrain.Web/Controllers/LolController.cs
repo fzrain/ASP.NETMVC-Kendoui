@@ -38,17 +38,17 @@ namespace Fzrain.Web.Controllers
             return Json(lolService.GetAllBattles().Select(b => new { b.BattleType, b.Duration, b.GameId, b.Id, b.StartTime, b.ChampionId, b.IsWin, b.ContributeOrder }).ToDataSourceResult(request));
         }
 
-        public ActionResult ShowChampionInfo(int filter, DateTime? beginDate)
+        public ActionResult ShowChampionInfo(string  filter, DateTime? beginDate)
         {
             var allRecodes = lolService.GetAllRecords().IncludeProperties(r => r.Battle).OrderByDescending(r => r.Battle.StartTime).AsQueryable();
-            if (!string.IsNullOrWhiteSpace(filter.ToString()))
+            if (!string.IsNullOrWhiteSpace(filter))
             {
-                //int num = Convert.ToInt32(filter);
-                if (filter >= 100)
-                    allRecodes = allRecodes.Take(10 * filter);
+                int num = Convert.ToInt32(filter);
+                if (num >= 100)
+                    allRecodes = allRecodes.Take(10 * num);
                 else
                 {
-                    DateTime startTime = DateTime.Now.AddMonths(-filter);
+                    DateTime startTime = DateTime.Now.AddMonths(-num);
                     allRecodes = allRecodes.Where(r => r.Battle.StartTime > startTime);
                 }
 
@@ -86,10 +86,10 @@ namespace Fzrain.Web.Controllers
             var ids = lolService.GetUpdateIds(qq, areaId);
             return Json(ids);
         }
-        public ActionResult UpdateBattle(List<int> ids, int areaId, string myRoleName)
+        public ActionResult UpdateBattle(string ids, int areaId, string myRoleName)
         {
-           // List<int> gameIds = ids.Split(',').Select(id => Convert.ToInt32(id)).ToList();
-            lolService.UpdateBattle(ids, areaId, myRoleName);
+            List<int> gameIds = ids.Split(',').Select(id => Convert.ToInt32(id)).ToList();
+            lolService.UpdateBattle(gameIds, areaId, myRoleName);
             return Content("ok");
         }
         public ActionResult GetBattleDetail(int gameId)
@@ -221,6 +221,18 @@ namespace Fzrain.Web.Controllers
                return Json(records.OrderByDescending(r => r.Contribute).ToList().Select(r =>new { r.Name,r.IsWin,r.Contribute,Battle=new {r.Battle.StartTime,r.Battle.GameId}}));
 
 
+        }
+
+        public ActionResult Records([DataSourceRequest] DataSourceRequest request)
+        {
+            return View("Records");
+        }
+        public ActionResult RecordsRead([DataSourceRequest] DataSourceRequest request)
+        {
+            if (request.Sorts.Count == 0)//默认按Id倒序排列
+                request.Sorts.Add(new SortDescriptor { Member = "Id", SortDirection = ListSortDirection.Descending });
+
+            return Json(lolService.GetAllRecords().ToDataSourceResult(request));
         }
         protected override JsonResult Json(object data, string contentType, Encoding contentEncoding, JsonRequestBehavior behavior)
         {
