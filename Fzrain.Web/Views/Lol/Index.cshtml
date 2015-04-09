@@ -7,7 +7,7 @@
 
 
 <div id="example" class="container">
-    
+
     @Html.Partial("Components/Menu")
 
     <div class="row clearfix">
@@ -17,7 +17,7 @@
 
                 <div class="row">
                     <div class="col-lg-5 col-sm-2">
-                        <img src="/Content/lolpng/touxiang.png" style="width: 88px; margin-left: 10px" alt=""/>
+                        <img src="/Content/lolpng/touxiang.png" style="width: 88px; margin-left: 10px" alt="" />
                     </div>
 
                     <div class="col-lg-7 col-sm-2">
@@ -51,7 +51,7 @@
                               }))
                               .Tooltip(tooltip => tooltip
                                   .Visible(true).Template("#= category # - #= kendo.format('{0:P}', percentage)#(#= value #)"))
-                              )
+                        )
 
                     </div>
                     <div style="float: left; margin: 15px 0 0 150px;">
@@ -60,7 +60,7 @@
                               .Value("fzrain@hotmail.com")
                               .ErrorCorrection(QRErrorCorrectionLevel.M)
                               .Size(120)
-                              )
+                        )
                     </div>
                 </div>
                 <div></div>
@@ -79,21 +79,21 @@
               .Name("grid").Excel(c => c.FileName("data"))
               .Columns(columns =>
               {
-                  columns.Bound(u => u.ChampionId).ClientTemplate("<img width='50px' src='../../Content/lolpng/#=ChampionId#.png' alt='' />").Width(50).HtmlAttributes(new {style = "text-align:center"}).Filterable(filterable => filterable.UI("championFilter"));
+                  columns.Bound(u => u.ChampionId).ClientTemplate("<img width='50px' src='../../Content/lolpng/#=ChampionId#.png' alt='' />").Width(50).HtmlAttributes(new { style = "text-align:center" }).Filterable(filterable => filterable.UI("championFilter"));
                   columns.Bound(u => u.ChampionId).Width(30).HeaderTemplate("Id").Filterable(false);
                   columns.Bound(u => u.BattleType).Width(80).ClientTemplate("#=BattleType==6?'极地大乱斗':'召唤师峡谷'#");
                   columns.Bound(u => u.StartTime).Width(80).Format("{0:yyyy-MM-dd HH:mm:ss}");
                   columns.Bound(u => u.Duration).Width(80).ClientTemplate("#=(Duration/60).toFixed(2)#");
                   columns.Bound(u => u.IsWin).Width(80).ClientTemplate("#=IsWin==1?'<font color=\"green\">胜利</font>':'<font color=\"red\">失败</font>'#");
-                  columns.Bound(u => u.ContributeOrder).Width(80).ClientTemplate("#=RenderContribute(ContributeOrder)#");
+                  columns.Bound(u => u.ContributeOrder).Width(80).ClientTemplate("#=ContributeOrder==1?'<img height=\"40px\" src=\"../../Content/mvp.png\"  />':ContributeOrder#");
                   columns.Command(c => c.Custom("战斗详情").Click("showDetails")).Width(80);
               })
-              .ToolBar(c => c.Custom().Text("更新战绩").HtmlAttributes(new {id = "updateBattle"}))
+              .ToolBar(c => c.Custom().Text("更新战绩").HtmlAttributes(new { id = "updateBattle" }))
               .Pageable(c => c.PageSizes(true).Messages(m => m.Next("下一页").ItemsPerPage("每页记录数")).Refresh(true))
               .Filterable(filterable => filterable
                   .Extra(false))
               .Scrollable().Sortable()
-              .HtmlAttributes(new {style = "height:100%;"})
+              .HtmlAttributes(new { style = "height:100%;" })
               .DataSource(dataSource => dataSource
                   .Ajax()
                   .PageSize(20)
@@ -101,50 +101,53 @@
                   .Read(read => read.Action("Read", "Lol"))
 
               )
-              )
+        )
     </div>
 
     <style>
-        .figurePhoto p {
-            position: absolute;
+        .photos p {
             visibility: hidden;
         }
 
-        .figurePhoto:hover p {
-            visibility: visible;
+        .photos:hover p {
+           visibility: visible;
             position: absolute;
-            width: 178px;
-            height: 100px;
-            top: 20px;
+            width: 110px;
+            height: 110px;
+            top: 0;
             margin: 0;
             padding: 0;
-            line-height: 100px;
+            line-height: 110px;
             vertical-align: middle;
             text-align: center;
             color: #fff;
             cursor: pointer;
-            background-color: rgba(0, 0, 0, 0.75);
+            background-color: rgba(0,0,0,0.75);
+            transition: background .2s linear, color .2s linear;
             -moz-transition: background .2s linear, color .2s linear;
             -webkit-transition: background .2s linear, color .2s linear;
             -o-transition: background .2s linear, color .2s linear;
-            transition: background .2s linear, color .2s linear;
+        }
+        .photos {
+               float: left;
+            position: relative;
+            width: 111px;
+            height: 170px;
+            margin: 0;
+            padding: 0;
         }
     </style>
     <section id="gallery" class="well">
         <h2 class="ra-well-title">精彩截图<span style="float: right"><a href="#">更多></a> </span></h2>
-
         <script id="listview-template" type="x-kendo-template">
-            <div class="col-xs-6 col-md-4 col-lg-2">
-                <figure class="figurePhoto">
+            <div class="photos">       
                     <img src="assets/photos/#= Uri #" class="img-responsive" />
-                    <h4>#: Name #</h4>
-                    <p class="hidden-sm">
-                        查看大图
-                    </p>
-                </figure>
+                    <h3>#: Name #</h3>
+                    <p class="hidden-sm">查看大图</p>       
             </div>
         </script>
-        <div id="listview" class="ra-well-overlay row"></div>
+        <div id="listview" ></div>
+        <div id="pager" class="k-pager-wrap"></div>
     </section>
     <footer>Copyright &copy; @DateTime.Now.Year <a href="http://fzrain.apphb.com">Fzrain Inc</a>. All rights reserved.</footer>
 </div>
@@ -180,16 +183,16 @@
     .Modal(true)
     .Width(700).Height(470)
     .Actions(actions => actions.Minimize().Maximize().Close()).Position(a => a.Left(335).Top(100))
-      )
+)
 <style>
-      #menu {
-          margin-bottom:30px
-      }
+    #menu {
+        margin-bottom: 30px;
+    }
 </style>
 <script type="text/javascript">
-  
 
-  
+
+
     function resizeTabStripContent() {
         kendo.resize("#tabstrip");
     }
@@ -202,19 +205,22 @@
 
     // resize nested charts when window resizes
     $(window).resize(resizeTabStripContent);
-
-   
-    $("#listview").kendoListView({         
-        dataSource: {
-            transport: {
-                read: {
-                    url: "@Url.Action("GetPictures", "lol")",
-                type:"post",
-                async: false
+    var dataSource = new kendo.data.DataSource({
+        transport: {
+            read: {
+                url: "@Url.Action("GetPictures", "lol")",
+                type: "post"
             }
-        }
-              
-    },
+        },
+        pageSize: 21
+    });
+
+    $("#pager").kendoPager({
+        dataSource: dataSource
+    });
+
+    $("#listview").kendoListView({
+        dataSource: dataSource,
         template: $("#listview-template").html()
     });
     $("#updateBattle").bind("click", function () {
@@ -261,31 +267,6 @@
 
         });
     }
-
-    //function showGameType(gameType) {
-    //    if (gameType == "6") {
-    //        return "极地大乱斗";
-    //    } else {
-    //        return "召唤师峡谷";
-    //    }
-    //}
-
-    //function showWinStatus(isWin) {
-    //    if (isWin == "1") {
-    //        return "<font color='green'>胜利</font>";
-    //    } else {
-    //        return "<font color='red'>失败</font>";
-    //    }
-    //}
-
-    function RenderContribute(contributeOrder) {
-        if (contributeOrder == 1) {
-            return "<img height='40px' src='../../Content/mvp.png' alt='' />";
-        } else {
-            return contributeOrder;
-        }
-    }
-
 
     function championFilter(element) {
         element.kendoComboBox({

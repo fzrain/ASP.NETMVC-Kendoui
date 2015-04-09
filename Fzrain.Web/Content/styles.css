@@ -261,7 +261,7 @@ header .k-dropdown-wrap.k-state-default .k-input {
     margin-bottom: 10px;
 }
 
-#listview {
+/*#listview {
     list-style-type: none;
     padding: 0 0 15px;
 }
@@ -279,7 +279,7 @@ figure h4 {
 
 figure p.hidden-sm {
     min-height: 80px;
-}
+}*/
 
 footer {
     text-align: right;

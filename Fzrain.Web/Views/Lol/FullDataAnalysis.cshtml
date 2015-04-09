@@ -92,7 +92,7 @@
                 traditional: true,
                 method: "post",
                 success: function (result) {
-                    var dataSource = new kendo.data.DataSource({ data: result });
+                    var dataSource = new window.kendo.data.DataSource({ data: result });
                     var grid = $('#grid').data("kendoGrid");
                     dataSource.read();
                     grid.setDataSource(dataSource);

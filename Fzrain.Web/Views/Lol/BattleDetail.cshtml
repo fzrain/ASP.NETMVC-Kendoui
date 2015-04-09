@@ -12,7 +12,8 @@
         width: 30px;
         margin-left: 1px;
     }
-    #tabstrip_BattleDetail .k-content{
+
+    #tabstrip_BattleDetail .k-content {
         padding: 10px;
         border-style: solid;
         border-width: 1px;
@@ -76,27 +77,27 @@
                 </div>
             </text>).Selected(true);
               tab.Add().Text("伤害统计").Content(@<text>
-        @(Html.Kendo().Chart(Model)
-        .Name("chart_BattleDetail").Theme("metro")
-        .Title("输出(承受)伤害")
-        .Legend(legend => legend.Visible(true))
-        .ChartArea(chartArea => chartArea.Background("transparent"))
-        .Series(series =>
-        {
-            series.Bar(model => model.TotalDamage).Name("输出伤害").Color("#1fc35c");
-            series.Bar(model => model.DamageTaken).Name("承受伤害").Color("#f64242");
-           
-        })
-        .CategoryAxis(axis => axis
-            .Categories(model => model.ChampionId)
-            .MajorGridLines(lines => lines.Visible(false))
-        )
-        .ValueAxis(axis => axis
-            .Numeric()
-            .Line(line => line.Visible(false))
-            .MajorGridLines(lines => lines.Visible(true))
-        )
-        .Tooltip(tooltip => tooltip.Visible(true).Template("#= series.name #: #= value #")))
+                                    @(Html.Kendo().Chart(Model)
+                                    .Name("chart_BattleDetail").Theme("metro")
+                                    .Title("输出(承受)伤害")
+                                    .Legend(legend => legend.Visible(true))
+                                    .ChartArea(chartArea => chartArea.Background("transparent"))
+                                    .Series(series =>
+                                    {
+                                        series.Bar(model => model.TotalDamage).Name("输出伤害").Color("#1fc35c");
+                                        series.Bar(model => model.DamageTaken).Name("承受伤害").Color("#f64242");
+
+                                    })
+                                    .CategoryAxis(axis => axis
+                                        .Categories(model => model.ChampionId)
+                                        .MajorGridLines(lines => lines.Visible(false))
+                                    )
+                                    .ValueAxis(axis => axis
+                                        .Numeric()
+                                        .Line(line => line.Visible(false))
+                                        .MajorGridLines(lines => lines.Visible(true))
+                                    )
+                                    .Tooltip(tooltip => tooltip.Visible(true).Template("#= series.name #: #= value #")))
             </text>);
           }))
 
