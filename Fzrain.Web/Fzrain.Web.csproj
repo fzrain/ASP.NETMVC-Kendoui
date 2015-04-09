@@ -158,6 +158,7 @@
     <Compile Include="Controllers\DemoController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LolController.cs" />
     <Compile Include="Controllers\SchedulerController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -189,6 +190,27 @@
     <Content Include="Content\indexPage\bootstrap.css" />
     <Content Include="Content\indexPage\popuo-box.css" />
     <Content Include="Content\indexPage\style.css" />
+    <Content Include="Content\login\css\bootstrap.min.css" />
+    <Content Include="Content\login\css\login.css" />
+    <Content Include="Content\login\css\supersized.css" />
+    <Content Include="Content\login\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\login\images\1.png" />
+    <Content Include="Content\login\images\backgrounds\0.jpg" />
+    <Content Include="Content\login\images\backgrounds\1.jpg" />
+    <Content Include="Content\login\images\backgrounds\2.jpg" />
+    <Content Include="Content\login\images\backgrounds\3.jpg" />
+    <Content Include="Content\login\images\captcha.jpeg" />
+    <Content Include="Content\login\images\error.png" />
+    <Content Include="Content\login\images\loading.gif" />
+    <Content Include="Content\login\images\logo.png" />
+    <Content Include="Content\login\js\html5.js" />
+    <Content Include="Content\login\js\jquery-1.8.2.min.js" />
+    <Content Include="Content\login\js\jquery.form.js" />
+    <Content Include="Content\login\js\login.js" />
+    <Content Include="Content\login\js\scripts.js" />
+    <Content Include="Content\login\js\supersized-init.js" />
+    <Content Include="Content\login\js\supersized.3.2.7.min.js" />
+    <Content Include="Content\login\js\tooltips.js" />
     <Content Include="Content\logo.png" />
     <Content Include="Content\lolpng\1.png" />
     <Content Include="Content\lolpng\10.png" />
@@ -1001,6 +1023,10 @@
     <Content Include="Content\web\images\kendoui.ttf" />
     <Content Include="Content\web\images\kendoui.woff" />
     <Content Include="Content\lolpng\ZhuangBei.css" />
+    <Content Include="Content\login\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\login\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\login\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\login\images\backgrounds\Thumbs.db" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1055,6 +1081,7 @@
     <Content Include="Views\User\Modules.cshtml" />
     <Content Include="Views\Shared\Components\Window.cshtml" />
     <Content Include="Views\Lol\Records.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
