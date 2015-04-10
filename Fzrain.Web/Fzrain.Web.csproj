@@ -74,9 +74,9 @@
     <Reference Include="Fzrain.Web.Framework">
       <HintPath>..\lib\Fzrain.Web.Framework.dll</HintPath>
     </Reference>
-    <Reference Include="Kendo.Mvc, Version=2015.1.318.545, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+    <Reference Include="Kendo.Mvc, Version=2015.1.408.545, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\KENDOUIMVC\2015.1.318.545.Trial\Kendo.Mvc.dll</HintPath>
+      <HintPath>..\lib\KENDOUIMVC\2015.1.408.545.Trial\Kendo.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -184,8 +184,6 @@
     <Content Include="assets\photos\7.jpg" />
     <Content Include="assets\photos\8.jpg" />
     <Content Include="assets\photos\9.jpg" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\indexPage\banner.jpg" />
     <Content Include="Content\indexPage\bootstrap.css" />
     <Content Include="Content\indexPage\popuo-box.css" />
@@ -211,7 +209,6 @@
     <Content Include="Content\login\js\supersized-init.js" />
     <Content Include="Content\login\js\supersized.3.2.7.min.js" />
     <Content Include="Content\login\js\tooltips.js" />
-    <Content Include="Content\logo.png" />
     <Content Include="Content\lolpng\1.png" />
     <Content Include="Content\lolpng\10.png" />
     <Content Include="Content\lolpng\101.png" />
@@ -1012,8 +1009,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\web\16x16\Thumbs.db" />
     <Content Include="Content\web\24x24\Thumbs.db" />
     <Content Include="Content\web\32x32\Thumbs.db" />
@@ -1027,10 +1022,6 @@
     <Content Include="Content\login\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\login\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\login\images\backgrounds\Thumbs.db" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <None Include="Scripts\kendo.all.min.intellisense.js" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\kendo.modernizr.custom.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -1047,15 +1038,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\User\UserEdit.cshtml" />
     <Content Include="Views\Demo\Index.cshtml" />
     <Content Include="Views\Demo\Window.cshtml" />
     <Content Include="Views\Demo\Scheduler.cshtml" />
-    <Content Include="Views\Shared\_LayoutEmpty.cshtml" />
     <Content Include="Views\Demo\Upload.cshtml" />
     <Content Include="Views\Demo\TempleCal.cshtml" />
     <Content Include="Views\Scheduler\Index.cshtml" />
@@ -1071,19 +1059,22 @@
     <Content Include="Views\Demo\Tab.cshtml" />
     <Content Include="Views\User\Roles.cshtml" />
     <Content Include="Views\Lol\ShowMyChampionInfos.cshtml" />
-    <Content Include="Views\Shared\Components\Header.cshtml" />
-    <Content Include="Views\Shared\Components\Notification.cshtml" />
-    <Content Include="Views\Shared\Components\TreeView.cshtml" />
-    <Content Include="Views\Shared\ImportReferences.cshtml" />
-    <Content Include="Views\Shared\Components\Menu.cshtml" />
     <Content Include="Views\Common\Index.cshtml" />
     <Content Include="Views\Lol\FullDataAnalysis.cshtml" />
     <Content Include="Views\User\Modules.cshtml" />
-    <Content Include="Views\Shared\Components\Window.cshtml" />
     <Content Include="Views\Lol\Records.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\Shared\Components\Header.cshtml" />
+    <Content Include="Views\Shared\Components\Menu.cshtml" />
+    <Content Include="Views\Shared\Components\Notification.cshtml" />
+    <Content Include="Views\Shared\Components\TreeView.cshtml" />
+    <Content Include="Views\Shared\Components\Window.cshtml" />
+    <Content Include="Views\Shared\ImportReferences.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LayoutEmpty.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
