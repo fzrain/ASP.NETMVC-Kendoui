@@ -209,6 +209,7 @@
     <Content Include="Content\login\js\supersized-init.js" />
     <Content Include="Content\login\js\supersized.3.2.7.min.js" />
     <Content Include="Content\login\js\tooltips.js" />
+    <Content Include="Content\logo.png" />
     <Content Include="Content\lolpng\1.png" />
     <Content Include="Content\lolpng\10.png" />
     <Content Include="Content\lolpng\101.png" />
