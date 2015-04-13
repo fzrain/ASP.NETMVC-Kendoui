@@ -45,8 +45,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{446B0B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation.Desktop", "Presentation.Desktop", "{E1B3CA59-DDF3-47BB-95DD-F656C6EE854C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fzrain.Desktop", "Fzrain.Desktop\Fzrain.Desktop.csproj", "{AA3CDB40-57DC-4C1D-B558-1AA72CC64A4A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,16 +105,6 @@ Global
 		{4A9201BF-B1A9-4186-BEFE-887A706709C1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{4A9201BF-B1A9-4186-BEFE-887A706709C1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{4A9201BF-B1A9-4186-BEFE-887A706709C1}.Release|x86.ActiveCfg = Release|Any CPU
-		{AA3CDB40-57DC-4C1D-B558-1AA72CC64A4A}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{AA3CDB40-57DC-4C1D-B558-1AA72CC64A4A}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{AA3CDB40-57DC-4C1D-B558-1AA72CC64A4A}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{AA3CDB40-57DC-4C1D-B558-1AA72CC64A4A}.Debug|x86.ActiveCfg = Debug|x86
-		{AA3CDB40-57DC-4C1D-B558-1AA72CC64A4A}.Debug|x86.Build.0 = Debug|x86
-		{AA3CDB40-57DC-4C1D-B558-1AA72CC64A4A}.Release|Any CPU.ActiveCfg = Release|x86
-		{AA3CDB40-57DC-4C1D-B558-1AA72CC64A4A}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{AA3CDB40-57DC-4C1D-B558-1AA72CC64A4A}.Release|Mixed Platforms.Build.0 = Release|x86
-		{AA3CDB40-57DC-4C1D-B558-1AA72CC64A4A}.Release|x86.ActiveCfg = Release|x86
-		{AA3CDB40-57DC-4C1D-B558-1AA72CC64A4A}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -127,6 +115,5 @@ Global
 		{1D2AEFC1-C771-4932-8467-47DCEB6C4E38} = {0B75C89B-8381-4E3A-BA34-A53024BC1EDD}
 		{DFC33B56-57DC-4B08-B110-867002198904} = {7B5C62F7-B8CE-4076-8F83-877159DCC2A7}
 		{4A9201BF-B1A9-4186-BEFE-887A706709C1} = {7B5C62F7-B8CE-4076-8F83-877159DCC2A7}
-		{AA3CDB40-57DC-4C1D-B558-1AA72CC64A4A} = {E1B3CA59-DDF3-47BB-95DD-F656C6EE854C}
 	EndGlobalSection
 EndGlobal
