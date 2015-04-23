@@ -48,6 +48,7 @@ a {
     float: left;
     font-size: 24px;
     font-weight: normal;
+	margin-left :20px
 }
 
 .responsive-header h1 a {
@@ -140,6 +141,10 @@ a {
 .responsive-pink-section {
     background: #ebafaf;
 }
+.responsive-purper-section {
+    background: #8279aa;
+	color: whitesmoke;
+}
 .responsive-section h2 {
     font: 36px "Roboto Slab", Arial, Helvetica, sans-serif;  
 }
@@ -147,7 +152,7 @@ a {
 .responsive-section h3 {
     font: 24px "Roboto Slab", Arial, Helvetica, sans-serif;
     display: inline-block;
-    border-bottom: 1px solid rgba(255,255,255,.6);
+    /*border-bottom: 1px solid rgba(255,255,255,.6);*/
     height: 28px;
 }
 
@@ -224,7 +229,15 @@ a {
 .kendo-with-bootstrap-btn:hover {
     background-color: #ec6052;
 }
+.kendo-with-history-btn {
+    background-color: #ffffff;
+	color :mediumpurple
+}
 
+.kendo-with-history-btn:hover {
+    background-color: #e3e3e3;
+	color :mediumpurple
+}
 .responsive-widget {
    display: block;
    float: left;

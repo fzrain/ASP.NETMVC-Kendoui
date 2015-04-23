@@ -142,15 +142,7 @@ namespace Fzrain.Web.Controllers
             ViewBag.ChampionInfos = model;
             return View(ids.Select(id => id.Key).ToList());
         }
-        public ActionResult GetPictures()
-        {
-            List<LolPictureViewModel> list = new List<LolPictureViewModel> {new LolPictureViewModel
-            {
-                Uri ="1.jpg",
-                Name ="2015-01-01 js t"
-            } };
-            return Json(list);
-        }
+     
 
         public ActionResult FullDataAnalysis()
         {

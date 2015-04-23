@@ -104,51 +104,8 @@
         )
     </div>
 
-    <style>
-        .photos p {
-            visibility: hidden;
-        }
-
-        .photos:hover p {
-           visibility: visible;
-            position: absolute;
-            width: 110px;
-            height: 110px;
-            top: 0;
-            margin: 0;
-            padding: 0;
-            line-height: 110px;
-            vertical-align: middle;
-            text-align: center;
-            color: #fff;
-            cursor: pointer;
-            background-color: rgba(0,0,0,0.75);
-            transition: background .2s linear, color .2s linear;
-            -moz-transition: background .2s linear, color .2s linear;
-            -webkit-transition: background .2s linear, color .2s linear;
-            -o-transition: background .2s linear, color .2s linear;
-        }
-        .photos {
-               float: left;
-            position: relative;
-            width: 111px;
-            height: 170px;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
-    <section id="gallery" class="well">
-        <h2 class="ra-well-title">精彩截图<span style="float: right"><a href="#">更多></a> </span></h2>
-        <script id="listview-template" type="x-kendo-template">
-            <div class="photos">       
-                    <img src="assets/photos/#= Uri #" class="img-responsive" />
-                    <h3>#: Name #</h3>
-                    <p class="hidden-sm">查看大图</p>       
-            </div>
-        </script>
-        <div id="listview" ></div>
-        <div id="pager" class="k-pager-wrap"></div>
-    </section>
+   
+   
     <footer>Copyright &copy; @DateTime.Now.Year <a href="http://fzrain.apphb.com">Fzrain Inc</a>. All rights reserved.</footer>
 </div>
 
@@ -205,33 +162,7 @@
 
     // resize nested charts when window resizes
     $(window).resize(resizeTabStripContent);
-    var dataSource = new kendo.data.DataSource({
-        transport: {
-            read: {
-                url: "@Url.Action("GetPictures", "lol")",
-                type: "post"
-            }
-        },
-        pageSize: 21
-    });
-
-    $("#pager").kendoPager({
-        dataSource: dataSource
-    });
-
-    $("#listview").kendoListView({
-        dataSource: dataSource,
-        template: $("#listview-template").html()
-    });
-    $("#updateBattle").bind("click", function () {
-        $("#window").data("kendoWindow").open();
-        return false;
-    });
-
-
-    $(".img-responsive").parent().children("p").click(function () {
-        open($(this).parent().children("img").prop("src"));
-    });
+    
 </script>
 
 <script type="text/javascript">

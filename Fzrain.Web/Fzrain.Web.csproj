@@ -185,16 +185,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Settings.txt" />
-    <Content Include="assets\photos\1.jpg" />
-    <Content Include="assets\photos\10.jpg" />
-    <Content Include="assets\photos\2.jpg" />
-    <Content Include="assets\photos\3.jpg" />
-    <Content Include="assets\photos\4.jpg" />
-    <Content Include="assets\photos\5.jpg" />
-    <Content Include="assets\photos\6.jpg" />
-    <Content Include="assets\photos\7.jpg" />
-    <Content Include="assets\photos\8.jpg" />
-    <Content Include="assets\photos\9.jpg" />
     <Content Include="Content\indexPage\banner.jpg" />
     <Content Include="Content\indexPage\bootstrap.css" />
     <Content Include="Content\indexPage\popuo-box.css" />
