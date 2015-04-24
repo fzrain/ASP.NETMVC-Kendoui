@@ -16,18 +16,16 @@ namespace Fzrain.Core.Infrastructure
     {
         #region Fields
 
-        private ContainerManager _containerManager;
-
         #endregion
 
         #region Utilities
 
         /// <summary>
-        /// Run startup tasks
+        /// 执行启动项
         /// </summary>
         protected virtual void RunStartupTasks()
         {
-            var typeFinder = _containerManager.Resolve<ITypeFinder>();
+            var typeFinder = ContainerManager.Resolve<ITypeFinder>();
             var startUpTaskTypes = typeFinder.FindClassesOfType<IStartupTask>();
             var startUpTasks = new List<IStartupTask>();
             foreach (var startUpTaskType in startUpTaskTypes)
@@ -72,7 +70,7 @@ namespace Fzrain.Core.Infrastructure
             builder.Update(container);
 
 
-            this._containerManager = new ContainerManager(container);
+            this.ContainerManager = new ContainerManager(container);
 
             //set dependency resolver
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
@@ -83,15 +81,15 @@ namespace Fzrain.Core.Infrastructure
         #region Methods
 
         /// <summary>
-        /// Initialize components and plugins in the nop environment.
+        /// 在框架环境中注册依赖项、执行启动项
         /// </summary>
         /// <param name="config">Config</param>
         public void Initialize(FzrainConfig config)
         {
-            //register dependencies
+            //注册依赖项
             RegisterDependencies(config);
 
-            //startup tasks
+            //执行启动项
             if (!config.IgnoreStartupTasks)
             {
                 RunStartupTasks();
@@ -100,7 +98,7 @@ namespace Fzrain.Core.Infrastructure
         }
 
         /// <summary>
-        /// Resolve dependency
+        /// 创建依赖项
         /// </summary>
         /// <typeparam name="T">T</typeparam>
         /// <returns></returns>
@@ -110,7 +108,7 @@ namespace Fzrain.Core.Infrastructure
         }
 
         /// <summary>
-        ///  Resolve dependency
+        ///  创建依赖项
         /// </summary>
         /// <param name="type">Type</param>
         /// <returns></returns>
@@ -120,7 +118,7 @@ namespace Fzrain.Core.Infrastructure
         }
 
         /// <summary>
-        /// Resolve dependencies
+        /// 创建依赖项
         /// </summary>
         /// <typeparam name="T">T</typeparam>
         /// <returns></returns>
@@ -136,10 +134,7 @@ namespace Fzrain.Core.Infrastructure
         /// <summary>
         /// Container manager
         /// </summary>
-        public ContainerManager ContainerManager
-        {
-            get { return _containerManager; }
-        }
+        public ContainerManager ContainerManager { get; private set; }
 
         #endregion
     }

@@ -39,19 +39,20 @@
                 </ul>
                 <div>
                     <div style="width: 340px; float: left">
+                        @{var dir=  (Dictionary<int, int>)ViewBag.AppearRate;}
                         @(Html.Kendo().Chart()
                               .Name("chart1").Theme("metro")
                               .Series(series => series.Pie(new dynamic[]
                               {
-                                  new {category = "ADC", value = 35},
-                                  new {category = "中单", value = 25},
-                                  new {category = "上单", value = 20},
-                                  new {category = "打野", value = 10},
-                                  new {category = "辅助", value = 10}
+                                  new {category = "ADC", value = dir[4]},
+                                  new {category = "中单", value = dir[3]},
+                                  new {category = "上单", value = dir[1]},
+                                  new {category = "打野", value = dir[2]},
+                                  new {category = "辅助", value = dir[5]}
                               }))
                               .Tooltip(tooltip => tooltip
                                   .Visible(true).Template("#= category # - #= kendo.format('{0:P}', percentage)#(#= value #)"))
-                        )
+                              )
 
                     </div>
                     <div style="float: left; margin: 15px 0 0 150px;">
@@ -103,9 +104,6 @@
               )
         )
     </div>
-
-   
-   
     <footer>Copyright &copy; @DateTime.Now.Year <a href="http://fzrain.apphb.com">Fzrain Inc</a>. All rights reserved.</footer>
 </div>
 
@@ -147,26 +145,19 @@
     }
 </style>
 <script type="text/javascript">
-
-
-
-    function resizeTabStripContent() {
-        kendo.resize("#tabstrip");
-    }
-
     $("#tabstrip").kendoTabStrip({
         animation: {
             open: { effects: "fadeIn" }
         }
-    });
-
-    // resize nested charts when window resizes
-    $(window).resize(resizeTabStripContent);
-    
+    });   
 </script>
 
 <script type="text/javascript">
-
+    $("#updateBattle").bind("click", function () {
+        $("#window").data("kendoWindow").open();
+        return false;
+    });
+   
     function GetUpdateBattles() {
         $.post("/Lol/WaitUpdate", { qq: $("#txtQQ").val(), areaId: $("#areaId").val() }, function (data) {
             $("#ids").val(data);
@@ -176,6 +167,7 @@
 
         });
     }
+
     function showDetails(e) {
         e.preventDefault();
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));

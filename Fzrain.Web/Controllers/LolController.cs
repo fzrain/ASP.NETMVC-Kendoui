@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using Fzrain.Core.Domain.Lol;
 using Fzrain.Service.Lol;
 using Fzrain.Web.Framework.Mvc;
 using Fzrain.Web.Models.Common;
@@ -12,6 +13,7 @@ using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Fzrain.Data;
+using System.Linq.Expressions;
 namespace Fzrain.Web.Controllers
 {
     public class LolController : Controller
@@ -26,6 +28,7 @@ namespace Fzrain.Web.Controllers
         // GET: Lol
         public ActionResult Index()
         {
+            ViewBag.AppearRate = lolService.GetAppearRate();
             return View();
         }
 
@@ -38,7 +41,7 @@ namespace Fzrain.Web.Controllers
             return Json(lolService.GetAllBattles().Select(b => new { b.BattleType, b.Duration, b.GameId, b.Id, b.StartTime, b.ChampionId, b.IsWin, b.ContributeOrder }).ToDataSourceResult(request));
         }
 
-        public ActionResult ShowChampionInfo(string  filter, DateTime? beginDate)
+        public ActionResult ShowChampionInfo(string filter, DateTime? beginDate)
         {
             var allRecodes = lolService.GetAllRecords().IncludeProperties(r => r.Battle).OrderByDescending(r => r.Battle.StartTime).AsQueryable();
             if (!string.IsNullOrWhiteSpace(filter))
@@ -61,8 +64,8 @@ namespace Fzrain.Web.Controllers
             var recodes = allRecodes.Select(l => new { l.ChampionId, l.IsWin, l.Name, l.Contribute, l.ContributeOrder }).ToList();
             var champions = from r in recodes
                             group r by r.ChampionId
-                            into g
-                            select g.Key;
+                                into g
+                                select g.Key;
             List<LolChampionInfoViewModel> model = new List<LolChampionInfoViewModel>();
             foreach (var c in champions)
             {
@@ -142,75 +145,57 @@ namespace Fzrain.Web.Controllers
             ViewBag.ChampionInfos = model;
             return View(ids.Select(id => id.Key).ToList());
         }
-     
+
 
         public ActionResult FullDataAnalysis()
         {
-          
+
             return View();
         }
 
-        public ActionResult AnalysisData(int dataType,DateTime? startTime,DateTime? endTime, bool ismine=false,bool isAsc=true)
+        public ActionResult AnalysisData(int dataType, DateTime? startTime, DateTime? endTime, bool ismine = false, bool isAsc = true)
         {
-           var models= lolService.GetAllRecords().IncludeProperties(r => r.Battle);
-            if (ismine)           
+            var models = lolService.GetAllRecords().IncludeProperties(r => r.Battle);
+            if (ismine)
                 models = models.Where(r => MyHeroList.Contains(r.Name));
-            
+
             if (startTime.HasValue)
                 models = models.Where(r => r.Battle.StartTime > startTime);
-            
-            if (endTime.HasValue)          
-                models = models.Where(r => r.Battle.StartTime  < endTime );
+
+            if (endTime.HasValue)
+                models = models.Where(r => r.Battle.StartTime < endTime);
 
             List<KeyValuePairViewModel> list = new List<KeyValuePairViewModel>();
-          
+
             switch (dataType)
             {
-                case 1:
-                var  list1=  models.GroupBy(r => r.ChampionId)
-                 .OrderBy(s => s.Key)
-                 .Select(s => new { s.Key, Value = s.Average(r => r.TotalDamage) });
-                    foreach (var m in list1)
-                    {
-                        list.Add(new KeyValuePairViewModel { Key = m.Key, Value = m.Value });
-                    }
-                    break;
-                case 2:
-                    var list2 = models.GroupBy(r => r.ChampionId)
-                     .OrderBy(s => s.Key)
-                     .Select(s => new { s.Key, Value = s.Average(r => r.Contribute ) });
-                    foreach (var m in list2)
-                    {
-                        list.Add(new KeyValuePairViewModel { Key = m.Key, Value = m.Value });
-                    }
-                    break;
-                case 3:
-                    var list3 = models.GroupBy(r => r.ChampionId)
-                     .OrderBy(s => s.Key)
-                     .Select(s => new { s.Key, Value = s.Average(r => r.ContributeOrder) });
-                    foreach (var m in list3)
-                    {
-                        list.Add(new KeyValuePairViewModel { Key = m.Key, Value = m.Value });
-                    }
-                    break;
-                case 4:
-                    var list4 = models.GroupBy(r => r.ChampionId)
-                     .OrderBy(s => s.Key)
-                     .Select(s => new { s.Key, Value = s.Average(r => r.Kill) });
-                    foreach (var m in list4)
-                    {
-                        list.Add(new KeyValuePairViewModel { Key = m.Key, Value = m.Value });
-                    }
-                    break;
+                case 1: PrepareAnalyseModel(list, models, s => new { s.Key, Value = s.Average(r => r.TotalDamage) }); break;
+                case 2: PrepareAnalyseModel(list, models, s => new { s.Key, Value = s.Average(r => r.Contribute)}); break;
+                case 3: PrepareAnalyseModel(list, models, s => new { s.Key, Value = s.Average(r => r.ContributeOrder)}); break;
+                case 4: PrepareAnalyseModel(list, models, s => new { s.Key, Value = s.Average(r => r.Kill) }); break;
+                case 5: PrepareAnalyseModel(list, models, s => new { s.Key, Value = s.Average(r => r.Death) }); break;
+                case 6: PrepareAnalyseModel(list, models, s => new { s.Key, Value = s.Average(r => r.Assist) }); break;
+                case 7: PrepareAnalyseModel(list, models, s => new { s.Key, Value = s.Average(r => r.DamageTaken) }); break;
             }
             list = isAsc ? list.OrderBy(l => l.Value).ToList() : list.OrderByDescending(l => l.Value).ToList();
             return Json(list);
         }
 
+        public void PrepareAnalyseModel(List<KeyValuePairViewModel> list, IQueryable<Record> models,
+            Expression<Func<IGrouping<int, Record>, dynamic>> seletor)
+        {            
+            var list4 = models.GroupBy(r => r.ChampionId)
+                   .OrderBy(s => s.Key)
+                   .Select(seletor);
+            foreach (var m in list4)
+                list.Add(new KeyValuePairViewModel { Key = m.Key, Value = m.Value });
+
+        }
+
         public ActionResult BrightInfo(int championId, bool isMine)
-        {       
-               var  records = lolService.GetAllRecords().IncludeProperties(r => r.Battle).Where(r => r.ChampionId == championId&&(!isMine || MyHeroList.Contains(r.Name)));
-               return Json(records.OrderByDescending(r => r.Contribute).ToList().Select(r =>new { r.Name,r.IsWin,r.Contribute,Battle=new {r.Battle.StartTime,r.Battle.GameId}}));
+        {
+            var records = lolService.GetAllRecords().IncludeProperties(r => r.Battle).Where(r => r.ChampionId == championId && (!isMine || MyHeroList.Contains(r.Name)));
+            return Json(records.OrderByDescending(r => r.Contribute).ToList().Select(r => new { r.Name, r.IsWin, r.Contribute, Battle = new { r.Battle.StartTime, r.Battle.GameId } }));
 
 
         }

@@ -48,9 +48,7 @@ namespace Fzrain.Core
 
         public override int GetHashCode()
         {
-            if (Equals(Id, default(int)))
-                return base.GetHashCode();
-            return Id.GetHashCode();
+            return Equals(Id, default(int)) ? base.GetHashCode() : Id.GetHashCode();
         }
 
         public static bool operator ==(BaseEntity x, BaseEntity y)

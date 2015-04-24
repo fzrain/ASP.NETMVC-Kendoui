@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Fzrain.Core.Domain.Lol;
 
@@ -9,11 +10,11 @@ namespace Fzrain.Service.Lol
        
        void UpdateBattle(List<int> ids,int areaId,string myRoleName);
        IQueryable<Battle> GetAllBattles();
-       void InitRecord(string filePath);
+     
        IQueryable<Record> GetRecordsByName(string name);
        IQueryable<Record> GetAllRecords();
-        List<int> GetUpdateIds(string qq,int areaId);
+       List<int> GetUpdateIds(string qq,int areaId);
+       Dictionary<int, int> GetAppearRate(string  starttime="2014-10-19");
 
-    
    }
 }

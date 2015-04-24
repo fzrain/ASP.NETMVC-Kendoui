@@ -37,7 +37,7 @@ namespace Fzrain.Core.Infrastructure
         #region Methods
 
         /// <summary>
-        /// Initializes a static instance of the Nop factory.
+        /// 初始化一个工厂实例
         /// </summary>
         /// <param name="forceRecreate">Creates a new factory instance even though the factory has been previously initialized.</param>
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -67,7 +67,7 @@ namespace Fzrain.Core.Infrastructure
         #region Properties
 
         /// <summary>
-        /// Gets the singleton Nop engine used to access Nop services.
+        /// 获取当前Engine的单例对象
         /// </summary>
         public static IEngine Current
         {

@@ -16,7 +16,7 @@ namespace Fzrain.Core.Infrastructure
         #region Fields
 
         private bool _ensureBinFolderAssembliesLoaded = true;
-        private bool _binFolderAssembliesLoaded = false;
+        private bool _binFolderAssembliesLoaded;
 
         #endregion
 
@@ -50,16 +50,7 @@ namespace Fzrain.Core.Infrastructure
         /// <returns>The physical path. E.g. "c:\inetpub\wwwroot\bin"</returns>
         public virtual string GetBinDirectory()
         {
-            if (HostingEnvironment.IsHosted)
-            {
-                //hosted
-                return HttpRuntime.BinDirectory;
-            }
-            else
-            {
-                //not hosted. For example, run either in unit tests
-                return AppDomain.CurrentDomain.BaseDirectory;
-            }
+            return HostingEnvironment.IsHosted ? HttpRuntime.BinDirectory : AppDomain.CurrentDomain.BaseDirectory;
         }
 
         public override IList<Assembly> GetAssemblies()

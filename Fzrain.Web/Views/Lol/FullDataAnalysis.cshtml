@@ -33,19 +33,30 @@
                 new DropDownListItem {Text = "贡献值", Value = "2"},
                 new DropDownListItem {Text = "贡献排名", Value = "3"},
                 new DropDownListItem {Text = "输出伤害", Value = "1"},
-                new DropDownListItem {Text = "场均击杀", Value = "4"}
+                new DropDownListItem {Text = "场均击杀", Value = "4"},
+                new DropDownListItem {Text = "场均死亡", Value = "5"},
+                new DropDownListItem {Text = "场均助攻", Value = "6"},
+                new DropDownListItem {Text = "承受伤害", Value = "7"},
+            };
+            var tagInfo = new List<DropDownListItem>
+            {
+                new DropDownListItem {Text = "三杀榜", Value = "1"},
+                new DropDownListItem {Text = "四杀榜", Value = "2"},
+                new DropDownListItem {Text = "五杀榜", Value = "3"},
+                new DropDownListItem {Text = "超神榜", Value = "4"},
+                
             };
         }
         @Html.Kendo().DropDownList().BindTo(dataInfo).Name("dataInfo")
-
+        @Html.Kendo().DropDownList().BindTo(tagInfo).Name("tagInfo")
+        @Html.Kendo().DatePicker().Name("startTime").Value("2014-10-19")
         @Html.Kendo().CheckBox().Name("isAsc").Label("是否升序")
         @Html.Kendo().CheckBox().Name("isMine").Label("我的数据")
     </div>
     <div class='dataDiv'>
     </div>
-    <div id="divDetail" style="float:left;width:800px;height:450px;overflow:auto">
-        @(Html.Kendo().Grid<Record>()
-        .Name("grid")
+    <div id="divDetail" style="float:left;width:800px;height:850px;overflow:auto">
+        @(Html.Kendo().Grid<Record>().Name("grid")
         .Columns(columns =>
         {
             columns.Bound(r => r.Battle.StartTime).Width(80).Format("{0:yyyy-MM-dd HH:mm:ss}");
@@ -61,20 +72,15 @@
 </div>
 
 <script type="text/javascript">
-    $(function () {
-     
-      
-      
-    });
+  
     function GetData() {
-        //  $("#div1").html("");
-        $.post("AnalysisData", { dataType: $("#dataInfo").val(), isAsc: $("#isAsc").prop("checked"), isMine: $("#isMine").prop("checked") }, function (data) {
+        $.post("AnalysisData", { dataType: $("#dataInfo").val(), isAsc: $("#isAsc").prop("checked"), isMine: $("#isMine").prop("checked"), startTime: $("#startTime").val() }, function (data) {
             var html = "";
             for (var i = 0; i < data.length; i++) {
                 html += "<div>" +
                     "<div style='float:left'><img width='50' src='../../Content/lolpng/" + data[i].Key + ".png' alt='' /></div>" +
                     "<div style='float:left;height:50px;line-height:50px;width:50px;text-align:center'>" + data[i].Value.toFixed(2) + "</div>" +
-                    "<div style='height:50px;padding:8px 0'><a url='" + data[i].Key + "'>巅峰战绩</a></div>" +
+                    "<div style='height:50px;padding:8px 0'><a url='" + data[i].Key + "'>战绩预览</a></div>" +
                     "</div>";
 
             }
@@ -92,7 +98,7 @@
                 traditional: true,
                 method: "post",
                 success: function (result) {
-                    var dataSource = new window.kendo.data.DataSource({ data: result });
+                    var dataSource = new kendo.data.DataSource({ data: result });
                     var grid = $('#grid').data("kendoGrid");
                     dataSource.read();
                     grid.setDataSource(dataSource);

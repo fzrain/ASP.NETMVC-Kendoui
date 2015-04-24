@@ -159,6 +159,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Demo\Controllers\DemoAreaController.cs" />
+    <Compile Include="Areas\Demo\DemoAreaRegistration.cs" />
     <Compile Include="Controllers\BaseListController.cs" />
     <Compile Include="Controllers\CommonControllerForList.cs">
       <AutoGen>True</AutoGen>
@@ -185,9 +187,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Settings.txt" />
-    <Content Include="Content\indexPage\banner.jpg" />
-    <Content Include="Content\indexPage\bootstrap.css" />
-    <Content Include="Content\indexPage\popuo-box.css" />
     <Content Include="Content\indexPage\style.css" />
     <Content Include="Content\login\css\bootstrap.min.css" />
     <Content Include="Content\login\css\login.css" />
@@ -1024,7 +1023,6 @@
     <Content Include="Content\login\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\login\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\login\images\backgrounds\Thumbs.db" />
-    <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\kendo.modernizr.custom.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
@@ -1084,6 +1082,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\DemoArea\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

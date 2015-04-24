@@ -45,7 +45,7 @@ namespace Fzrain.Web.Framework
             builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
 
        
-            //service
+            //服务
             builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
             builder.RegisterType<LolService>().As<ILolService>().InstancePerLifetimeScope();
             builder.RegisterType<SettingService>().As<ISettingService>().InstancePerLifetimeScope();

@@ -14,19 +14,27 @@ namespace Fzrain.Service.Lol
 {
     public class LolService : ILolService
     {
+        #region 私有字段
         private readonly IRepository<Battle> battleRepository;
-        private readonly IRepository<Record > recordRepository;
+        private readonly IRepository<Record> recordRepository;
+        private readonly IRepository<ChampionInfo> championInfoRepository;
         private readonly ISettingService settingService;
-       
-        public LolService(IRepository<Battle> battleRepository, IRepository<Record> recordRepository, ISettingService settingService)
+        #endregion
+
+        #region 构造函数
+        public LolService(IRepository<Battle> battleRepository, IRepository<Record> recordRepository, ISettingService settingService, IRepository<ChampionInfo> championInfoRepository)
         {
             this.battleRepository = battleRepository;
             this.recordRepository = recordRepository;
             this.settingService = settingService;
+            this.championInfoRepository = championInfoRepository;
         }
-        public void UpdateBattle(List<int> ids,int areaId,string myRoleName)
-        {       
-          
+        #endregion
+
+        #region 方法
+        public void UpdateBattle(List<int> ids, int areaId, string myRoleName)
+        {
+
             foreach (var id in ids)
             {
                 Thread.Sleep(5000);
@@ -50,7 +58,7 @@ namespace Fzrain.Service.Lol
                 foreach (double d in list)
                 {
                     int index = battle.Records.Where(r => r.Contribute > d).Count();
-// ReSharper disable once CompareOfFloatsByEqualityOperator
+                    // ReSharper disable once CompareOfFloatsByEqualityOperator
                     var records = battle.Records.Where(r => r.Contribute == d).ToList();
                     foreach (Record record in records)
                     {
@@ -59,35 +67,20 @@ namespace Fzrain.Service.Lol
 
                 }
                 battle.ContributeOrder = battle.Records.Where(r => r.Name == myRoleName).First().ContributeOrder;
-             //   battleRepository.Update(battle);
+                //   battleRepository.Update(battle);
                 battleRepository.Insert(battle);
             }
         }
 
         public IQueryable<Battle> GetAllBattles()
         {
-          return  battleRepository.Table;
+            return battleRepository.Table;
         }
 
-        public void InitRecord(string filePath)
-        {
-            var ids = File.ReadAllLines(filePath, Encoding.UTF8).ToList().Distinct().ToList();
-            const int area = 27;
-            foreach (var id in ids)
-            {
-                Thread.Sleep(5000);
-                var b = GetDataById(Convert.ToInt32(id), area);
-               
-                    battleRepository.Insert(b);
-                
-               
-            }
-         
-        }
 
         public IQueryable<Record> GetRecordsByName(string name)
         {
-         return    recordRepository.Table.Where(r => r.Name == name);
+            return recordRepository.Table.Where(r => r.Name == name);
         }
 
         public IQueryable<Record> GetAllRecords()
@@ -95,17 +88,30 @@ namespace Fzrain.Service.Lol
             return recordRepository.Table;
         }
 
-     
-
         public List<int> GetUpdateIds(string qq, int areaId)
         {
-           var allIds=  GetGameIds(qq, areaId);
-          
-           var ids=   battleRepository.Table.Select(b => b.GameId);
-           
-          return   allIds.Where(id=>!ids.Contains(id)).ToList();
+            var allIds = GetGameIds(qq, areaId);
+            var ids = battleRepository.Table.Select(b => b.GameId);
+            return allIds.Where(id => !ids.Contains(id)).ToList();
         }
 
+        public Dictionary<int, int> GetAppearRate(string starttime = "2014-10-19")
+        {
+            DateTime time = Convert.ToDateTime(starttime);
+            var championInfo = championInfoRepository.Table.Select(c => new { c.ChampionId, c.Position }).ToList();
+            var championIds = recordRepository.Table.Where(r => r.Name == "网络中断突然" && r.Battle.StartTime > time)
+                 .Select(r => r.ChampionId).ToList();
+            Dictionary<int, int> dir = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } };
+            foreach (int championId in championIds)
+            {
+                var position = championInfo.Where(c => c.ChampionId == championId).Select(c => c.Position).FirstOrDefault();
+                dir[Convert.ToInt32(position)]++;
+            }
+            return dir;
+        }
+        #endregion
+       
+        #region 工具方法
         public dynamic GetJsonResponse(string url)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
@@ -118,7 +124,7 @@ namespace Fzrain.Service.Lol
             var reader = new StreamReader(request.GetResponseAsync().Result.GetResponseStream());
             var r = reader.ReadToEnd();
             string json = r.Substring(26, r.Length - 38);
-            return  JsonConvert.DeserializeObject(json);
+            return JsonConvert.DeserializeObject(json);
         }
 
 
@@ -143,7 +149,7 @@ namespace Fzrain.Service.Lol
                 GetJsonResponse(
                     "http://api.pallas.tgp.qq.com/core/tcall?callback=getGameDetailCallback&dtag=profile&p=[[4,{\"area_id\":\"" +
                     areaId + "\",\"game_id\":\"" + id + "\"}]]&t=1417937593108");
-        
+
             dynamic rs = record.data[0].battle.gamer_records;
             List<Record> list = new List<Record>();
             for (int i = 0; i < rs.Count; i++)
@@ -188,5 +194,7 @@ namespace Fzrain.Service.Lol
                 Records = list
             };
         }
+        #endregion
+
     }
 }

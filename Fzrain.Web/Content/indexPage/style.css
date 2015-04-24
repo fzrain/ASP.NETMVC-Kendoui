@@ -1,5 +1,5 @@
 @font-face {
-    font-family: "Kendo UI Examples";
+    font-family: Consolas;
     src: url("../shared/styles/kendoui.woff") format("woff"),
          url("../shared/styles/kendoui.ttf") format("truetype");
 }
@@ -15,7 +15,8 @@ body,h1,h2,h3,h4,p,ul,li,a,button
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-family: Consolas;
     font-size: 12px;
     color: #37474f;
 }
@@ -146,19 +147,21 @@ a {
 	color: whitesmoke;
 }
 .responsive-section h2 {
-    font: 36px "Roboto Slab", Arial, Helvetica, sans-serif;  
+    font-size : 36px;  
+     /*font-family: Consolas;*/
 }
 
 .responsive-section h3 {
-    font: 24px "Roboto Slab", Arial, Helvetica, sans-serif;
+    font-size : 24px;
     display: inline-block;
+     /*font-family: Consolas;*/
     /*border-bottom: 1px solid rgba(255,255,255,.6);*/
     height: 28px;
 }
 
 
 .responsive-section > p {
-    font: 400 16px/1.25 Arial,Helvetica,sans-serif;
+    font: 400 16px/1.25 Consolas,Helvetica,sans-serif;
 }
 
 .responsive-section > h2,
@@ -336,7 +339,7 @@ a {
 
 .k-rpanel-toggle .k-icon {
     background-image: none;
-    font-family: "Kendo UI Examples";
+    /*font-family: "Kendo UI Examples";*/
     color: #fff;
     opacity: 1;
 }

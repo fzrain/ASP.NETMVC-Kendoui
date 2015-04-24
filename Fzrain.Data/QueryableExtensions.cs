@@ -11,7 +11,7 @@ namespace Fzrain.Data
     public static class QueryableExtensions
     {
         /// <summary>
-        /// Include
+        /// 查询对象的导航属性
         /// </summary>
         /// <typeparam name="T">Type</typeparam>
         /// <param name="queryable">Queryable</param>
