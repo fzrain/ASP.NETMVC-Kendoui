@@ -26,7 +26,8 @@
 <div class="mainright">
     <div>
 
-        @Html.Kendo().Button().Content("获取数据").Name("btnGetData").Events(e => e.Click("GetData"))
+        @Html.Kendo().Button().Content("获取数据").Name("btnDataInfo").Events(e => e.Click("DataInfo"))
+		@Html.Kendo().Button().Content("获取数据").Name("btnTagInfo").Events(e => e.Click("TagInfo"))
         @{
             var dataInfo = new List<DropDownListItem>
             {
@@ -40,10 +41,10 @@
             };
             var tagInfo = new List<DropDownListItem>
             {
-                new DropDownListItem {Text = "三杀榜", Value = "1"},
-                new DropDownListItem {Text = "四杀榜", Value = "2"},
-                new DropDownListItem {Text = "五杀榜", Value = "3"},
-                new DropDownListItem {Text = "超神榜", Value = "4"},
+                new DropDownListItem {Text = "三杀榜", Value = "5"},
+                new DropDownListItem {Text = "四杀榜", Value = "6"},
+                new DropDownListItem {Text = "五杀榜", Value = "7"},
+                new DropDownListItem {Text = "超神榜", Value = "8"},
                 
             };
         }
@@ -73,8 +74,8 @@
 
 <script type="text/javascript">
   
-    function GetData() {
-        $.post("AnalysisData", { dataType: $("#dataInfo").val(), isAsc: $("#isAsc").prop("checked"), isMine: $("#isMine").prop("checked"), startTime: $("#startTime").val() }, function (data) {
+	function DataInfo() {
+		$.post("DataInfo", { dataInfo: $("#dataInfo").val(), isAsc: $("#isAsc").prop("checked"), isMine: $("#isMine").prop("checked"), startTime: $("#startTime").val() }, function (data) {
             var html = "";
             for (var i = 0; i < data.length; i++) {
                 html += "<div>" +
@@ -89,7 +90,22 @@
         });
 
     }
+	function TagInfo() {
+		$.post("TagInfo", { tagInfo: $("#tagInfo").val(), isAsc: $("#isAsc").prop("checked"), isMine: $("#isMine").prop("checked"), startTime: $("#startTime").val() }, function (data) {
+			var html = "";
+			for (var i = 0; i < data.length; i++) {
+				html += "<div>" +
+                    "<div style='float:left'><img width='50' src='../../Content/lolpng/" + data[i].Key + ".png' alt='' /></div>" +
+                    "<div style='float:left;height:50px;line-height:50px;width:50px;text-align:center'>" + data[i].Value.toFixed(2) + "</div>" +
+                    "<div style='height:50px;padding:8px 0'><a url='" + data[i].Key + "'>战绩预览</a></div>" +
+                    "</div>";
 
+			}
+			$(".dataDiv").html(html);
+			regeditBtn();
+		});
+
+	}
     function regeditBtn() {
         $("a[url]").click(function () {
             $.ajax({

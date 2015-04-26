@@ -153,7 +153,7 @@ namespace Fzrain.Web.Controllers
             return View();
         }
 
-        public ActionResult AnalysisData(int dataType, DateTime? startTime, DateTime? endTime, bool ismine = false, bool isAsc = true)
+        public ActionResult DataInfo(int dataInfo, DateTime? startTime, DateTime? endTime, bool ismine = false, bool isAsc = true)
         {
             var models = lolService.GetAllRecords().IncludeProperties(r => r.Battle);
             if (ismine)
@@ -167,7 +167,7 @@ namespace Fzrain.Web.Controllers
 
             List<KeyValuePairViewModel> list = new List<KeyValuePairViewModel>();
 
-            switch (dataType)
+            switch (dataInfo)
             {
                 case 1: PrepareAnalyseModel(list, models, s => new { s.Key, Value = s.Average(r => r.TotalDamage) }); break;
                 case 2: PrepareAnalyseModel(list, models, s => new { s.Key, Value = s.Average(r => r.Contribute)}); break;
@@ -181,7 +181,28 @@ namespace Fzrain.Web.Controllers
             return Json(list);
         }
 
-        public void PrepareAnalyseModel(List<KeyValuePairViewModel> list, IQueryable<Record> models,
+	    public ActionResult TagInfo(string  tagInfo, DateTime? startTime, DateTime? endTime, bool ismine = false,
+		    bool isAsc = true)
+	    {
+		    //lolService.GetAllRecords().Where(r => r.BattleTagList.Contains(tagInfo.ToString())).ToList();
+			var models = lolService.GetAllRecords().IncludeProperties(r => r.Battle);
+			if (ismine)
+				models = models.Where(r => MyHeroList.Contains(r.Name));
+
+			if (startTime.HasValue)
+				models = models.Where(r => r.Battle.StartTime > startTime);
+
+			if (endTime.HasValue)
+				models = models.Where(r => r.Battle.StartTime < endTime);
+
+		    models = models.Where(r => r.BattleTagList.Contains(tagInfo));
+            List<KeyValuePairViewModel> list = new List<KeyValuePairViewModel>();
+		    PrepareAnalyseModel(list, models, s => new {s.Key, Value = s.Count()});		
+			list = isAsc ? list.OrderBy(l => l.Value).ToList() : list.OrderByDescending(l => l.Value).ToList();
+			return Json(list);
+		}
+
+	    public void PrepareAnalyseModel(List<KeyValuePairViewModel> list, IQueryable<Record> models,
             Expression<Func<IGrouping<int, Record>, dynamic>> seletor)
         {            
             var list4 = models.GroupBy(r => r.ChampionId)
