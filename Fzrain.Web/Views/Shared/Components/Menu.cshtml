@@ -22,6 +22,17 @@
         @Html.ActionLink("系统参数", "index", "setting")
     </li>
     <li>
+        @Html.ActionLink("示例代码", string.Empty, "Demo")
+        <ul>
+            <li>@Html.ActionLink("提示信息", "Notification", "Demo")</li>
+            <li>@Html.ActionLink("日程", "Scheduler", "Demo")</li>
+            <li>@Html.ActionLink("Tab", "tab", "Demo")</li>
+            <li>@Html.ActionLink("日历", "TempleCal", "Demo")</li>
+            <li>@Html.ActionLink("文件上传", "Upload", "Demo")</li>
+            <li>@Html.ActionLink("Window", "Window", "Demo")</li>
+        </ul>
+    </li>
+    <li>
         <span>主题样式</span>
     </li>
  

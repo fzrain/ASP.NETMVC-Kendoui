@@ -18,6 +18,16 @@ namespace Fzrain.Service.UserManage
             this.roleRepository = roleRepository;
             this.moduleRepository = moduleRepository;
         }
+        /// <summary>
+        /// 过滤权限
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public List<Module> GetUserAccessModules(int userId)
+        {
+            User user = userRepository.Table.Where(u => u.Id == userId).IncludeProperties(u => u.Roles).FirstOrDefault();
+           return  user.Modules.ToList();
+        }
 
         public List<Role> GetAllRoles()
         {

@@ -161,6 +161,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Demo\Controllers\DemoAreaController.cs" />
     <Compile Include="Areas\Demo\DemoAreaRegistration.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BaseListController.cs" />
     <Compile Include="Controllers\CommonControllerForList.cs">
       <AutoGen>True</AutoGen>
@@ -1088,6 +1089,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\DemoArea\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

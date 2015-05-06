@@ -14,7 +14,7 @@ using Kendo.Mvc.UI;
 
 namespace Fzrain.Web.Controllers
 {
-    public abstract class BaseListController<T> : Controller where T : BaseEntity
+    public abstract class BaseListController<T> : BaseController where T : BaseEntity
     {
         private  readonly IRepository<T> repository;
         private readonly bool useCommonPage;

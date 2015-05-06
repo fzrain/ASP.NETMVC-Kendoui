@@ -12,14 +12,14 @@ namespace Fzrain.Web.Areas.Demo
         {
             context.MapRoute(
          "DemoRoute",
-         "Demo/{controller}/{action}/{id}",
+         "Demo1/{controller}/{action}/{id}",
          new { action = "Index", id = UrlParameter.Optional }
            );
         }
 
         public override string AreaName
         {
-            get { return "Demo"; }
+            get { return "Demo1"; }
         }
     }
 }
