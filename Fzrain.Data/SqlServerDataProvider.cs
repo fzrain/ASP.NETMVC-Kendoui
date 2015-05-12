@@ -21,8 +21,7 @@ namespace Fzrain.Data
             {
                 if (throwExceptionIfNonExists)
                     throw new ArgumentException(string.Format("Specified file doesn't exist - {0}", filePath));
-                else
-                    return new string[0];
+                return new string[0];
             }
 
 
@@ -30,7 +29,7 @@ namespace Fzrain.Data
             using (var stream = File.OpenRead(filePath))
             using (var reader = new StreamReader(stream))
             {
-                var statement = "";
+                string statement;
                 while ((statement = ReadNextStatementFromStream(reader)) != null)
                 {
                     statements.Add(statement);
@@ -49,10 +48,7 @@ namespace Fzrain.Data
                 string lineOfText = reader.ReadLine();
                 if (lineOfText == null)
                 {
-                    if (sb.Length > 0)
-                        return sb.ToString();
-                    else
-                        return null;
+                    return sb.Length > 0 ? sb.ToString() : null;
                 }
 
                 if (lineOfText.TrimEnd().ToUpper() == "GO")
@@ -69,7 +65,7 @@ namespace Fzrain.Data
         #region Methods
 
         /// <summary>
-        /// Initialize connection factory
+        /// 初始化dbfactory
         /// </summary>
         public virtual void InitConnectionFactory()
         {

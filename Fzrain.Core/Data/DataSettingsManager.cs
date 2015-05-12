@@ -5,7 +5,7 @@ using System.Web.Hosting;
 
 namespace Fzrain.Core.Data
 {
-    public partial class DataSettingsManager
+    public class DataSettingsManager
     {
         protected const char separator = ':';
         protected const string filename = "Settings.txt";
@@ -22,13 +22,10 @@ namespace Fzrain.Core.Data
                 //hosted
                 return HostingEnvironment.MapPath(path);
             }
-            else
-            {
-                //not hosted. For example, run in unit tests
-                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                path = path.Replace("~/", "").TrimStart('/').Replace('/', '\\');
-                return Path.Combine(baseDirectory, path);
-            }
+            //not hosted. For example, run in unit tests
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            path = path.Replace("~/", "").TrimStart('/').Replace('/', '\\');
+            return Path.Combine(baseDirectory, path);
         }
 
         protected virtual DataSettings ParseSettings(string text)
@@ -103,8 +100,7 @@ namespace Fzrain.Core.Data
                 string text = File.ReadAllText(filePath);
                 return ParseSettings(text);
             }
-            else
-                return new DataSettings();
+            return new DataSettings();
         }
 
         public virtual void SaveSettings(DataSettings settings)

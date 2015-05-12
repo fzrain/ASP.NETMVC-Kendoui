@@ -31,12 +31,8 @@ namespace Fzrain.Data
 
         public virtual void Insert(T entity)
         {
-
             this.Entities.Add(entity);
-
             this._context.SaveChanges();
-
-
         }
 
         public virtual void Update(T entity)

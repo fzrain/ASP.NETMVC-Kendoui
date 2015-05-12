@@ -22,10 +22,8 @@ namespace Fzrain.Data
         {
             if (queryable == null)
                 throw new ArgumentNullException("queryable");
-
             foreach (Expression<Func<T, object>> includeProperty in includeProperties)
                 queryable = queryable.Include(includeProperty);
-
             return queryable;
         }
 

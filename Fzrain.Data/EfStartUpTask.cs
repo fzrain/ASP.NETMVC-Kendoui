@@ -13,7 +13,7 @@ namespace Fzrain.Data
             {
                 var provider = EngineContext.Current.Resolve<IDataProvider>();
                 if (provider == null)
-                    throw new FzrainException("No IDataProvider found");
+                    throw new FzrainException("未找到DataProvider");
                 provider.SetDatabaseInitializer();
             }
         }

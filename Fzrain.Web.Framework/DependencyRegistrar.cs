@@ -17,7 +17,7 @@ namespace Fzrain.Web.Framework
         {
             //controllers
             builder.RegisterControllers(typeFinder.GetAssemblies().ToArray());
-            //数据访问层相关依赖
+            //data access
             var dataSettingsManager = new DataSettingsManager();
             var dataProviderSettings = dataSettingsManager.LoadSettings();
             //todo:暂时把连接字符串写死,测试时使用
@@ -41,11 +41,11 @@ namespace Fzrain.Web.Framework
             {
                 builder.Register<IDbContext>(c => new FzrainContext(dataSettingsManager.LoadSettings().DataConnectionString)).InstancePerLifetimeScope();
             }
-
+            //repository
             builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
 
        
-            //服务
+            //service
             builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
             builder.RegisterType<LolService>().As<ILolService>().InstancePerLifetimeScope();
             builder.RegisterType<SettingService>().As<ISettingService>().InstancePerLifetimeScope();

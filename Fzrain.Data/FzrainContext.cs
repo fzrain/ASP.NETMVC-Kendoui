@@ -14,12 +14,11 @@ namespace Fzrain.Data
 {
    public  class FzrainContext:DbContext,IDbContext
     {
-        #region Ctor
+        #region 构造函数
 
         public FzrainContext(string nameOrConnectionString)
             : base(nameOrConnectionString)
-        {
-            //((IObjectContextAdapter) this).ObjectContext.ContextOptions.LazyLoadingEnabled = true;
+        {            
             Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
         }
@@ -31,7 +30,7 @@ namespace Fzrain.Data
 
         #endregion
 
-        #region Utilities
+        #region 工具方法
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -49,9 +48,6 @@ namespace Fzrain.Data
             }
             //常规配置法
             //modelBuilder.Configurations.Add(new LanguageMap());
-
-
-
             base.OnModelCreating(modelBuilder);
         }
 
@@ -74,11 +70,8 @@ namespace Fzrain.Data
                 Set<TEntity>().Attach(entity);
                 return entity;
             }
-            else
-            {
-                //entity is already loaded.
-                return alreadyAttached;
-            }
+            //entity is already loaded.
+            return alreadyAttached;
         }
 
         #endregion
