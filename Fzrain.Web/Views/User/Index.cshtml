@@ -6,7 +6,7 @@
 @Html.Partial("Components/Window")
 <div  class="mainleft">
     @Html.Partial("Components/TreeView")
-    @Html.Kendo().TreeView().Name("page-tree").DataSource(d => d.Read("GetDptTreeData", "Department")).DataTextField("Name").DataSpriteCssClassField("image").Events(e=>e.Select("treeSelect"))
+    @Html.Kendo().TreeView().Name("page-tree").DataSource(d => d.Read("GetDptTreeData", "Department")).DataTextField("Name").DataSpriteCssClassField("image"))
 </div>
 <div class="mainright">
     @(Html.Kendo().Grid<User>()
@@ -67,10 +67,7 @@
         });
 
     });
-
-    function treeSelect(e) {
-        alert(e.node);
-    }
+   
 </script>
 
 <style> 
