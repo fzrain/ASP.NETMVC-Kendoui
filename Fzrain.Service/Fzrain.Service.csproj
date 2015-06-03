@@ -57,6 +57,8 @@
   <ItemGroup>
     <Compile Include="Configuration\ISettingService.cs" />
     <Compile Include="Configuration\SettingService.cs" />
+    <Compile Include="Logging\ILoggingService.cs" />
+    <Compile Include="Logging\LoggingService.cs" />
     <Compile Include="Lol\ILolService.cs" />
     <Compile Include="Lol\LolService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

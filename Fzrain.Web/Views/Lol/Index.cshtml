@@ -39,36 +39,44 @@
                 </ul>
                 <div>
                     <div style="width: 340px; float: left">
-                        @{var dir=  (Dictionary<int, int>)ViewBag.AppearRate;}
+                        @{var dir = (Dictionary<int, int>)ViewBag.AppearRate;}
                         @(Html.Kendo().Chart()
-                              .Name("chart1").Theme("metro")
+                              .Name("chart1").Theme("fiori")
                               .Series(series => series.Pie(new dynamic[]
                               {
-                                  new {category = "ADC", value = dir[4]},
-                                  new {category = "中单", value = dir[3]},
                                   new {category = "上单", value = dir[1]},
                                   new {category = "打野", value = dir[2]},
+                                  new {category = "中单", value = dir[3]},
+                                  new {category = "ADC", value = dir[4]},
                                   new {category = "辅助", value = dir[5]}
                               }))
                               .Tooltip(tooltip => tooltip
                                   .Visible(true).Template("#= category # - #= kendo.format('{0:P}', percentage)#(#= value #)"))
-                              )
-
-                    </div>
-                    <div style="float: left; margin: 15px 0 0 150px;">
-                        @(Html.Kendo().QRCode()
-                              .Name("qrUrl")
-                              .Value("fzrain@hotmail.com")
-                              .ErrorCorrection(QRErrorCorrectionLevel.M)
-                              .Size(120)
                         )
+
+                    </div>
+                    <div style="float: left; ">
+                        @{var dirCarry = (Dictionary<int, int>)ViewBag.CarryAbility;}
+                        @(Html.Kendo().Chart()
+                              .Name("chart2").Theme("material")
+                              .Series(series => series.Pie(new dynamic[]
+                              {                                                                  
+                                  new {category = "强行Carry", value = dirCarry[1]},
+                                  new {category = "稳定Carry", value = dirCarry[2]},
+                                  new {category = "中规中矩", value = dirCarry[3]},
+                                  new {category = "略有坑爹", value = dirCarry[4]},
+                                  new {category = "猪一样的队友", value = dirCarry[5]}
+                              }))
+                              .Tooltip(tooltip => tooltip
+                                  .Visible(true).Template("#= category # - #= kendo.format('{0:P}', percentage)#(#= value #)"))
+                        )
+
+
                     </div>
                 </div>
                 <div></div>
                 <div></div>
-                <div>
-
-                </div>
+                <div></div>
             </div>
         </div>
     </div>
@@ -80,7 +88,7 @@
               .Name("grid").Excel(c => c.FileName("data"))
               .Columns(columns =>
               {
-                  columns.Bound(u => u.ChampionId).ClientTemplate("<img width='50px' src='../../Content/lolpng/#=ChampionId#.png' alt='' />").Width(50).HtmlAttributes(new { style = "text-align:center" }).Filterable(filterable => filterable.UI("championFilter"));
+                  columns.Bound(u => u.ChampionId).ClientTemplate("<img width='50px' style='border-radius:50%' src='../../Content/lolpng/#=ChampionId#.png' alt='' />").Width(50).HtmlAttributes(new { style = "text-align:center" }).Filterable(filterable => filterable.UI("championFilter"));
                   columns.Bound(u => u.ChampionId).Width(30).HeaderTemplate("Id").Filterable(false);
                   columns.Bound(u => u.BattleType).Width(80).ClientTemplate("#=BattleType==6?'极地大乱斗':'召唤师峡谷'#");
                   columns.Bound(u => u.StartTime).Width(80).Format("{0:yyyy-MM-dd HH:mm:ss}");
@@ -149,7 +157,7 @@
         animation: {
             open: { effects: "fadeIn" }
         }
-    });   
+    });
 </script>
 
 <script type="text/javascript">
@@ -157,7 +165,7 @@
         $("#window").data("kendoWindow").open();
         return false;
     });
-   
+
     function GetUpdateBattles() {
         $.post("/Lol/WaitUpdate", { qq: $("#txtQQ").val(), areaId: $("#areaId").val() }, function (data) {
             $("#ids").val(data);

@@ -1,0 +1,2 @@
+DataProvider: sqlserver
+DataConnectionString: Data Source=(localdb)\ProjectsV12;Initial Catalog=FzrainFramework;attachdbfilename=|DataDirectory|\FzrainFramework.mdf;Integrated Security=True;Persist Security Info=False;

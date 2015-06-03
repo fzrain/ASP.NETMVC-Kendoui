@@ -8,8 +8,14 @@ namespace Fzrain.Core.Data
     public class DataSettingsManager
     {
         protected const char separator = ':';
+#if DEBUG
+        protected const string filename = "SettingsDebug.txt";
+#endif
+#if !DEBUG
         protected const string filename = "Settings.txt";
-        
+#endif
+
+
         /// <summary>
         /// Maps a virtual path to a physical disk path.
         /// </summary>

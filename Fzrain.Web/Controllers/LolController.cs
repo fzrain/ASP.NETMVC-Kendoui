@@ -29,6 +29,7 @@ namespace Fzrain.Web.Controllers
         public ActionResult Index()
         {
             ViewBag.AppearRate = lolService.GetAppearRate();
+            ViewBag.CarryAbility = lolService.GetCarryAbility();
             return View();
         }
 

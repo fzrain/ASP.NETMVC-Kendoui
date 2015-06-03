@@ -109,10 +109,44 @@ namespace Fzrain.Service.Lol
             }
             return dir;
         }
+
+        public Dictionary<int, int> GetCarryAbility(string starttime = "2014-10-19")
+        {
+            DateTime time = Convert.ToDateTime(starttime);
+            //   var championInfo = championInfoRepository.Table.Select(c => new { c.ChampionId, c.Position }).ToList();
+            var contributeOrders = recordRepository.Table.Where(r => r.Name == "网络中断突然" && r.Battle.StartTime > time).Select(r => r.ContributeOrder).ToList();
+            Dictionary<int, int> dir = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } };
+            foreach (int order in contributeOrders)
+            {
+                if (order <= 2)
+                {
+                    dir[1]++;
+                }
+                else if (order <= 4)
+                {
+                    dir[2]++;
+                }
+                else if (order <= 6)
+                {
+                    dir[3]++;
+                }
+                else if (order <= 8)
+                {
+                    dir[4]++;
+                }
+                else if (order <= 10)
+                {
+                    dir[5]++;
+                }
+
+            }
+            return dir;
+        }
+
         #endregion
-       
+
         #region 工具方法
-        public dynamic GetJsonResponse(string url)
+        private  dynamic GetJsonResponse(string url)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "Get";
@@ -128,7 +162,7 @@ namespace Fzrain.Service.Lol
         }
 
 
-        public List<int> GetGameIds(string qq, int areaId)
+        private List<int> GetGameIds(string qq, int areaId)
         {
             string p = "[[3,{\"qquin\":\"" + qq + "\",\"area_id\":\"" + areaId + "\",\"champion_id\":0,\"offset\":0,\"limit \":0}]]";
             string url = "http://api.pallas.tgp.qq.com/core/tcall?callback=getGameDetailCallback&dtag=profile&p=" + p +
