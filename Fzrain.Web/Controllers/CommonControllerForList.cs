@@ -29,12 +29,7 @@ namespace Fzrain.Web.Controllers
         }
     }
 	
-  public partial class BrilliantTimeController : BaseListController<BrilliantTime>
-    {
-        public BrilliantTimeController(IRepository<BrilliantTime> repository) : base(repository)
-        {
-        }
-    }
+ 
 	
   public partial class ChampionInfoController : BaseListController<ChampionInfo>
     {
