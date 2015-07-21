@@ -18,6 +18,7 @@ namespace Fzrain.Service.Lol
         private readonly IRepository<Battle> battleRepository;
         private readonly IRepository<Record> recordRepository;
         private readonly IRepository<ChampionInfo> championInfoRepository;
+        private readonly IRepository<SnapShot> snapShotRepository;
         private readonly ISettingService settingService;
         #endregion
 
@@ -143,6 +144,10 @@ namespace Fzrain.Service.Lol
             return dir;
         }
 
+        public IQueryable<SnapShot> GetAllSnapShots()
+        {
+           return  snapShotRepository.Table;
+        }
         #endregion
 
         #region 工具方法
@@ -228,6 +233,8 @@ namespace Fzrain.Service.Lol
                 Records = list
             };
         }
+
+     
         #endregion
 
     }

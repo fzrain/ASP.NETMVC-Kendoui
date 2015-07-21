@@ -16,5 +16,6 @@ namespace Fzrain.Service.Lol
        List<int> GetUpdateIds(string qq,int areaId);
        Dictionary<int, int> GetAppearRate(string  starttime="2014-10-19");
        Dictionary<int, int> GetCarryAbility(string starttime = "2014-10-19");
+        IQueryable<SnapShot> GetAllSnapShots();
    }
 }

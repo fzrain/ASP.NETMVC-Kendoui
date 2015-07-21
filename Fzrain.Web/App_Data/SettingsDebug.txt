@@ -1,2 +1,2 @@
 DataProvider: sqlserver
-DataConnectionString: Data Source=(localdb)\ProjectsV12;Initial Catalog=FzrainFramework;attachdbfilename=|DataDirectory|\FzrainFramework.mdf;Integrated Security=True;Persist Security Info=False;
+DataConnectionString:Server=29a3b8f8-aeb8-471f-8442-a46500c9e432.sqlserver.sequelizer.com;Database=db29a3b8f8aeb8471f8442a46500c9e432;User ID=sosqqgotnomzjrnj;Password=7oZFuTYCmAQwC7yVojxuqQVVF2nr2UCAyikdCE87SpzjFjqGiRPksmhqzdaBFFJz;
