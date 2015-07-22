@@ -88,7 +88,7 @@
               .Name("grid").Excel(c => c.FileName("data"))
               .Columns(columns =>
               {
-                  columns.Bound(u => u.ChampionId).ClientTemplate("<img width='50px' style='border-radius:50%' src='../../Content/lolpng/#=ChampionId#.png' alt='' />").Width(50).HtmlAttributes(new { style = "text-align:center" }).Filterable(filterable => filterable.UI("championFilter"));
+                  columns.Bound(u => u.ChampionId).ClientTemplate("<img width='50' style='border-radius:50%' src='../../Content/lolpng/#=ChampionId#.png' alt='' />").Width(50).HtmlAttributes(new { style = "text-align:center" }).Filterable(filterable => filterable.UI("championFilter"));
                   columns.Bound(u => u.ChampionId).Width(30).HeaderTemplate("Id").Filterable(false);
                   columns.Bound(u => u.BattleType).Width(80).ClientTemplate("#=BattleType==6?'极地大乱斗':'召唤师峡谷'#");
                   columns.Bound(u => u.StartTime).Width(80).Format("{0:yyyy-MM-dd HH:mm:ss}");

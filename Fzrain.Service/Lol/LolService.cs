@@ -23,12 +23,13 @@ namespace Fzrain.Service.Lol
         #endregion
 
         #region 构造函数
-        public LolService(IRepository<Battle> battleRepository, IRepository<Record> recordRepository, ISettingService settingService, IRepository<ChampionInfo> championInfoRepository)
+        public LolService(IRepository<Battle> battleRepository, IRepository<Record> recordRepository, ISettingService settingService, IRepository<ChampionInfo> championInfoRepository, IRepository<SnapShot> snapShotRepository)
         {
             this.battleRepository = battleRepository;
             this.recordRepository = recordRepository;
             this.settingService = settingService;
             this.championInfoRepository = championInfoRepository;
+            this.snapShotRepository = snapShotRepository;
         }
         #endregion
 

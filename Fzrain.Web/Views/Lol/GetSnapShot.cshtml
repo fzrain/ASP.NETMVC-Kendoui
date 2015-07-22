@@ -1,0 +1,46 @@
+﻿@using Fzrain.Core.Domain.Lol
+@model List<SnapShot>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "LolBasePage.cshtml";
+}
+<div class="mainright">
+  
+           @for (DateTime  i = DateTime.Now.Date; i >new DateTime(2015-01-01);i= i.AddDays(-1))
+           {
+               if (Model.Take(20).Any(m => m.CommitTime.Date==i.Date))
+               {
+                   <div>@i.ToString("yyyy-MM-dd")</div>
+                   <div style="float:left;width:100%">
+                       @foreach (var snapShot in Model.Where(m => m.CommitTime.Date == i.Date))
+                       {
+                           <div style="float:left;background-image:url('@(snapShot.FileUrl+"/145")');width:145px;height:82px;margin:20px">
+                               @*<img src="@(snapShot.FileUrl+"/145")" alt="Alternate Text" />*@
+                              @if (snapShot.ActionType == ActionType.TribleKill)
+                              {
+                                  <span style="color: white">&nbsp;三杀</span>
+                              }
+                              else if (snapShot.ActionType == ActionType.UltraKill)
+                              {
+                                <span style="color: white">&nbsp;四杀</span>
+                              }
+                              else if (snapShot.ActionType == ActionType.PantaKill)
+                              {
+                                <span style="color: white">&nbsp;五杀</span>
+                              }
+                              else
+                              {
+                                <span style="color: white">&nbsp;超神</span>
+                              }
+                               @{ string championUrl = "../../Content/lolpng/"+snapShot.ChampionId+".png";}
+                               <div style="margin-top:26px">
+                                   <img width='35' style='border-radius:50%' src='@championUrl' alt='' />
+                                   <span style="color:white">@snapShot.CommitTime</span>
+                               </div>
+                        </div>
+                       }
+                   </div>
+               }
+           }
+</div>

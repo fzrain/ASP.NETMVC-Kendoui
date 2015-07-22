@@ -233,6 +233,13 @@ namespace Fzrain.Web.Controllers
 
             return Json(lolService.GetAllRecords().ToDataSourceResult(request));
         }
+
+        public ActionResult GetSnapShot()
+        {
+            return View(lolService.GetAllSnapShots().OrderByDescending(s => s.CommitTime).ToList());
+            ;
+        }
+
         protected override JsonResult Json(object data, string contentType, Encoding contentEncoding, JsonRequestBehavior behavior)
         {
             return new JsonNetResult
