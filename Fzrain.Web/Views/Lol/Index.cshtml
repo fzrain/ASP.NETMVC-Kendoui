@@ -119,19 +119,34 @@
 @(Html.Kendo().Window()
       .Name("window").Visible(false)
       .Title("弹出页").Content(@<text>
-                                @*@Html.Kendo().TextBox().Name("txtQQ").Value("150490252")*@
+
+                                @{
+                                    var qqInfo = new List<DropDownListItem>
+                                    {
+                                         new DropDownListItem {Text = "名将秒鱼", Value = "U3040557788097032300"},
+                                        new DropDownListItem {Text = "maoxiahui1234", Value = "U4795783785692160110"},
+                                        new DropDownListItem {Text = "MyE丶血狱", Value = "U15978645692141229169"},
+                                       new DropDownListItem {Text = "网络中断突然", Value = "U7796213511838403286"},
+                                    };
+                                }
+                                @Html.Kendo().DropDownList().BindTo(qqInfo).Name("txtQQ")
                                 @{
                                     var areaInfo = new List<DropDownListItem>
                                     {
                                         new DropDownListItem {Text = "艾欧尼亚", Value = "1"},
+                                         new DropDownListItem {Text = "祖安", Value = "3"},
+                                          new DropDownListItem {Text = "裁决之地", Value = "13"},
                                         new DropDownListItem {Text = "雷瑟守备", Value = "11"},
-                                        new DropDownListItem {Text = "皮城警备", Value = "27"}
+                                        new DropDownListItem {Text = "皮城警备", Value = "27"},
+                                       
                                     };
                                 }
                                 @Html.Kendo().DropDownList().BindTo(areaInfo).Name("areaId")
                                 @{
                                     var roleInfo = new List<DropDownListItem>
                                     {
+                                        new DropDownListItem {Text = "maoxiahui1234", Value = "maoxiahui1234"},
+                                        new DropDownListItem {Text = "MyE丶血狱", Value = "MyE丶血狱"},
                                         new DropDownListItem {Text = "网络中断突然", Value = "网络中断突然"},
                                         new DropDownListItem {Text = "名将秒鱼", Value = "名将秒鱼"},
                                         new DropDownListItem {Text = "笨笨秒杀上帝", Value = "笨笨秒杀上帝"}

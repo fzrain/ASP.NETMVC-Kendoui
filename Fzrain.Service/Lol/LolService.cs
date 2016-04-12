@@ -41,8 +41,8 @@ namespace Fzrain.Service.Lol
             {
                 Thread.Sleep(5000);
                 var battle = GetDataById(Convert.ToInt32(id), areaId);
-                battle.ChampionId = battle.Records.Where(r => r.Name == myRoleName).FirstOrDefault().ChampionId;
-                battle.IsWin = battle.Records.Where(r => r.Name == myRoleName).FirstOrDefault().IsWin;
+                battle.ChampionId = battle.Records.FirstOrDefault(r => r.Name == myRoleName).ChampionId;
+                battle.IsWin = battle.Records.FirstOrDefault(r => r.Name == myRoleName).IsWin;
 
                 List<double> list = new List<double>();
 
@@ -59,7 +59,7 @@ namespace Fzrain.Service.Lol
                 }
                 foreach (double d in list)
                 {
-                    int index = battle.Records.Where(r => r.Contribute > d).Count();
+                    int index = battle.Records.Count(r => r.Contribute > d);
                     // ReSharper disable once CompareOfFloatsByEqualityOperator
                     var records = battle.Records.Where(r => r.Contribute == d).ToList();
                     foreach (Record record in records)
@@ -68,7 +68,7 @@ namespace Fzrain.Service.Lol
                     }
 
                 }
-                battle.ContributeOrder = battle.Records.Where(r => r.Name == myRoleName).First().ContributeOrder;
+                battle.ContributeOrder = battle.Records.First(r => r.Name == myRoleName).ContributeOrder;
                 //   battleRepository.Update(battle);
                 battleRepository.Insert(battle);
             }

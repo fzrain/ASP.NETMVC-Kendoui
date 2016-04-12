@@ -19,7 +19,7 @@ namespace Fzrain.Web.Controllers
     public class LolController : Controller
     {
         private readonly ILolService lolService;
-        public List<string> MyHeroList = new List<string> { "笨笨秒杀上帝", "网络中断突然" };
+        public List<string> MyHeroList = new List<string> { "笨笨秒杀上帝", "网络中断突然", "名将秒鱼", "maoxiahui1234", "MyE丶血狱" };
 
         public LolController(ILolService lolService)
         {
@@ -37,14 +37,14 @@ namespace Fzrain.Web.Controllers
         {
 
             if (request.Sorts.Count == 0)//默认按Id倒序排列
-                request.Sorts.Add(new SortDescriptor { Member = "GameId", SortDirection = ListSortDirection.Descending });
+                request.Sorts.Add(new SortDescriptor { Member = "StartTime", SortDirection = ListSortDirection.Descending });
 
             return Json(lolService.GetAllBattles().Select(b => new { b.BattleType, b.Duration, b.GameId, b.Id, b.StartTime, b.ChampionId, b.IsWin, b.ContributeOrder }).ToDataSourceResult(request));
         }
 
         public ActionResult ShowChampionInfo(string filter, DateTime? beginDate)
         {
-            var allRecodes = lolService.GetAllRecords().IncludeProperties(r => r.Battle).OrderByDescending(r => r.Battle.StartTime).AsQueryable();
+            var allRecodes = lolService.GetAllRecords().Where(r=>r.Battle.BattleType==6).IncludeProperties(r => r.Battle).OrderByDescending(r => r.Battle.StartTime).AsQueryable();
             if (!string.IsNullOrWhiteSpace(filter))
             {
                 int num = Convert.ToInt32(filter);
@@ -75,8 +75,8 @@ namespace Fzrain.Web.Controllers
                 {
                     ChampionId = c,
                     TotalApprance = heroRecords.Count,
-                    TotalWinCount = heroRecords.Where(a => a.IsWin == 1).Count(),
-                    MyApprance = heroRecords.Where(a => MyHeroList.Contains(a.Name)).Count(),
+                    TotalWinCount = heroRecords.Count(a => a.IsWin == 1),
+                    MyApprance = heroRecords.Count(a => MyHeroList.Contains(a.Name)),
                     MyWinCount = heroRecords.Where(a => MyHeroList.Contains(a.Name)).Count(a => a.IsWin == 1),
                     MyContribute = heroRecords.Any(a => MyHeroList.Contains(a.Name)) ? heroRecords.Where(a => MyHeroList.Contains(a.Name)).Average(a => a.ContributeOrder) : 0,
                     TotalContribute = heroRecords.Average(a => a.ContributeOrder)
@@ -122,7 +122,7 @@ namespace Fzrain.Web.Controllers
                 double avg = 0;
                 foreach (var r in records)
                     avg += r.Contribute;
-                avg = Math.Round(avg / records.Count(), 2);
+                avg = Math.Round(avg / records.Count, 2);
                 ViewData[championId.ToString()] = new List<double> { avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg, avg };
 
                 var myRecords = records
