@@ -158,7 +158,7 @@ namespace Fzrain.Service.Lol
             request.Method = "Get";
             request.Headers.Add(HttpRequestHeader.Cookie, settingService.GetValueByName("lolCookie"));
 
-            request.UserAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729)";
+            request.UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)";
 
             // ReSharper disable once AssignNullToNotNullAttribute
             var reader = new StreamReader(request.GetResponseAsync().Result.GetResponseStream());
@@ -170,7 +170,8 @@ namespace Fzrain.Service.Lol
 
         private List<int> GetGameIds(string qq, int areaId)
         {
-            string p = "[[3,{\"qquin\":\"" + qq + "\",\"area_id\":\"" + areaId + "\",\"champion_id\":0,\"offset\":0,\"limit \":0}]]";
+            string p = "[[3,{\"qquin\":\""+qq+"\",\"area_id\":\""+areaId+"\",\"bt_num\":\"0\",\"bt_list\":[],\"champion_id\":0,\"offset\":0,\"limit\":0,\"mvp_flag\":-1}]]";
+           // string p = "[[3,{\"qquin\":\"" + qq + "\",\"area_id\":\"" + areaId + "\",\"champion_id\":0,\"offset\":0,\"limit \":0}]]";
             string url = "http://api.pallas.tgp.qq.com/core/tcall?callback=getGameDetailCallback&dtag=profile&p=" + p +
                          "&t=1417937593108";
             dynamic record = GetJsonResponse(url);
@@ -206,6 +207,8 @@ namespace Fzrain.Service.Lol
                     GoldEarned = rs[i].gold_earned,
                     DamageTaken = rs[i].total_damage_taken,
                     TotalDamage = rs[i].total_damage_dealt_to_champions,
+                    Level =rs[i].level,
+                    Experience =rs[i].exp,
                     Name = rs[i].name,
                     IsWin = rs[i].win,
                     Kill = rs[i].champions_killed,
@@ -219,6 +222,7 @@ namespace Fzrain.Service.Lol
                     Item5 = rs[i].item5,
                     BattleTagList = tagList.TrimEnd(';'),
                     MinionsKilled = rs[i].minions_killed,
+                    GameScore =rs[i].game_score,
                     LargestKillingSpree = rs[i].largest_killing_spree,
 
                 });

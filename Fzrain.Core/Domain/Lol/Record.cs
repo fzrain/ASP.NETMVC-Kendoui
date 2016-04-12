@@ -9,6 +9,8 @@ namespace Fzrain.Core.Domain.Lol
        [DisplayName("贡献值")]
        public double  Contribute { get; set; }
        public int ContributeOrder { get; set; }
+       public int  Level { get; set; }
+       public int Experience { get; set; }
        public int TotalDamage { get; set; }
        public int ChampionId { get; set; }
        public int GoldEarned { get; set; }
@@ -27,6 +29,7 @@ namespace Fzrain.Core.Domain.Lol
        public int MinionsKilled { get; set; }
        public string BattleTagList { get; set; }
        public int LargestKillingSpree { get; set; }
+       public int GameScore { get; set; }
        public virtual  Battle  Battle { get; set; }
     }
 }

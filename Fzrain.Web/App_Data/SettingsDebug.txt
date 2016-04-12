@@ -1,2 +1,2 @@
 DataProvider: sqlserver
-DataConnectionString:Server=29a3b8f8-aeb8-471f-8442-a46500c9e432.sqlserver.sequelizer.com;Database=db29a3b8f8aeb8471f8442a46500c9e432;User ID=sosqqgotnomzjrnj;Password=7oZFuTYCmAQwC7yVojxuqQVVF2nr2UCAyikdCE87SpzjFjqGiRPksmhqzdaBFFJz;
+DataConnectionString:Server=qds168894562.my3w.com;Database=qds168894562_db;User ID=qds168894562;Password=fzy86087108;
