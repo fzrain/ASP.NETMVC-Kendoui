@@ -41,7 +41,7 @@
                             <tr>
                                 <td>
                                     @{
-                            string url = "../../Content/lolpng/" + r.ChampionId + ".png";
+                            var url = "../../Content/lolpng/" + r.ChampionId + ".png";
                             ViewBag.Pex = "n";
                                     }
                                     <img width="30" src="@url" alt="" />
@@ -50,7 +50,7 @@
                                     <div>@r.Name</div>
                                     @foreach (var tag in r.BattleTagList.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
                                     {
-                                        string url2 = "../../Content/lolpng/battleSign/" + tag + ".png";
+                                        var url2 = "../../Content/lolpng/battleSign/" + tag + ".png";
                                         ViewBag.Pex = "n";
                                         <div style="float: left;margin-left:2px">
                                             <img width="15" src="@url2" alt="" />

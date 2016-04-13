@@ -8,7 +8,7 @@ namespace Fzrain.Core.Data
         {
             if (settings == null)
                 throw new ArgumentNullException("settings");
-            this.Settings = settings;
+            Settings = settings;
         }
         protected DataSettings Settings { get; private set; }
         public abstract IDataProvider LoadDataProvider();

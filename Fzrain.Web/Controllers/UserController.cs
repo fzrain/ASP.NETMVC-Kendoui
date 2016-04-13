@@ -21,7 +21,7 @@ namespace Fzrain.Web.Controllers
             return PartialView(userService.GetAllRoles());
         }
 
-        public ActionResult SetRoles(List<int> roleIds, int userId)
+        public ActionResult SetRoles(List<long> roleIds, long  userId)
         {
             userService.SetRoles(userId, roleIds);
             return Json("ok");
@@ -33,7 +33,7 @@ namespace Fzrain.Web.Controllers
             return PartialView(userService.GetAllModules());
         }
 
-        public ActionResult SetModules(List<int> moduleIds, int userId)
+        public ActionResult SetModules(List<long> moduleIds, int userId)
         {
             userService.SetModules(userId, moduleIds);
             return Json("ok");

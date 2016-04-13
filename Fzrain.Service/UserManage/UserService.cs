@@ -25,7 +25,7 @@ namespace Fzrain.Service.UserManage
         /// <returns></returns>
         public List<Module> GetUserAccessModules(int userId)
         {
-            User user = userRepository.Table.Where(u => u.Id == userId).IncludeProperties(u => u.Roles).FirstOrDefault();
+            var user = userRepository.Table.Where(u => u.Id == userId).IncludeProperties(u => u.Roles).FirstOrDefault();
            return  user.Modules.ToList();
         }
 
@@ -36,13 +36,13 @@ namespace Fzrain.Service.UserManage
 
         public List<Role> GetRoles(int userId)
         {
-           User user= userRepository.Table.Where(u => u.Id == userId).IncludeProperties(u => u.Roles).FirstOrDefault();
+           var user= userRepository.Table.Where(u => u.Id == userId).IncludeProperties(u => u.Roles).FirstOrDefault();
             return  user.Roles.ToList();
         }
 
-        public void SetRoles(int userId, List<int> roleIds)
+        public void SetRoles(long userId, List<long> roleIds)
         {
-            User user=  userRepository.Table.Where(u=>u.Id==userId).IncludeProperties(u=>u.Roles).FirstOrDefault();
+            var user=  userRepository.Table.Where(u=>u.Id==userId).IncludeProperties(u=>u.Roles).FirstOrDefault();
             user.Roles = roleRepository.Table.Where(r => roleIds.Contains(r.Id)).ToList();
             userRepository.Update(user);
         }
@@ -54,13 +54,13 @@ namespace Fzrain.Service.UserManage
 
         public List<Module> GeModules(int userId)
         {
-            User user = userRepository.Table.Where(u => u.Id == userId).IncludeProperties(u => u.Modules).FirstOrDefault();
+            var user = userRepository.Table.Where(u => u.Id == userId).IncludeProperties(u => u.Modules).FirstOrDefault();
             return user.Modules.ToList();
         }
 
-        public void SetModules(int userId, List<int> moduleIds)
+        public void SetModules(long userId, List<long> moduleIds)
         {
-            User user = userRepository.Table.Where(u => u.Id == userId).IncludeProperties(u => u.Modules).FirstOrDefault();
+            var user = userRepository.Table.Where(u => u.Id == userId).IncludeProperties(u => u.Modules).FirstOrDefault();
             user.Modules = moduleRepository.Table.Where(m => moduleIds.Contains(m.Id)).ToList();
             userRepository.Update(user);
         }

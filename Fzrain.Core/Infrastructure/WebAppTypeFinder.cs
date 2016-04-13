@@ -24,7 +24,7 @@ namespace Fzrain.Core.Infrastructure
 
         public WebAppTypeFinder(FzrainConfig config)
         {
-            this._ensureBinFolderAssembliesLoaded = config.DynamicDiscovery;
+            _ensureBinFolderAssembliesLoaded = config.DynamicDiscovery;
         }
 
         #endregion
@@ -55,10 +55,10 @@ namespace Fzrain.Core.Infrastructure
 
         public override IList<Assembly> GetAssemblies()
         {
-            if (this.EnsureBinFolderAssembliesLoaded && !_binFolderAssembliesLoaded)
+            if (EnsureBinFolderAssembliesLoaded && !_binFolderAssembliesLoaded)
             {
                 _binFolderAssembliesLoaded = true;
-                string binPath = GetBinDirectory();
+                var binPath = GetBinDirectory();
                 //binPath = _webHelper.MapPath("~/bin");
                 LoadMatchingAssemblies(binPath);
             }

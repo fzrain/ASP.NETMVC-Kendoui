@@ -28,10 +28,10 @@
     {
         <div id="main">
             @{
-                string url = "http://cdn.tgp.qq.com/pallas/images/card/" + m.ChampionId + ".jpg";
-                double myWinning = m.MyApprance == 0 ? 0 : (Convert.ToDouble(m.MyWinCount) / Convert.ToDouble(m.MyApprance)) * 100;
-                double totalWinning = (Convert.ToDouble(m.TotalWinCount) / Convert.ToDouble(m.TotalApprance) * 100);
-                string color = myWinning > totalWinning ? "green" : "red";
+                var url = "http://cdn.tgp.qq.com/pallas/images/card/" + m.ChampionId + ".jpg";
+                var myWinning = m.MyApprance == 0 ? 0 : (Convert.ToDouble(m.MyWinCount) / Convert.ToDouble(m.MyApprance)) * 100;
+                var totalWinning = (Convert.ToDouble(m.TotalWinCount) / Convert.ToDouble(m.TotalApprance) * 100);
+                var color = myWinning > totalWinning ? "green" : "red";
             }
             <div style="float: left; border: 1px solid gray">
                 <img width="150" src="@url" alt="" />

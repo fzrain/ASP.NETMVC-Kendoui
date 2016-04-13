@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading;
 using Fzrain.Core.Data;
 using Fzrain.Core.Domain.Lol;
@@ -14,6 +13,7 @@ namespace Fzrain.Service.Lol
 {
     public class LolService : ILolService
     {
+        public IEnumerable<string> MyRoles { get; set; } = new List<string> {"网络中断突然"};
         #region 私有字段
         private readonly IRepository<Battle> battleRepository;
         private readonly IRepository<Record> recordRepository;
@@ -44,25 +44,25 @@ namespace Fzrain.Service.Lol
                 battle.ChampionId = battle.Records.FirstOrDefault(r => r.Name == myRoleName).ChampionId;
                 battle.IsWin = battle.Records.FirstOrDefault(r => r.Name == myRoleName).IsWin;
 
-                List<double> list = new List<double>();
+                var list = new List<double>();
 
-                foreach (Record record in battle.Records)
+                foreach (var record in battle.Records)
                 {
-                    double damageRatio = Math.Round((double)record.TotalDamage / battle.Records.Sum(r => r.TotalDamage), 2);
-                    double killRatio = Math.Round((double)record.Kill / battle.Records.Sum(r => r.Kill), 2);
-                    double deathRatio = Math.Round((double)record.Death / battle.Records.Sum(r => r.Death), 2);
-                    double assistRatio = Math.Round((double)(record.Assist + record.Kill) / battle.Records.Where(r => r.IsWin == record.IsWin).Sum(r => r.Kill), 2);
-                    double contribute = Math.Round(damageRatio * 50 + killRatio * 25 - deathRatio * 15 + assistRatio * 5, 2);
+                    var damageRatio = Math.Round((double)record.TotalDamage / battle.Records.Sum(r => r.TotalDamage), 2);
+                    var killRatio = Math.Round((double)record.Kill / battle.Records.Sum(r => r.Kill), 2);
+                    var deathRatio = Math.Round((double)record.Death / battle.Records.Sum(r => r.Death), 2);
+                    var assistRatio = Math.Round((double)(record.Assist + record.Kill) / battle.Records.Where(r => r.IsWin == record.IsWin).Sum(r => r.Kill), 2);
+                    var contribute = Math.Round(damageRatio * 50 + killRatio * 25 - deathRatio * 15 + assistRatio * 5, 2);
                     list.Add(contribute);
                     record.Contribute = contribute;
 
                 }
-                foreach (double d in list)
+                foreach (var d in list)
                 {
-                    int index = battle.Records.Count(r => r.Contribute > d);
+                    var index = battle.Records.Count(r => r.Contribute > d);
                     // ReSharper disable once CompareOfFloatsByEqualityOperator
                     var records = battle.Records.Where(r => r.Contribute == d).ToList();
-                    foreach (Record record in records)
+                    foreach (var record in records)
                     {
                         record.ContributeOrder = index + 1;
                     }
@@ -99,12 +99,12 @@ namespace Fzrain.Service.Lol
 
         public Dictionary<int, int> GetAppearRate(string starttime = "2014-10-19")
         {
-            DateTime time = Convert.ToDateTime(starttime);
+            var time = Convert.ToDateTime(starttime);
             var championInfo = championInfoRepository.Table.Select(c => new { c.ChampionId, c.Position }).ToList();
-            var championIds = recordRepository.Table.Where(r => r.Name == "网络中断突然" && r.Battle.StartTime > time)
+            var championIds = recordRepository.Table.Where(r => MyRoles.Contains(r.Name) && r.Battle.StartTime > time)
                  .Select(r => r.ChampionId).ToList();
-            Dictionary<int, int> dir = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } };
-            foreach (int championId in championIds)
+            var dir = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } };
+            foreach (var championId in championIds)
             {
                 var position = championInfo.Where(c => c.ChampionId == championId).Select(c => c.Position).FirstOrDefault();
                 dir[Convert.ToInt32(position)]++;
@@ -114,11 +114,11 @@ namespace Fzrain.Service.Lol
 
         public Dictionary<int, int> GetCarryAbility(string starttime = "2014-10-19")
         {
-            DateTime time = Convert.ToDateTime(starttime);
+            var time = Convert.ToDateTime(starttime);
             //   var championInfo = championInfoRepository.Table.Select(c => new { c.ChampionId, c.Position }).ToList();
-            var contributeOrders = recordRepository.Table.Where(r => r.Name == "网络中断突然" && r.Battle.StartTime > time).Select(r => r.ContributeOrder).ToList();
-            Dictionary<int, int> dir = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } };
-            foreach (int order in contributeOrders)
+            var contributeOrders = recordRepository.Table.Where(r => MyRoles.Contains(r.Name) && r.Battle.StartTime > time).Select(r => r.ContributeOrder).ToList();
+            var dir = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } };
+            foreach (var order in contributeOrders)
             {
                 if (order <= 2)
                 {
@@ -154,7 +154,7 @@ namespace Fzrain.Service.Lol
         #region 工具方法
         private  dynamic GetJsonResponse(string url)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "Get";
             request.Headers.Add(HttpRequestHeader.Cookie, settingService.GetValueByName("lolCookie"));
 
@@ -163,21 +163,21 @@ namespace Fzrain.Service.Lol
             // ReSharper disable once AssignNullToNotNullAttribute
             var reader = new StreamReader(request.GetResponseAsync().Result.GetResponseStream());
             var r = reader.ReadToEnd();
-            string json = r.Substring(26, r.Length - 38);
+            var json = r.Substring(26, r.Length - 38);
             return JsonConvert.DeserializeObject(json);
         }
 
 
         private List<int> GetGameIds(string qq, int areaId)
         {
-            string p = "[[3,{\"qquin\":\""+qq+"\",\"area_id\":\""+areaId+"\",\"bt_num\":\"0\",\"bt_list\":[],\"champion_id\":0,\"offset\":0,\"limit\":0,\"mvp_flag\":-1}]]";
+            var p = "[[3,{\"qquin\":\""+qq+"\",\"area_id\":\""+areaId+"\",\"bt_num\":\"0\",\"bt_list\":[],\"champion_id\":0,\"offset\":0,\"limit\":0,\"mvp_flag\":-1}]]";
            // string p = "[[3,{\"qquin\":\"" + qq + "\",\"area_id\":\"" + areaId + "\",\"champion_id\":0,\"offset\":0,\"limit \":0}]]";
-            string url = "http://api.pallas.tgp.qq.com/core/tcall?callback=getGameDetailCallback&dtag=profile&p=" + p +
+            var url = "http://api.pallas.tgp.qq.com/core/tcall?callback=getGameDetailCallback&dtag=profile&p=" + p +
                          "&t=1417937593108";
             dynamic record = GetJsonResponse(url);
             dynamic d = record.data[0].battle_list;
-            List<int> list = new List<int>();
-            for (int i = 0; i < d.Count; i++)
+            var list = new List<int>();
+            for (var i = 0; i < d.Count; i++)
             {
                 list.Add(Convert.ToInt32(d[i].game_id));
             }
@@ -192,11 +192,11 @@ namespace Fzrain.Service.Lol
                     areaId + "\",\"game_id\":\"" + id + "\"}]]&t=1417937593108");
 
             dynamic rs = record.data[0].battle.gamer_records;
-            List<Record> list = new List<Record>();
-            for (int i = 0; i < rs.Count; i++)
+            var list = new List<Record>();
+            for (var i = 0; i < rs.Count; i++)
             {
-                string tagList = string.Empty;
-                for (int j = 0; j < rs[i].battle_tag_list.Count; j++)
+                var tagList = string.Empty;
+                for (var j = 0; j < rs[i].battle_tag_list.Count; j++)
                 {
                     tagList += rs[i].battle_tag_list[j].tag_id + ";";
                 }

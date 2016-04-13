@@ -29,7 +29,7 @@ namespace Fzrain.Core.Data
                 return HostingEnvironment.MapPath(path);
             }
             //not hosted. For example, run in unit tests
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             path = path.Replace("~/", "").TrimStart('/').Replace('/', '\\');
             return Path.Combine(baseDirectory, path);
         }
@@ -57,8 +57,8 @@ namespace Fzrain.Core.Data
                 {
                     continue;
                 }
-                string key = setting.Substring(0, separatorIndex).Trim();
-                string value = setting.Substring(separatorIndex + 1).Trim();
+                var key = setting.Substring(0, separatorIndex).Trim();
+                var value = setting.Substring(separatorIndex + 1).Trim();
 
                 switch (key)
                 {
@@ -103,7 +103,7 @@ namespace Fzrain.Core.Data
             }
             if (File.Exists(filePath))
             {
-                string text = File.ReadAllText(filePath);
+                var text = File.ReadAllText(filePath);
                 return ParseSettings(text);
             }
             return new DataSettings();
@@ -115,7 +115,7 @@ namespace Fzrain.Core.Data
                 throw new ArgumentNullException("settings");
 
             //use webHelper.MapPath instead of HostingEnvironment.MapPath which is not available in unit tests
-            string filePath = Path.Combine(MapPath("~/App_Data/"), filename);
+            var filePath = Path.Combine(MapPath("~/App_Data/"), filename);
             if (!File.Exists(filePath))
             {
                 using (File.Create(filePath))

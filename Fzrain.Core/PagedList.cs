@@ -19,16 +19,16 @@ namespace Fzrain.Core
         /// <param name="pageSize">Page size</param>
         public PagedList(IQueryable<T> source, int pageIndex, int pageSize)
         {
-            int total = source.Count();
-            this.TotalCount = total;
-            this.TotalPages = total / pageSize;
+            var total = source.Count();
+            TotalCount = total;
+            TotalPages = total / pageSize;
 
             if (total % pageSize > 0)
                 TotalPages++;
 
-            this.PageSize = pageSize;
-            this.PageIndex = pageIndex;
-            this.AddRange(source.Skip(pageIndex * pageSize).Take(pageSize).ToList());
+            PageSize = pageSize;
+            PageIndex = pageIndex;
+            AddRange(source.Skip(pageIndex * pageSize).Take(pageSize).ToList());
         }
 
         /// <summary>
@@ -45,9 +45,9 @@ namespace Fzrain.Core
             if (TotalCount % pageSize > 0)
                 TotalPages++;
 
-            this.PageSize = pageSize;
-            this.PageIndex = pageIndex;
-            this.AddRange(source.Skip(pageIndex * pageSize).Take(pageSize).ToList());
+            PageSize = pageSize;
+            PageIndex = pageIndex;
+            AddRange(source.Skip(pageIndex * pageSize).Take(pageSize).ToList());
         }
 
         /// <summary>
@@ -65,9 +65,9 @@ namespace Fzrain.Core
             if (TotalCount % pageSize > 0)
                 TotalPages++;
 
-            this.PageSize = pageSize;
-            this.PageIndex = pageIndex;
-            this.AddRange(source);
+            PageSize = pageSize;
+            PageIndex = pageIndex;
+            AddRange(source);
         }
 
         public int PageIndex { get; private set; }
@@ -75,13 +75,8 @@ namespace Fzrain.Core
         public int TotalCount { get; private set; }
         public int TotalPages { get; private set; }
 
-        public bool HasPreviousPage
-        {
-            get { return (PageIndex > 0); }
-        }
-        public bool HasNextPage
-        {
-            get { return (PageIndex + 1 < TotalPages); }
-        }
+        public bool HasPreviousPage => PageIndex > 0;
+
+        public bool HasNextPage => PageIndex + 1 < TotalPages;
     }
 }

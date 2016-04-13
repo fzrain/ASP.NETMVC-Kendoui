@@ -70,7 +70,7 @@ namespace Fzrain.Core.Infrastructure
             builder.Update(container);
 
 
-            this.ContainerManager = new ContainerManager(container);
+            ContainerManager = new ContainerManager(container);
 
             //set dependency resolver
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

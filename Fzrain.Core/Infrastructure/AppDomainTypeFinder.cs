@@ -174,7 +174,7 @@ namespace Fzrain.Core.Infrastructure
         /// <param name="assemblies"></param>
         private void AddAssembliesInAppDomain(List<string> addedAssemblyNames, List<Assembly> assemblies)
         {
-            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 if (Matches(assembly.FullName))
                 {
@@ -194,9 +194,9 @@ namespace Fzrain.Core.Infrastructure
         /// <param name="assemblies"></param>
         protected virtual void AddConfiguredAssemblies(List<string> addedAssemblyNames, List<Assembly> assemblies)
         {
-            foreach (string assemblyName in AssemblyNames)
+            foreach (var assemblyName in AssemblyNames)
             {
-                Assembly assembly = Assembly.Load(assemblyName);
+                var assembly = Assembly.Load(assemblyName);
                 if (!addedAssemblyNames.Contains(assembly.FullName))
                 {
                     assemblies.Add(assembly);
@@ -246,7 +246,7 @@ namespace Fzrain.Core.Infrastructure
         protected virtual void LoadMatchingAssemblies(string directoryPath)
         {
             var loadedAssemblyNames = new List<string>();
-            foreach (Assembly a in GetAssemblies())
+            foreach (var a in GetAssemblies())
             {
                 loadedAssemblyNames.Add(a.FullName);
             }
@@ -256,7 +256,7 @@ namespace Fzrain.Core.Infrastructure
                 return;
             }
 
-            foreach (string dllPath in Directory.GetFiles(directoryPath, "*.dll"))
+            foreach (var dllPath in Directory.GetFiles(directoryPath, "*.dll"))
             {
                 try
                 {

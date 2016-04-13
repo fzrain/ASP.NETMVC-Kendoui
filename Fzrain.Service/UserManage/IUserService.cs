@@ -7,10 +7,10 @@ namespace Fzrain.Service.UserManage
    {
        List<Role> GetAllRoles();
        List<Role> GetRoles(int userId);
-       void SetRoles(int userId,List<int> roleIds);
+       void SetRoles(long userId,List<long > roleIds);
 
        List<Module> GetAllModules();
        List<Module> GeModules(int userId);
-       void SetModules(int userId, List<int> moduleIds);
+       void SetModules(long userId, List<long> moduleIds);
    }
 }

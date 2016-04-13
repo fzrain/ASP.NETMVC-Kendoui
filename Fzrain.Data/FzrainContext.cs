@@ -109,7 +109,7 @@ namespace Fzrain.Data
             //add parameters to command
             if (parameters != null && parameters.Length > 0)
             {
-                for (int i = 0; i <= parameters.Length - 1; i++)
+                for (var i = 0; i <= parameters.Length - 1; i++)
                 {
                     var p = parameters[i] as DbParameter;
                     if (p == null)
@@ -126,20 +126,20 @@ namespace Fzrain.Data
                 }
             }
 
-            var result = this.Database.SqlQuery<TEntity>(commandText, parameters).ToList();
+            var result = Database.SqlQuery<TEntity>(commandText, parameters).ToList();
 
             //performance hack applied as described here - http://www.nopcommerce.com/boards/t/25483/fix-very-important-speed-improvement.aspx
-            bool acd = this.Configuration.AutoDetectChangesEnabled;
+            bool acd = Configuration.AutoDetectChangesEnabled;
             try
             {
-                this.Configuration.AutoDetectChangesEnabled = false;
+                Configuration.AutoDetectChangesEnabled = false;
 
-                for (int i = 0; i < result.Count; i++)
+                for (var i = 0; i < result.Count; i++)
                     result[i] = AttachEntityToContext(result[i]);
             }
             finally
             {
-                this.Configuration.AutoDetectChangesEnabled = acd;
+                Configuration.AutoDetectChangesEnabled = acd;
             }
 
             return result;
@@ -154,7 +154,7 @@ namespace Fzrain.Data
         /// <returns>Result</returns>
         public IEnumerable<TElement> SqlQuery<TElement>(string sql, params object[] parameters)
         {
-            return this.Database.SqlQuery<TElement>(sql, parameters);
+            return Database.SqlQuery<TElement>(sql, parameters);
         }
     
         /// <summary>

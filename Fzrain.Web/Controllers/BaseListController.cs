@@ -28,11 +28,11 @@ namespace Fzrain.Web.Controllers
         {
             ViewBag.ControllerName = typeof(T).Name;
             var props = typeof(T).GetProperties().Where(p => !p.GetMethod.IsVirtual);
-            List<string> list = new List<string>();
-            foreach (PropertyInfo prop in props )
+            var list = new List<string>();
+            foreach (var prop in props )
             {
-              DisplayNameAttribute attr=  prop.GetCustomAttribute<DisplayNameAttribute>();
-                string name = attr!=null ? attr.DisplayName : prop.Name;
+              var attr=  prop.GetCustomAttribute<DisplayNameAttribute>();
+                var name = attr!=null ? attr.DisplayName : prop.Name;
              
                 list.Add(prop.Name+";"+name);
             }
@@ -70,7 +70,7 @@ namespace Fzrain.Web.Controllers
                 var props = typeof(T).GetProperties().Where(p=>!p.GetMethod.IsVirtual);
                 foreach (var prop in props)
                 {
-                    object value = Convert.ChangeType(prop.GetValue(entity), typeof(T).GetProperty(prop.Name).PropertyType);
+                    var value = Convert.ChangeType(prop.GetValue(entity), typeof(T).GetProperty(prop.Name).PropertyType);
                     prop.SetValue(t, value);
                 }
                 repository.Update(t);

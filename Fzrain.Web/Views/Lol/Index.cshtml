@@ -119,30 +119,27 @@
 @(Html.Kendo().Window()
       .Name("window").Visible(false)
       .Title("弹出页").Content(@<text>
+                              
 
                                 @{
-                                    var qqInfo = new List<DropDownListItem>
+                                    var data = AccountInfo.Data();
+                                    var qqInfo = new List<DropDownListItem>();
+                                    foreach (var accountInfo in data)
                                     {
-                                         new DropDownListItem {Text = "名将秒鱼", Value = "U3040557788097032300"},
-                                        new DropDownListItem {Text = "maoxiahui1234", Value = "U4795783785692160110"},
-                                        new DropDownListItem {Text = "MyE丶血狱", Value = "U15978645692141229169"},
-                                       new DropDownListItem {Text = "网络中断突然", Value = "U7796213511838403286"},
-                                    };
+                                        qqInfo.Add(new DropDownListItem {Text = accountInfo.QQ, Value = accountInfo.QQuin});
+                                    }
                                 }
                                 @Html.Kendo().DropDownList().BindTo(qqInfo).Name("txtQQ")
                                 @{
-                                    var areaInfo = new List<DropDownListItem>
+                                   
+                                    var areaInfo = new List<DropDownListItem>();
+                                    foreach (var accountInfo in data)
                                     {
-                                        new DropDownListItem {Text = "艾欧尼亚", Value = "1"},
-                                         new DropDownListItem {Text = "祖安", Value = "3"},
-                                          new DropDownListItem {Text = "裁决之地", Value = "13"},
-                                        new DropDownListItem {Text = "雷瑟守备", Value = "11"},
-                                        new DropDownListItem {Text = "皮城警备", Value = "27"},
-                                       
-                                    };
+                                        areaInfo.Add(new DropDownListItem { Text = accountInfo.Area , Value = accountInfo.AreaId });
+                                    }
                                 }
-                                @Html.Kendo().DropDownList().BindTo(areaInfo).Name("areaId")
-                                @{
+                                @Html.Kendo().DropDownList().BindTo(areaInfo).Name("areaId").Events(a=>a.Change("areaOnChange"))
+                                @*@{
                                     var roleInfo = new List<DropDownListItem>
                                     {
                                         new DropDownListItem {Text = "maoxiahui1234", Value = "maoxiahui1234"},
@@ -151,8 +148,8 @@
                                         new DropDownListItem {Text = "名将秒鱼", Value = "名将秒鱼"},
                                         new DropDownListItem {Text = "笨笨秒杀上帝", Value = "笨笨秒杀上帝"}
                                     };
-                                }
-                                @Html.Kendo().DropDownList().BindTo(roleInfo).Name("myRoleName")
+                                }*@
+                                @Html.Kendo().TextBox().Name("myRoleName")
                                 @Html.Kendo().Button().Content("获取更新").Name("GetUpdateData").Events(e => e.Click("GetUpdateBattles"))
                                 @Html.Kendo().Button().Content("更新").Name("update").Events(e => e.Click("updateAllbattle"))
                                 <input type="hidden" id="ids"/>
@@ -230,6 +227,12 @@
                 }
             },
             template: "<img width='50px' src='../../Content/lolpng/#:data#.png' alt='' />"
+        });
+    }
+
+    function areaOnChange() {
+        $.post("GetAccountInfo", { areaId: $("#txtQQ").val(), qqUin: $("#txtQQ") }, function(data) {
+            $("#myRoleName").val(data);
         });
     }
 </script>

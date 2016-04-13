@@ -19,7 +19,7 @@ namespace Fzrain.Web.Controllers
     public class LolController : Controller
     {
         private readonly ILolService lolService;
-        public List<string> MyHeroList = new List<string> { "笨笨秒杀上帝", "网络中断突然", "名将秒鱼", "maoxiahui1234", "MyE丶血狱" };
+        public IEnumerable<string> MyHeroList = AccountInfo.Data().Select(a => a.Name);
 
         public LolController(ILolService lolService)
         {
@@ -47,12 +47,12 @@ namespace Fzrain.Web.Controllers
             var allRecodes = lolService.GetAllRecords().Where(r=>r.Battle.BattleType==6).IncludeProperties(r => r.Battle).OrderByDescending(r => r.Battle.StartTime).AsQueryable();
             if (!string.IsNullOrWhiteSpace(filter))
             {
-                int num = Convert.ToInt32(filter);
+                var num = Convert.ToInt32(filter);
                 if (num >= 100)
                     allRecodes = allRecodes.Take(10 * num);
                 else
                 {
-                    DateTime startTime = DateTime.Now.AddMonths(-num);
+                    var startTime = DateTime.Now.AddMonths(-num);
                     allRecodes = allRecodes.Where(r => r.Battle.StartTime > startTime);
                 }
 
@@ -67,7 +67,7 @@ namespace Fzrain.Web.Controllers
                             group r by r.ChampionId
                                 into g
                                 select g.Key;
-            List<LolChampionInfoViewModel> model = new List<LolChampionInfoViewModel>();
+            var model = new List<LolChampionInfoViewModel>();
             foreach (var c in champions)
             {
                 var heroRecords = recodes.Where(a => a.ChampionId == c).ToList();
@@ -92,7 +92,7 @@ namespace Fzrain.Web.Controllers
         }
         public ActionResult UpdateBattle(string ids, int areaId, string myRoleName)
         {
-            List<int> gameIds = ids.Split(',').Select(id => Convert.ToInt32(id)).ToList();
+            var gameIds = ids.Split(',').Select(id => Convert.ToInt32(id)).ToList();
             lolService.UpdateBattle(gameIds, areaId, myRoleName);
             return Content("ok");
         }
@@ -109,13 +109,13 @@ namespace Fzrain.Web.Controllers
         {
 
             var ids = lolService.GetAllBattles().GroupBy(r => r.ChampionId).Select(c => new { c.Key, num = c.Count() }).OrderByDescending(k => k.num).ToList();
-            List<ChampionGrowupViewModel> model = new List<ChampionGrowupViewModel>();
+            var model = new List<ChampionGrowupViewModel>();
             if (!heroId.HasValue)
             {
                 heroId = ids.Select(id => id.Key).First();
             }
             ViewBag.CurrentId = heroId;
-            var recordLists = lolService.GetAllRecords().IncludeProperties(r => r.Battle).ToList();
+            var recordLists = lolService.GetAllRecords().Where(r=>r.Battle.BattleType ==6).IncludeProperties(r => r.Battle).ToList();
             foreach (var championId in ids.Select(id => id.Key))
             {
                 var records = recordLists.Where(r => r.ChampionId == championId).ToList();
@@ -166,7 +166,7 @@ namespace Fzrain.Web.Controllers
             if (endTime.HasValue)
                 models = models.Where(r => r.Battle.StartTime < endTime);
 
-            List<KeyValuePairViewModel> list = new List<KeyValuePairViewModel>();
+            var list = new List<KeyValuePairViewModel>();
 
             switch (dataInfo)
             {
@@ -197,7 +197,7 @@ namespace Fzrain.Web.Controllers
 				models = models.Where(r => r.Battle.StartTime < endTime);
 
 		    models = models.Where(r => r.BattleTagList.Contains(tagInfo));
-            List<KeyValuePairViewModel> list = new List<KeyValuePairViewModel>();
+            var list = new List<KeyValuePairViewModel>();
 		    PrepareAnalyseModel(list, models, s => new {s.Key, Value = s.Count()});		
 			list = isAsc ? list.OrderBy(l => l.Value).ToList() : list.OrderByDescending(l => l.Value).ToList();
 			return Json(list);
@@ -237,7 +237,13 @@ namespace Fzrain.Web.Controllers
         public ActionResult GetSnapShot()
         {
             return View(lolService.GetAllSnapShots().OrderByDescending(s => s.CommitTime).ToList());
-            ;
+            
+        }
+
+        public ActionResult GetAccountInfo(string areaId,string qqUin)
+        {
+           var account= AccountInfo.Data().FirstOrDefault(a => a.AreaId == areaId && a.QQuin == qqUin);
+            return Content(account?.Name);
         }
 
         protected override JsonResult Json(object data, string contentType, Encoding contentEncoding, JsonRequestBehavior behavior)

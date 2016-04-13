@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -24,7 +23,7 @@ namespace Fzrain.Core
         /// <returns></returns>
         public static string EnsureSubscriberEmailOrThrow(string email)
         {
-            string output = EnsureNotNull(email);
+            var output = EnsureNotNull(email);
             output = output.Trim();
             output = EnsureMaximumLength(output, 255);
 
@@ -59,8 +58,8 @@ namespace Fzrain.Core
         public static string GenerateRandomDigitCode(int length)
         {
             var random = new Random();
-            string str = string.Empty;
-            for (int i = 0; i < length; i++)
+            var str = string.Empty;
+            for (var i = 0; i < length; i++)
                 str = String.Concat(str, random.Next(10).ToString());
             return str;
         }
@@ -114,7 +113,7 @@ namespace Fzrain.Core
                 return string.Empty;
 
             var result = new StringBuilder();
-            foreach (char c in str)
+            foreach (var c in str)
             {
                 if (Char.IsDigit(c))
                     result.Append(c);
@@ -142,7 +141,7 @@ namespace Fzrain.Core
         /// <returns>Boolean</returns>
         public static bool AreNullOrEmpty(params string[] stringsToValidate)
         {
-            bool result = false;
+            var result = false;
             Array.ForEach(stringsToValidate, str =>
             {
                 if (string.IsNullOrEmpty(str)) result = true;
@@ -170,7 +169,7 @@ namespace Fzrain.Core
                 return false;
 
             var comparer = EqualityComparer<T>.Default;
-            for (int i = 0; i < a1.Length; i++)
+            for (var i = 0; i < a1.Length; i++)
             {
                 if (!comparer.Equals(a1[i], a2[i])) return false;
             }
@@ -190,7 +189,7 @@ namespace Fzrain.Core
                 _trustLevel = AspNetHostingPermissionLevel.None;
 
                 //determine maximum
-                foreach (AspNetHostingPermissionLevel trustLevel in new[] {
+                foreach (var trustLevel in new[] {
                                 AspNetHostingPermissionLevel.Unrestricted,
                                 AspNetHostingPermissionLevel.High,
                                 AspNetHostingPermissionLevel.Medium,
@@ -224,8 +223,8 @@ namespace Fzrain.Core
             if (instance == null) throw new ArgumentNullException("instance");
             if (propertyName == null) throw new ArgumentNullException("propertyName");
 
-            Type instanceType = instance.GetType();
-            PropertyInfo pi = instanceType.GetProperty(propertyName);
+            var instanceType = instance.GetType();
+            var pi = instanceType.GetProperty(propertyName);
             if (pi == null)
                 throw new FzrainException("No property '{0}' found on the instance of type '{1}'.", propertyName, instanceType);
             if (!pi.CanWrite)
@@ -279,8 +278,8 @@ namespace Fzrain.Core
             {
                 var sourceType = value.GetType();
 
-                TypeConverter destinationConverter = GetNopCustomTypeConverter(destinationType);
-                TypeConverter sourceConverter = GetNopCustomTypeConverter(sourceType);
+                var destinationConverter = GetNopCustomTypeConverter(destinationType);
+                var sourceConverter = GetNopCustomTypeConverter(sourceType);
                 if (destinationConverter != null && destinationConverter.CanConvertFrom(value.GetType()))
                     return destinationConverter.ConvertFrom(null, culture, value);
                 if (sourceConverter != null && sourceConverter.CanConvertTo(destinationType))
@@ -312,9 +311,9 @@ namespace Fzrain.Core
         /// <returns>Converted string</returns>
         public static string ConvertEnum(string str)
         {
-            string result = string.Empty;
-            char[] letters = str.ToCharArray();
-            foreach (char c in letters)
+            var result = string.Empty;
+            var letters = str.ToCharArray();
+            foreach (var c in letters)
                 if (c.ToString() != c.ToString().ToLower())
                     result += " " + c.ToString();
                 else

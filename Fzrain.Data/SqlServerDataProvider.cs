@@ -45,7 +45,7 @@ namespace Fzrain.Data
 
             while (true)
             {
-                string lineOfText = reader.ReadLine();
+                var lineOfText = reader.ReadLine();
                 if (lineOfText == null)
                 {
                     return sb.Length > 0 ? sb.ToString() : null;

@@ -15,7 +15,7 @@ namespace Fzrain.Core.Data
 
         public bool IsValid()
         {
-            return !String.IsNullOrEmpty(this.DataProvider) && !String.IsNullOrEmpty(this.DataConnectionString);
+            return !String.IsNullOrEmpty(DataProvider) && !String.IsNullOrEmpty(DataConnectionString);
         }
     }
 }

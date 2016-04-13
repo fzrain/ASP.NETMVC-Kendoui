@@ -10,7 +10,7 @@
           .Name("grid")
           .Columns(columns =>
           {
-              foreach (string column in (List<string>) ViewBag.Columns)
+              foreach (var column in (List<string>) ViewBag.Columns)
               {
                   columns.Bound(column.Split(';')[0]).Width(150).Title(column.Split(';')[1]);
               }

@@ -12,12 +12,12 @@ namespace Fzrain.Web.Controllers
 
         public ActionResult GetDptTreeData(int? id)
         {
-            Department d1 = new Department { Id = 1, DepartmentName = "开发部" };
-            Department d2 = new Department { Id = 2, DepartmentName = "实施部" };
-            Department d3 = new Department { Id = 3, DepartmentName = "开发1部" };
+            var d1 = new Department { Id = 1, DepartmentName = "开发部" };
+            var d2 = new Department { Id = 2, DepartmentName = "实施部" };
+            var d3 = new Department { Id = 3, DepartmentName = "开发1部" };
             d3.ParentDpt = d1;
             d1.ChildrenDpt = new List<Department>() { d3 };
-            List<Department> departments = new List<Department>
+            var departments = new List<Department>
             {
                d1,d2,d3
             };

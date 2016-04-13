@@ -7,7 +7,7 @@
 }
 <div class="mainright">
   
-           @for (DateTime  i = DateTime.Now.Date; i >new DateTime(2015-01-01);i= i.AddDays(-1))
+           @for (var  i = DateTime.Now.Date; i >new DateTime(2015-01-01);i= i.AddDays(-1))
            {
                if (Model.Take(20).Any(m => m.CommitTime.Date==i.Date))
                {
@@ -33,7 +33,7 @@
                               {
                                 <span style="color: white">&nbsp;超神</span>
                               }
-                               @{ string championUrl = "../../Content/lolpng/"+snapShot.ChampionId+".png";}
+                               @{ var championUrl = "../../Content/lolpng/"+snapShot.ChampionId+".png";}
                                <div style="margin-top:26px">
                                    <img width='35' style='border-radius:50%' src='@championUrl' alt='' />
                                    <span style="color:white">@snapShot.CommitTime</span>
