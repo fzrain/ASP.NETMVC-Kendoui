@@ -119,36 +119,24 @@
 @(Html.Kendo().Window()
       .Name("window").Visible(false)
       .Title("弹出页").Content(@<text>
-                              
-
                                 @{
-                                    var data = AccountInfo.Data();
+                                    var data = AccountInfo.Data().Select(d => new {d.QQ, d.QQuin}).Distinct().ToList();
                                     var qqInfo = new List<DropDownListItem>();
                                     foreach (var accountInfo in data)
                                     {
                                         qqInfo.Add(new DropDownListItem {Text = accountInfo.QQ, Value = accountInfo.QQuin});
                                     }
                                 }
-                                @Html.Kendo().DropDownList().BindTo(qqInfo).Name("txtQQ")
+                                @Html.Kendo().DropDownList().BindTo(qqInfo).Name("txtQQ").Events(a => a.Change("areaOnChange"))
                                 @{
-                                   
+                                    var data2 = AccountInfo.Data();
                                     var areaInfo = new List<DropDownListItem>();
-                                    foreach (var accountInfo in data)
+                                    foreach (var accountInfo in data2)
                                     {
-                                        areaInfo.Add(new DropDownListItem { Text = accountInfo.Area , Value = accountInfo.AreaId });
+                                        areaInfo.Add(new DropDownListItem {Text = accountInfo.Area, Value = accountInfo.AreaId});
                                     }
                                 }
-                                @Html.Kendo().DropDownList().BindTo(areaInfo).Name("areaId").Events(a=>a.Change("areaOnChange"))
-                                @*@{
-                                    var roleInfo = new List<DropDownListItem>
-                                    {
-                                        new DropDownListItem {Text = "maoxiahui1234", Value = "maoxiahui1234"},
-                                        new DropDownListItem {Text = "MyE丶血狱", Value = "MyE丶血狱"},
-                                        new DropDownListItem {Text = "网络中断突然", Value = "网络中断突然"},
-                                        new DropDownListItem {Text = "名将秒鱼", Value = "名将秒鱼"},
-                                        new DropDownListItem {Text = "笨笨秒杀上帝", Value = "笨笨秒杀上帝"}
-                                    };
-                                }*@
+                                @Html.Kendo().DropDownList().BindTo(areaInfo).Name("areaId").Events(a => a.Change("areaOnChange"))
                                 @Html.Kendo().TextBox().Name("myRoleName")
                                 @Html.Kendo().Button().Content("获取更新").Name("GetUpdateData").Events(e => e.Click("GetUpdateBattles"))
                                 @Html.Kendo().Button().Content("更新").Name("update").Events(e => e.Click("updateAllbattle"))
@@ -187,7 +175,8 @@
     });
 
     function GetUpdateBattles() {
-        $.post("/Lol/WaitUpdate", { qq: $("#txtQQ").val(), areaId: $("#areaId").val() }, function(data) {
+        $.post("/Lol/WaitUpdate", { qq: $("#txtQQ").val(), areaId: $("#areaId").val() }, function (data) {
+            $("#content").val("");
             $("#ids").val(data);
             for (var i = 0; i < data.length; i++) {
                 $("#content").append("<p>" + data[i] + "<p/>");
@@ -230,8 +219,8 @@
         });
     }
 
-    function areaOnChange() {
-        $.post("GetAccountInfo", { areaId: $("#txtQQ").val(), qqUin: $("#txtQQ") }, function(data) {
+    function areaOnChange(e) {
+        $.post("Lol/GetAccountInfo", { areaId: $("#areaId").val(), qqUin: $("#txtQQ").val() }, function(data) {
             $("#myRoleName").val(data);
         });
     }

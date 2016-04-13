@@ -13,7 +13,7 @@ namespace Fzrain.Service.Lol
 {
     public class LolService : ILolService
     {
-        public IEnumerable<string> MyRoles { get; set; } = new List<string> {"网络中断突然"};
+        public IEnumerable<string> MyRoles { get; set; } = AccountInfo.Data().Select(a => a.Name);
         #region 私有字段
         private readonly IRepository<Battle> battleRepository;
         private readonly IRepository<Record> recordRepository;

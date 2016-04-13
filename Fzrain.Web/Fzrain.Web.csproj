@@ -242,6 +242,7 @@
     <Content Include="Content\lolpng\131.png" />
     <Content Include="Content\lolpng\133.png" />
     <Content Include="Content\lolpng\134.png" />
+    <Content Include="Content\lolpng\136.png" />
     <Content Include="Content\lolpng\14.png" />
     <Content Include="Content\lolpng\143.png" />
     <Content Include="Content\lolpng\15.png" />
@@ -256,6 +257,7 @@
     <Content Include="Content\lolpng\2.png" />
     <Content Include="Content\lolpng\20.png" />
     <Content Include="Content\lolpng\201.png" />
+    <Content Include="Content\lolpng\203.png" />
     <Content Include="Content\lolpng\21.png" />
     <Content Include="Content\lolpng\22.png" />
     <Content Include="Content\lolpng\222.png" />
@@ -288,6 +290,7 @@
     <Content Include="Content\lolpng\41.png" />
     <Content Include="Content\lolpng\412.png" />
     <Content Include="Content\lolpng\42.png" />
+    <Content Include="Content\lolpng\420.png" />
     <Content Include="Content\lolpng\421.png" />
     <Content Include="Content\lolpng\429.png" />
     <Content Include="Content\lolpng\43.png" />
@@ -1101,6 +1104,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Lol\GetSnapShot.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\myweb.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
